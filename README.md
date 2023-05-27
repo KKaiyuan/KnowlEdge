@@ -205,9 +205,9 @@ Task Breakdown
         - View course specific due dates.
         - Display lectures, labs and other instructor published course events on the calendar.
         - Display important due dates for the semester and individual courses on the calendar such as add/drop deadlines, assignment due dates, exam schedules   etc.
-    - Add buttons and menus to add/edit tasks or events for the calendar and display them on the calendar as well as in a collapsable task pane.
-    - Set up endpoints to fetch information relating to user created tasks/events and course related tasks/events.
-    - Set up the database to persist user created tasks/events and course related tasks/events.
+    - Add buttons and menus to add, edit and remove tasks or events for the calendar and display them on the calendar as well as in a collapsable task pane.
+    - Set up endpoints to fetch information relating to user specific tasks, events and course related tasks, events.
+    - Set up the database to persist all tasks or events added to the calendar.
 
 
 Prototypes
