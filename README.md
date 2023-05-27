@@ -96,7 +96,7 @@ Standard Requirements
         links to views so they can create new study sets or notes.
 
 ```{=html}
-<!-- -->
+
 ```
 1.  **Notes Edit View:** 
 
@@ -106,7 +106,7 @@ Standard Requirements
         for other students to use. 
 
 ```{=html}
-<!-- -->
+
 ```
 1.  **Study Sets Edit View:** 
 
@@ -117,7 +117,7 @@ Standard Requirements
         course pages for other students to use.
 
 ```{=html}
-<!-- -->
+
 ```
 1.  **Instructor Course Page View: **
 
@@ -125,7 +125,7 @@ Standard Requirements
         students in comment sections under each of their posts.
 
 ```{=html}
-<!-- -->
+
 ```
 1.  **Student Course Page View:**
 
@@ -141,7 +141,7 @@ Standard Requirements
         from the specific assignment, quiz, or exam page.
 
 ```{=html}
-<!-- -->
+
 ```
 1.  **Comment sections: **
 
@@ -164,7 +164,7 @@ Stretch Requirements
         course events and content.
 
 ```{=html}
-<!-- -->
+
 ```
 1.  **Instructor Dashboard notifications:**
 
@@ -217,7 +217,7 @@ Task Breakdown
         information.
 
 ```{=html}
-<!-- -->
+
 ```
 -   **Instructors Course Page**
 
@@ -279,10 +279,13 @@ Student Dashboard
 generated](/media/studentdashboard.png){width="5.362097550306212in"
 height="3.8130479002624673in"}
 
-![](/media/studentcoursepage.png){width="5.352777777777778in"
-height="3.748611111111111in"}Student Course Page
+Student Course Page
+![A screenshot of a computer Description automatically
+generated](/media/studentcoursepage.png){width="5.362097550306212in"
+height="3.8130479002624673in"}
 
 Calendar View
 
-![](/media/calendar.png){width="5.347222222222222in"
-height="3.8027777777777776in"}
+![A screenshot of a computer Description automatically
+generated](/media/calendar.png){width="5.362097550306212in"
+height="3.8130479002624673in"}
