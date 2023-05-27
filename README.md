@@ -89,12 +89,7 @@ Standard Requirements
     -   A student can publish quizzes/flashcards to the respective
         course pages for other students to use.
 
-4.  **Instructor Course Page View:**
-
-    -   Instructors will be able to view feedback and engage with
-        students in comment sections under each of their posts.
-
-5.  **Student Course Page View:**
+4.  **Student Course Page View:**
 
     -   Students can browse notes published by their peers with search,
         filter, and order by functionalities to practice the course
@@ -107,7 +102,7 @@ Standard Requirements
     -   Students can request for regrades through a button and dialog
         from the specific assignment, quiz, or exam page.
 
-6.  **Comment sections:**
+5.  **Comment sections:**
 
     -   Students will be able to comment on instructor published content
         for clarification purposes in comment sections beneath each
@@ -160,7 +155,7 @@ Stretch Requirements
         the instructor is teaching, grades and a message inbox.
         
 7.  **Instructor Course Page View:**  an instructor user will be able to
-    view a course page in order to access course content. This page will
+    view a course page similar to the student course page in order to access course content. This page will
     include:
 
     -   content such as lecture recordings, quizzes, exams, assignment
