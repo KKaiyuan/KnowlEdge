@@ -46,21 +46,7 @@ Minimal Requirements
     -   a navigation bar with links to access the calendar, the courses
         the student is enrolled in, grades and a message inbox.
 
-3.  **Instructor Dashboard:** upon successful login, an instructor user
-    will be directed to a landing page where they will be able to view
-    links in order to access the web application content. These links
-    include:
-
-    -   links to the respective course pages for courses they are
-        currently teaching.
-
-    -   a profile picture with links to modify settings and edit their
-        personal information.
-
-    -   a navigation bar with links to access the calendar, the courses
-        the instructor is teaching, grades and a message inbox.
-
-4.  **Calendar:** a user will be able to access a calendar so they can
+3.  **Calendar:** a user will be able to access a calendar so they can
     stay organized by:
 
     -   adding, editing, and removing custom events and tasks.
@@ -71,17 +57,10 @@ Minimal Requirements
     -   publishing course specific events or tasks to the calendars of 
         students enrolled in their courses (for instructors only).
 
-5.  **Student and Instructor Course Page View:**  a user will be able to
+5.  **Student Course Page View:**  a student user will be able to
     view a course page in order to access course content. This page will
-    include:
-
-    -   content such as lecture recordings, quizzes, exams, assignment
-        information, grading rubrics, course outlines etc.
-
-    -   Instructors will be able to see added information including a
-        list of students enrolled in their courses and options to post
-        content including lecture notes, recordings, homework, quizzes,
-        exams, and grades. 
+    include content such as lecture recordings, quizzes, exams, assignment
+    information, grading rubrics, course outlines etc.
 
 Standard Requirements
 
@@ -166,6 +145,31 @@ Stretch Requirements
 5.  **Schedule Meetings:** Student users will be able to view other
     students' calendar (depending on security setting) and schedule
     meeting with another student.
+6.  **Instructor Dashboard:** upon successful login, an instructor user
+    will be directed to a landing page where they will be able to view
+    links in order to access the web application content. These links
+    include:
+
+    -   links to the respective course pages for courses they are
+        currently teaching.
+
+    -   a profile picture with links to modify settings and edit their
+        personal information.
+
+    -   a navigation bar with links to access the calendar, the courses
+        the instructor is teaching, grades and a message inbox.
+        
+7.  **Instructor Course Page View:**  an instructor user will be able to
+    view a course page in order to access course content. This page will
+    include:
+
+    -   content such as lecture recordings, quizzes, exams, assignment
+        information, grading rubrics, course outlines etc.
+
+    -   Instructors will be able to see added information including a
+        list of students enrolled in their courses and options to post
+        content including lecture notes, recordings, homework, quizzes,
+        exams, and grades. 
 
 Task Breakdown
 
@@ -194,57 +198,19 @@ Task Breakdown
     -   Set up endpoints to fetch user information and course
         information.
 
--   **Instructors Course Page**
+-   **Calendar**
 
-    -   View student information feature: 
+    - Calendar View
+        - Display a calendar with day, week, month views.
+        - View course specific due dates
+        - Display lectures, labs and other instructor published course events on the calendar
+        - Display important due dates for the semester and individual courses on the calendar such as add/drop deadlines, assignment due dates, exam schedules   etc.
 
-        -   Provide an option that is only visible to instructors to
-            allow them to view a student list for the course.
+    - Add/delete/edit tasks in the calendar
+    - Add buttons and menus to add/edit tasks or events for the calendar and display them on the calendar as well as in a collapsable task pane.
+    - Set up endpoints to fetch information relating to user created tasks/events and course related tasks/events.
+    - Set up the database to persist user created tasks/events and course related tasks/events
 
-        -   Render the students enrolled in the course along with
-            relevant information such as their Student IDs, current
-            course grade, time zones, faculty and year standing.
-
-    -   Enroll students feature:
-
-        -   Provide an option for the instructor to add a student to the
-            list of students.
-
-        -   Update the student list with the new student.
-
-        -   Update the student's dashboard with the new course.
-
-        -   Update the student's calendar with course specific
-            events/due dates.
-
-    -   Create, edit, publish course materials:
-
-        -   Create a button that triggers a dialog to upload new content
-            in supported file formats (pdf, video recordings) to the
-            course page.
-
-        -   Add options to remove pdf/video recordings.
-
-        -   Add options to create, edit and delete quizzes/exams.
-
-        -   Add options to publish online lecture zoom meeting links.
-
-    -   Set up a database with additional relevant information including
-        course content (documents, recordings, quiz information,  zoom
-        meeting links, etc.), grades for each student, assignment
-        submissions, course deadlines.
-
-    -   Set up endpoints to fetch the following user information and
-        course information:
-
-        -   student information for students enrolled in the course.
-
-        -   assignment submissions from each student.
-
-        -   Quizzes and Exams posted by the instructor.
-
-        -   Course content including video recordings, documents, zoom
-            meeting links etc.
 
 Prototypes
 
