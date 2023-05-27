@@ -95,20 +95,14 @@ Standard Requirements
     -   a List of the notes and study sets they have made as well as
         links to views so they can create new study sets or notes.
 
-```{=html}
-
-```
-1.  **Notes Edit View:** 
+2.  **Notes Edit View:** 
 
     -   A student can create, edit, and save notes for each course. 
 
     -   A student can publish their notes to the respective course page
         for other students to use. 
 
-```{=html}
-
-```
-1.  **Study Sets Edit View:** 
+3.  **Study Sets Edit View:** 
 
     -   A student can create custom quizzes and flashcard sets to
         practice the course content.
@@ -116,18 +110,12 @@ Standard Requirements
     -   A student can publish quizzes/flashcards to the respective
         course pages for other students to use.
 
-```{=html}
-
-```
-1.  **Instructor Course Page View: **
+4.  **Instructor Course Page View: **
 
     -   Instructors will be able to view feedback and engage with
         students in comment sections under each of their posts.
 
-```{=html}
-
-```
-1.  **Student Course Page View:**
+5.  **Student Course Page View:**
 
     -   Students can browse notes published by their peers with search,
         filter, and order by functionalities to practice the course
@@ -140,10 +128,7 @@ Standard Requirements
     -   Students can request for regrades through a button and dialog
         from the specific assignment, quiz, or exam page.
 
-```{=html}
-
-```
-1.  **Comment sections: **
+6.  **Comment sections: **
 
     -   Students will be able to comment on instructor published content
         for clarification purposes in comment sections beneath each
@@ -163,10 +148,7 @@ Stretch Requirements
         student comments, etc. so that they can keep up to date with
         course events and content.
 
-```{=html}
-
-```
-1.  **Instructor Dashboard notifications:**
+2.  **Instructor Dashboard notifications:**
 
     -   a notifications icon that expands to list links to newly added
         course content, course specific announcements, changes to
@@ -174,18 +156,14 @@ Stretch Requirements
         re-grades from students etc. so that they can confirm  that
         course events and content are successfully published and
         accessible to students.
-
-```{=html}
-<!-- -->
-```
-2.  **Email notifications:** new users will receive email confirmation
+3.  **Email notifications:** new users will receive email confirmation
     of their successful account creation along with a link/code to
     verify their new account.
 
-3.  **Live chat:** Users will be able to interact in a live
+4.  **Live chat:** Users will be able to interact in a live
     comment/discussion section during live lectures.
 
-4.  **Schedule Meetings:** Student users will be able to view other
+5.  **Schedule Meetings:** Student users will be able to view other
     students' calendar (depending on security setting) and schedule
     meeting with another student.
 
@@ -216,9 +194,6 @@ Task Breakdown
     -   Set up endpoints to fetch user information and course
         information.
 
-```{=html}
-
-```
 -   **Instructors Course Page**
 
     -   View student information feature: 
@@ -280,6 +255,7 @@ generated](/media/studentdashboard.png){width="5.362097550306212in"
 height="3.8130479002624673in"}
 
 Student Course Page
+
 ![A screenshot of a computer Description automatically
 generated](/media/studentcoursepage.png){width="5.362097550306212in"
 height="3.8130479002624673in"}
