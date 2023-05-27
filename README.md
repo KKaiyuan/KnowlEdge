@@ -1,5 +1,5 @@
 # KnowlEdge
-# **Project Progress I**
+**Project Progress I**
 
 Project Description
 
@@ -250,15 +250,12 @@ Prototypes
 
 Student Dashboard
 
-![A screenshot of a computer Description automatically
-generated](/media/studentdashboard.png)
+<img src="/media/studentdashboard.png" width="600">
 
 Student Course Page
 
-![A screenshot of a computer Description automatically
-generated](/media/studentcoursepage.png)
+<img src="/media/studentcoursepage.png" width="600">
 
 Calendar View
 
-![A screenshot of a computer Description automatically
-generated](/media/calendar.png)
+<img src="/media/calendar.png" width="600">
