@@ -110,7 +110,7 @@ Standard Requirements
     -   A student can publish quizzes/flashcards to the respective
         course pages for other students to use.
 
-4.  **Instructor Course Page View: **
+4.  **Instructor Course Page View:**
 
     -   Instructors will be able to view feedback and engage with
         students in comment sections under each of their posts.
@@ -128,7 +128,7 @@ Standard Requirements
     -   Students can request for regrades through a button and dialog
         from the specific assignment, quiz, or exam page.
 
-6.  **Comment sections: **
+6.  **Comment sections:**
 
     -   Students will be able to comment on instructor published content
         for clarification purposes in comment sections beneath each
@@ -251,17 +251,14 @@ Prototypes
 Student Dashboard
 
 ![A screenshot of a computer Description automatically
-generated](/media/studentdashboard.png){width="5.362097550306212in"
-height="3.8130479002624673in"}
+generated](/media/studentdashboard.png)
 
 Student Course Page
 
 ![A screenshot of a computer Description automatically
-generated](/media/studentcoursepage.png){width="5.362097550306212in"
-height="3.8130479002624673in"}
+generated](/media/studentcoursepage.png)
 
 Calendar View
 
 ![A screenshot of a computer Description automatically
-generated](/media/calendar.png){width="5.362097550306212in"
-height="3.8130479002624673in"}
+generated](/media/calendar.png)
