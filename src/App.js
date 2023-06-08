@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Login from "./pages/Login";
+import SignUp from "./pages/Signup";
 
 function App() {
   return (
     <div className="App">
-      <h1>KnowlEdge</h1>
+      <SignUp />
     </div>
   );
 }
