@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
 import CardGeneric from './CardGeneric';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBook,
+  faSquarePollVertical,
+} from '@fortawesome/free-solid-svg-icons';
 
 const CardStyled = styled.div`
   margin-top: 50px;
@@ -29,15 +32,18 @@ const CardStyled = styled.div`
   }
 `;
 
-const SmallCard = CardGeneric(() => {
+const SmallCard = CardGeneric(({ type, title }) => {
   return (
     <CardStyled>
       <div>
         <div>
           <span>
-            <FontAwesomeIcon icon={faBook} size="lg" />
+            <FontAwesomeIcon
+              icon={type === 'study-set' ? faBook : faSquarePollVertical}
+              size="lg"
+            />
           </span>
-          <h2>CPSC 310 - SLDC</h2>
+          <h2>{title}</h2>
         </div>
       </div>
     </CardStyled>

@@ -11,10 +11,10 @@ function App() {
   return (
     <div className="App">
       <NavbarComponent />
-      <SmallCard />
+      <SmallCard type="study-set" title="CPSC 310 - SLDC" />
       <StudentCard />
       <InformationCard />
-      <CourseCard />
+      <CourseCard title="CPSC 310" />
     </div>
   );
 }

@@ -29,7 +29,7 @@ const CardStyled = styled.div`
   }
 `;
 
-const CourseCard = CardGeneric(() => {
+const CourseCard = CardGeneric(({ title }) => {
   return (
     <CardStyled>
       <div>
@@ -37,7 +37,7 @@ const CourseCard = CardGeneric(() => {
           <span>
             <FontAwesomeIcon icon={faClipboardList} size="lg" />
           </span>
-          <h2>CPSC 310</h2>
+          <h2>{title}</h2>
         </div>
       </div>
     </CardStyled>
