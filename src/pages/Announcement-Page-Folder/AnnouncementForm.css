@@ -1,0 +1,33 @@
+.titleInput{
+    border-radius: 5px;
+    height: 28px;
+    margin: 6px 4px;
+    width: 350px;
+
+}
+
+.anonouncementTitle {
+    border-radius: 5px;
+    height: 150px;
+    width: 500px;
+    margin: 6px 4px;
+}
+
+.searchAnnouncement {
+    border-radius: 5px;
+    height: 28px;
+    width: 350px;
+    margin: 6px 4px;
+}
+
+.submitButton {
+    border: none;
+    padding: 10px;
+    margin: 6px;
+    border-radius: 5px;
+}
+
+.submitButton:hover {
+   background-color: gray;
+   color:white;
+}
