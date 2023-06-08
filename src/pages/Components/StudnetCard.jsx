@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const CardStyled = styled.div`
-  margin-top: 250px;
   width: 300px;
   display: flex;
   flex-direction: row;

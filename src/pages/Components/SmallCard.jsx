@@ -7,14 +7,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const CardStyled = styled.div`
-  margin-top: 50px;
   width: 300px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  margin-bottom: 300px;
+  padding: 15px;
   height: 60px;
   justify-content: center;
+  margin-bottom: 20px;
 
   div {
     display: flex;
