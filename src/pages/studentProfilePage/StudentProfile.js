@@ -45,6 +45,7 @@ export default function StudentProfile() {
       </div>
       <div className="about-section">
         <h1 className="aboutMeHeading"><strong>About Me:</strong></h1>
+        <br />
         <p className="aboutMe">{student.aboutMe}</p>
       </div>
       <div className="right-section">

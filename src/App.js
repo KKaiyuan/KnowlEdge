@@ -1,4 +1,3 @@
-// <<<<<<< HEAD
 // import './App.css';
 // import { Provider } from 'react-redux';
 // import { store } from './pages/studentProfilePage/studentProfileStore'; 
@@ -24,7 +23,6 @@ function App() {
         <NavbarComponent />
         <StudentProfile />
     </div>
-// >>>>>>> main
   );
 }
 

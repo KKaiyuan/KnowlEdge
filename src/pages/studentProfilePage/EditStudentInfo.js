@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import './editStudentInfo.css';
+import Button from '@mui/material/Button';
 
 export default function EditStudentInfo({ student, onSubmit }) {
   const [editedStudent, setEditedStudent] = useState(student);
@@ -18,8 +18,9 @@ export default function EditStudentInfo({ student, onSubmit }) {
   };
 
   return (
+    
     <form className="formContainer" onSubmit={handleSubmit}>
-      Preferred Name:
+      <p>Preferred Name:</p>
       <input
         type="text"
         id="preferredName"
@@ -30,7 +31,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
         class = "preferredName"
       />
 
-      Faculty:
+<p>Faculty:</p>
       <input
         type="text"
         id="faculty"
@@ -40,7 +41,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
         style = {{fontSize: 20}}
       />
 
-      Major:
+<p>Major:</p>
       <input
         type="text"
         id="major"
@@ -50,8 +51,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
         style = {{fontSize: 20}}
         
       />
-
-      Contact:
+  <p>Contact:</p>
       <input
         type="text"
         id="contact"
@@ -62,10 +62,10 @@ export default function EditStudentInfo({ student, onSubmit }) {
       />
 
      
-      About Me:
-      <textarea id="aboutMe" name="aboutMe" value={editedStudent.aboutMe} onChange={handleChange}style={{ fontSize: 20 }}/>
-
-      <button type="submit" style = {{width: 150, height: 50, fontSize: 30 }}>Submit</button>
+<p>About Me:</p>
+      <textarea id="aboutMe"  name="aboutMe" value={editedStudent.aboutMe} rows="5" cols="40" onChange={handleChange}style={{ fontSize: 20 }}/>
+      <Button variant="contained" type='submit' style = {{width: 150, height: 50, fontSize: 30 }}>Submit</Button>
+      {/* <button type="submit" style = {{width: 150, height: 50, fontSize: 30 }}>Submit</button> */}
     </form>
   );
 }
