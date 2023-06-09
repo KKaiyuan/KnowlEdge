@@ -1,38 +1,19 @@
 import './CoursePage.css';
-// import {useSelector, useDispatch} from 'react-redux';
-// import { addModule } from "./actions/Action";
-// import NewModuleForm from "./NewModuleForm";
-// import ModulesList from "./ModulesList";
 import React, {useState} from "react";
-import ModulesImage from './pictures/ModulesImage.PNG';
-import SubModuleImage from './pictures/SubModuleImage.PNG';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import {
+    faClipboard,
+    faFileLines
+  } from '@fortawesome/free-solid-svg-icons';
+
 export default function CoursePage() {
-    // const [newModule, setNewModule] = useState({});
-    // const allModules = useSelector(state => state.ReducerCoursePage);
     const [show, setShow] = useState(false);
     const [showTwo, setShowTwo] = useState(false);
-    // const dispatch = useDispatch();
-
-    // const handleChange = ({ target }) => {
-    //   const { name, value } = target;
-    //   setNewModule((prevModules) => ({ ...prevModules, moduleId: Date.now(),[name]: value}));
-    // };
-  
-    // const handleSubmit = (event) => {
-    //   event.preventDefault();
-
-    //   dispatch(addModule(newModule));
-    //   setNewModule({});
-    // };
-  
-    
-    // const handleDelete = (moduleId) => {
-    //   dispatch(removeModule(moduleId));
-    // };
 
     return (
         <>
-    <h1> {"Courses > CPSC 310"}</h1>
+    <h1 className = "courseTitle"> {"Courses > CPSC 310"}</h1>
     <div className="topComponents">
         
         <div className="studySets">
@@ -76,65 +57,48 @@ export default function CoursePage() {
       </div>
 
       <h2 className = "learningModules">Learning Modules</h2>
-      {/* <button>Add New Module</button> */}
 
-      {/* 
-      <NewModuleForm
-        newModule = {newModule}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        />
-
-        <ModulesList
-        allModules = {allModules}
-        // handleDelete = {handleDelete}
-        /> */}
-
-        <div>
+    <>
         <button onClick = {() => setShow(!show)} className = {"courseModules"}>
-        <img src={ModulesImage} alt= "none" className = {"moduleImages"}/>
-            <p className = {"moduleName"}>Course Introduction</p>
+        <FontAwesomeIcon icon={faClipboard} className = "moduleIcon"></FontAwesomeIcon>
+        <p className = "courseIntroduction">Course Introduction</p>
+
         </button>
             {show && 
             <>
             <div className = "subModules">
-                <div className = "subModuleElement">
-                    <img src={SubModuleImage} alt= "none" className = {"subModuleImages"}/><p className = {"subModuleName"}>Welcome!</p>
-                </div>
+                <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
+                    <p className = {"subModuleName"}>Introduction</p>
             </div>
             
             <div className = "subModules">
-                <div className = "subModuleElement">
-                    <img src={SubModuleImage} alt= "none" className = {"subModuleImages"}/><p className = {"subModuleName"}>Syllabus</p>
-                </div>
-
+                <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
+                    <p className = {"subModuleName"}>Syllabus</p>
             </div>
             </>
             }
-            </div>
-       
-        <div>
+        </>
+
+        <>
         <button onClick = {() => setShowTwo(!showTwo)} className = {"courseModules"}>
-            <img src={ModulesImage} alt= "none" className = {"moduleImages"}/>
-            <p className = {"moduleName"}>Module 1 - Testing</p>
-            </button>
+        <FontAwesomeIcon icon={faClipboard} className = "moduleIcon"></FontAwesomeIcon>
+        <p className = "courseIntroduction">Module 1 - Topic 1</p>
+
+        </button>
             {showTwo && 
-             <>
-             <div className = "subModules">
-                 <div className = "subModuleElement">
-                     <img src={SubModuleImage} alt= "none" className = {"subModuleImages"}/><p className = {"subModuleName"}>Module 1 - Topic 1</p>
-                 </div>
-             </div>
-             
-             <div className = "subModules">
-                 <div className = "subModuleElement">
-                     <img src={SubModuleImage} alt= "none" className = {"subModuleImages"}/><p className = {"subModuleName"}>Module 1 - Topic 2</p>
-                 </div>
- 
-             </div>
-             </>
-            }
+            <>
+            <div className = "subModules">
+                <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
+                    <p className = {"subModuleName"}>Instructions To Topic 1</p>
             </div>
+            
+            <div className = "subModules">
+                <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
+                    <p className = {"subModuleName"}>Topic 1 Questions</p>
+            </div>
+            </>
+            }
+        </>
     </>
     )
 }
