@@ -48,6 +48,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
         value={editedStudent.major}
         onChange={handleChange}
         style = {{fontSize: 20}}
+        
       />
 
       Contact:
