@@ -1,6 +1,8 @@
 import './CoursePage.css';
 import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MediumCard from '../Components/MediumCard';
+import NavbarComponent from '../Components/Navbar';
 
 import {
     faClipboard,
@@ -13,45 +15,30 @@ export default function CoursePage() {
 
     return (
         <>
+    <NavbarComponent />
+
     <h1 className = "courseTitle"> {"Courses > CPSC 310"}</h1>
     <div className="topComponents">
         
         <div className="studySets">
-        <h3>Study Sets</h3>
-        <div className = "innerComponent">
-        <p className = "innerText">Study Set 1</p>
-
-            </div>
-            <br/>
-            <div className = "innerComponent">
-            <p className = "innerText">Study Set 2</p>
-
-            </div>
+        <h3 className = "topComponentName">Study Sets</h3>
+        <MediumCard type="study-set" title="CPSC 310 - SLDC" />
+        <MediumCard type="study-set" title="CPSC 221 - Arrays" />
         <p className = "seeMoreLink">See more...</p>
         </div>
 
         <div className="notes">
-        <h3>Notes</h3>
-        <div className = "innerComponent">
-        <p className = "innerText">Notes 1</p>
-            </div>
-            <br/>
-            <div className = "innerComponent">
-            <p className = "innerText">Notes 1</p>
-            </div>
+        <h3 className = "topComponentName">Notes</h3>
+        <MediumCard type="notes" title="CPSC 310 - SLDC" />
+        <MediumCard type="notes" title="CPSC 221 - Arrays" />
         <p className = "seeMoreLink">See more...</p>
         
         </div>
 
         <div className="announcement">
-        <h3>Announcements</h3>
-        <div className = "innerComponent">
-        <p className = "innerText">Announcement 1</p>
-            </div>
-            <br/>
-            <div className = "innerComponent">
-                <p className = "innerText">Announcement 2</p>
-            </div>
+        <h3 className = "topComponentName">Announcements</h3>
+        <MediumCard type="announcement" title="CPSC 310 - Test" />
+        <MediumCard type="announcement" title="CPSC 221 - Questions Ready" />
         <p className = "seeMoreLink">See more...</p>
         </div>
       </div>
