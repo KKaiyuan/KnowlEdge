@@ -1,0 +1,51 @@
+/* .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100vh;
+  }
+  
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nameField {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .studentImage {
+    width: 200px;
+    height: auto;
+  }
+  
+  .middle-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .editBtn {
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .aboutMe {
+    margin-top: 20px;
+  } */

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './editStudentInfo.css';
+// import './editStudentInfo.css';
 
 export default function EditStudentInfo({ student, onSubmit }) {
   const [editedStudent, setEditedStudent] = useState(student);

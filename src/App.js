@@ -14,14 +14,15 @@
 //     </Provider> 
 // =======
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import StudentDashboard from './pages/StudentDashboard/StudentDashboard';
+import NavbarComponent from './pages/Components/Navbar';
+import StudentProfile from './pages/studentProfilePage/StudentProfile';
 
 function App() {
   return (
     <div className="App">
-      <StudentDashboard />
+        <NavbarComponent />
+        <StudentProfile />
     </div>
 // >>>>>>> main
   );

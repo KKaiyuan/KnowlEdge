@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditStudentInfo from './EditStudentInfo';
 import './studentProfile.css';
-
-
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { updateDetails } from '../../actions/index.js';
 
 export default function StudentProfile() {
   const [editMode, setEditMode] = useState(false); 
 
-  const student = useSelector((state) => state);
+  const student = useSelector((state) => state.studentProfileReducer);
   const dispatch = useDispatch();
 
   const toggleEditMode = () => {
@@ -16,35 +16,47 @@ export default function StudentProfile() {
   };
 
   const editStudentDetails = (updatedDetails) => {
-    dispatch({
-        type: 'editDetails',
-        payload: updatedDetails,
-    });
+    dispatch(updateDetails(updatedDetails));
     setEditMode(false);
   }
 
   return (
-    <div>
-      <h1 className = "nameField">{student.preferredName}</h1>
-      <h1 className = "faculty">Faculty: {student.faculty}</h1>
-      <h1 className = "major">Major: {student.major}</h1>
-      <h1 className = "contact" >Contact: {student.contact}</h1>
-      <img style={{ width: 350 }} src={student.image} alt="Student" className = "studentImage" />
-      <h1 className = "aboutMeHeading">About Me:</h1>
-      <p style = {{fontSize: 25}} className = "aboutMe">{student.aboutMe} </p>
-      {editMode ? (
-        <EditStudentInfo student={student} onSubmit={editStudentDetails} />
-      )  : (
-        <button style={{ fontSize: 50, "height": 100, "width": 350, "top": "350px"}} onClick={toggleEditMode} className = "editBtn">
-          <img
-            src="https://clipart-library.com/images/BTaKeBkgc.png"
-            alt="Edit Icon"
-            className = "pencil"
-            style = {{"height": 90, "width": 80}}
-          />
-          <p className = "edit">Edit</p>
-        </button>
-      )}
+    <div className="container">
+      <div className="left-section">
+        <br />
+        <h1 className="nameField" style={{ fontSize: '35px' }}>
+          <strong>{student.preferredName}</strong>
+        </h1>
+        <br />
+        <img src={student.image} alt="Student" className="studentImage" />
+      </div>
+      <div className="middle-section">
+        <h1 className="faculty">
+          <strong>Faculty:</strong> {student.faculty}
+        </h1>
+        <br />
+        <h1 className="major">
+          <strong>Major:</strong> {student.major}
+        </h1>
+        <br />
+        <h1 className="contact">
+          <strong>Contact:</strong> {student.contact}
+        </h1>
+      </div>
+      <div className="about-section">
+        <h1 className="aboutMeHeading"><strong>About Me:</strong></h1>
+        <p className="aboutMe">{student.aboutMe}</p>
+      </div>
+      <div className="right-section">
+        {editMode ? (
+          <EditStudentInfo student={student} onSubmit={editStudentDetails} />
+        ) : (
+          <button onClick={toggleEditMode} className="editBtn" style={{ fontSize: '35px' }}>
+            <ModeEditIcon style={{ fontSize: '35px' }} />
+            &nbsp;Edit
+          </button>
+        )}
+      </div>
     </div>
   );
 }
