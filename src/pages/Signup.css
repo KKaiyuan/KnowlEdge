@@ -1,0 +1,50 @@
+.sign-up-container {
+  display: inline-flex;
+}
+
+.logo-container {
+  display: flex;
+  width: 50vw;
+  height: 100vh;
+  background: #0074d9;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  display: block;
+  width: 25vw;
+}
+
+.logo-hat {
+  width: 15vw;
+}
+
+.logo-tag {
+  width: 25vw;
+}
+
+.sign-up-form-container {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-up-form TextField {
+  margin: 2%;
+}
+
+.sign-up-button-div {
+  margin-top: 20%;
+}
+
+.sign-up-button-div Button {
+  width: 40vw;
+}
+
+.sign-up-button-div .divider-div {
+  margin: 2% 8%;
+  color: #0074d9;
+}

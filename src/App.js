@@ -1,7 +1,6 @@
-// import './App.css';
-// import { Provider } from 'react-redux';
-// import { store } from './pages/studentProfilePage/studentProfileStore'; 
-// import StudentProfile from './pages/studentProfilePage/StudentProfile';
+import logo from "./logo.svg";
+import Login from "./pages/Login";
+import SignUp from "./pages/Signup";
 
 
 // function App() {
@@ -33,6 +32,8 @@ function App() {
                         <li><Link to="/StudentProfileAndNavBarComponent">Student Profile</Link></li>
                         <li><Link to="/StudentDashboard">StudentDashboard</Link></li>
                         <li><Link to="/CoursePage">CoursePage</Link></li>
+                        <li><Link to="/Login">Login</Link></li>
+                        <li><Link to="/SignUp">SignUp</Link></li>
 
                     </ul>
                 </div>
@@ -41,6 +42,8 @@ function App() {
                     <Route exact path="/StudentProfileAndNavBarComponent" element={<StudentProfileAndNavbarComponent />} />
                     <Route exact path="/StudentDashboard" element={<StudentDashboard />} />
                     <Route exact path="/CoursePage" element={<CoursePage />} />
+                    <Route exact path="/Login" element={<Login />} />
+                    <Route exact path="/SignUp" element={<SignUp />} />
 
                 </Routes>
                 
