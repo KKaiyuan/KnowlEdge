@@ -1,0 +1,50 @@
+.login-container {
+  display: inline-flex;
+}
+
+.logo-container {
+  display: flex;
+  width: 50vw;
+  height: 100vh;
+  background: #0074d9;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  display: block;
+  width: 25vw;
+}
+
+.logo-hat {
+  width: 15vw;
+}
+
+.logo-tag {
+  width: 25vw;
+}
+
+.login-form-container {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form TextField {
+  margin: 2%;
+}
+
+.login-button-div {
+  margin-top: 20%;
+}
+
+.login-button-div Button {
+  width: 40vw;
+}
+
+.login-button-div .divider-div {
+  margin: 2% 8%;
+  color: #0074d9;
+}

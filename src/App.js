@@ -1,17 +1,7 @@
-// import './App.css';
-// import { Provider } from 'react-redux';
-// import { store } from './pages/studentProfilePage/studentProfileStore'; 
-// import StudentProfile from './pages/studentProfilePage/StudentProfile';
+import logo from "./logo.svg";
+import Login from "./pages/Login";
+import SignUp from "./pages/Signup";
 
-
-// function App() {
-//   return (
-//     <Provider store={store}>
-//       <main>
-//         <StudentProfile />
-//       </main>
-//     </Provider> 
-// =======
 import React, { useState } from 'react';
 import './App.css';
 import StudentDashboard from './pages/StudentDashboard/StudentDashboard';
