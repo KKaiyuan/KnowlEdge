@@ -7,6 +7,7 @@ import {
   faBell,
   faGear,
 } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const CardStyled = styled.div`
   width: 300px;
@@ -46,9 +47,14 @@ const CardStyled = styled.div`
     justify-content: space-around;
     padding: 3px;
   }
+
+  .icon {
+    cursor: pointer;
+  }
 `;
 
 const StudentCard = CardGeneric(() => {
+  const navigate = useNavigate();
   return (
     <CardStyled>
       <div className="rounded-container flex-item">
@@ -58,9 +64,17 @@ const StudentCard = CardGeneric(() => {
         <h2>Mirabel</h2>
       </div>
       <div className="flex-item icons-container">
-        <FontAwesomeIcon icon={faPenToSquare} />
-        <FontAwesomeIcon icon={faGear} />
-        <FontAwesomeIcon icon={faBell} />
+        <FontAwesomeIcon
+          icon={faPenToSquare}
+          className="icon"
+          onClick={() => navigate('/profile')}
+        />
+        <FontAwesomeIcon icon={faGear} className="icon" />
+        <FontAwesomeIcon
+          icon={faBell}
+          className="icon"
+          onClick={() => navigate('/announcements')}
+        />
       </div>
     </CardStyled>
   );
