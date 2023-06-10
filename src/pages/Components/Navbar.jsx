@@ -37,7 +37,7 @@ const NavbarComponent = () => {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <CustomNavbarLink href="#" className="font-sans font-bold">
+        <CustomNavbarLink href="/" className="font-sans font-bold">
           <span>
             <FontAwesomeIcon icon={faHouse} className="mr-2" />
             Dashboard

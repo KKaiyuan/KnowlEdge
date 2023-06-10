@@ -1,25 +1,27 @@
-import React from "react";
-import "./Login.css";
-import Button from "@mui/material/Button";
-import { Avatar, createTheme, ThemeProvider } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
+import React from 'react';
+import './Login.css';
+import Button from '@mui/material/Button';
+import { Avatar, createTheme, ThemeProvider } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   typography: {
     button: {
-      textTransform: "none",
+      textTransform: 'none',
     },
   },
   palette: {
     primary: {
-      main: "#0074d9",
+      main: '#0074d9',
     },
   },
 });
 
 export default function Login() {
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
       <div className="login-container">
@@ -27,11 +29,11 @@ export default function Login() {
           <div className="logo">
             <img
               className="logo-hat"
-              src={require("../assets/images/knowledge-hat.png")}
+              src={require('../assets/images/knowledge-hat.png')}
             ></img>
             <img
               className="logo-tag"
-              src={require("../assets/images/knowledge-tag.png")}
+              src={require('../assets/images/knowledge-tag.png')}
             ></img>
           </div>
         </div>
@@ -40,7 +42,7 @@ export default function Login() {
             <Box
               component="form"
               sx={{
-                "& .MuiTextField-root": { m: 1, width: "40vw" },
+                '& .MuiTextField-root': { m: 1, width: '40vw' },
               }}
               noValidate
               autoComplete="off"
@@ -48,7 +50,9 @@ export default function Login() {
               <TextField id="username" label="Your Email Address" />
               <TextField id="password" label="Your Password" />
               <div className="login-button-div">
-                <Button variant="contained">Login</Button>
+                <Button variant="contained" onClick={() => navigate('/')}>
+                  Login
+                </Button>
                 <div className="divider-div">
                   <Divider variant="middle">or</Divider>
                 </div>
@@ -57,8 +61,8 @@ export default function Login() {
                   variant="outlined"
                   startIcon={
                     <Avatar
-                      sx={{ height: "16px", width: "16px" }}
-                      src={require("../assets/images/google-icon.png")}
+                      sx={{ height: '16px', width: '16px' }}
+                      src={require('../assets/images/google-icon.png')}
                     />
                   }
                 >
