@@ -5,14 +5,6 @@ import CourseCard from '../Components/CourseCard';
 import SmallCard from '../Components/SmallCard';
 import { styled } from 'styled-components';
 import React from 'react';
-import Announcement from '../Announcement-Page-Folder/Announcement';
-import StudentProfileAndNavbarComponent from '../studentProfilePage/StudentProfileAndNavbarComponent';
-import { BrowserRouter as Router, Route, Link, Routes }
-    from "react-router-dom";
- 
-
- 
-
 
 const DashboardStyled = styled.div`
   display: flex;
@@ -118,8 +110,7 @@ const StudentDashboard = () => {
           </div>
           <div className="container less-top-padding">
             <CourseCard title="CPSC 310" />
-            <CourseCard title="C
-            PSC 221" />
+            <CourseCard title="CPSC 221" />
             <CourseCard title="CPSC 213" />
           </div>
         </div>
