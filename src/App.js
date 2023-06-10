@@ -14,14 +14,15 @@
 // =======
 import React, { useState } from 'react';
 import './App.css';
-import NavbarComponent from './pages/Components/Navbar';
-import StudentProfile from './pages/studentProfilePage/StudentProfile';
-
+import StudentDashboard from './pages/StudentDashboard/StudentDashboard';
+import CoursePage from './pages/Student-Course-Page-Folder/CoursePage';
+import Announcement from './pages/Announcement-Page-Folder/Announcement';
+import StudentProfile from './pages/studentProfilePage/StudentProfile'
+import StudentProfileAndNavbarComponent from './pages/studentProfilePage/StudentProfileAndNavbarComponent';
 function App() {
   return (
     <div className="App">
-        <NavbarComponent />
-        <StudentProfile />
+      <StudentDashboard/>
     </div>
   );
 }

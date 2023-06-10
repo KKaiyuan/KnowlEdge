@@ -4,7 +4,7 @@ import EditStudentInfo from './EditStudentInfo';
 import './studentProfile.css';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { updateDetails } from '../../actions/index.js';
-
+import NavbarComponent from '../Components/Navbar';
 export default function StudentProfile() {
   const [editMode, setEditMode] = useState(false); 
 
