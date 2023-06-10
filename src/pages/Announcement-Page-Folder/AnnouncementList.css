@@ -1,18 +1,20 @@
 /* styling for dynamically elements inspired from codeacademy */
-  
-  ul {
+/* Styling also imported from Figma */
+/* Drop down menu citation for CSS: https://www.w3schools.com/howto/howto_css_dropdown.asp */
+
+  .announcement-list {
     padding: 0;
     position: relative;
+    margin-left: 10px;
   }
   
-  li {
+  .announcementElement {
     background-color: white;
     border: 1px solid white;
     border-radius: 5px 2px;
     margin: 8px 10px;
     width: 95%;
     position: relative;
-    /* From Figma */
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
@@ -22,7 +24,7 @@
     margin: 10px;
   }
 
- li h2 {
+ .announcementTitle {
     margin: 10px;
  }
 
@@ -36,7 +38,6 @@
     background-color: gray;
     color: white;
 }
-/* Drop down menu citation for CSS: https://www.w3schools.com/howto/howto_css_dropdown.asp */
 .dropbtn {
     background-color: white;
     color: black;
@@ -86,3 +87,25 @@
 }
 
 
+.searchAnnouncement {
+  border-radius: 5px;
+  height: 30px;
+  margin-left: 20px;
+  width: 350px;
+
+  /* Text Field */
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12px 16px;
+  gap: 4px;
+
+
+
+  border: 1px solid #000000;
+  border-radius: 8px;
+}

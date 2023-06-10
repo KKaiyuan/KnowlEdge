@@ -8,7 +8,7 @@ export default function AnnouncementForm({newAnnouncement, handleChange, handleS
 
     return (
     <>
-        <h1>Announcements</h1>
+        <h1 className= "formTitle">Announcements</h1>
 
         {show && 
             <form onSubmit={handleSubmit}>

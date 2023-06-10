@@ -1,4 +1,4 @@
-// Code inspired from Workshop 2's react-redux-button-counter-2022 repo: https://github.com/johnsonwlu/react-redux-button-counter-2022
+// Code inspired from Workshop 2's react-redux-button-counter-2022 repo: https://github.com/danyakarras/react-redux-button-counter-2022
 export const addAnnouncement = announcement => {
     return {
       type: 'ADD_ANNOUNCEMENT',
