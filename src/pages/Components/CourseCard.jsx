@@ -27,9 +27,14 @@ const CardStyled = styled.div`
   }
 `;
 
-const CourseCard = CardGeneric(({ title }) => {
+const CourseCard = CardGeneric(({ title, onclickfn }) => {
   return (
-    <CardStyled>
+    <CardStyled
+      onClick={() => {
+        const titleSlug = title.toLowerCase().replace(/\s+/g, '-');
+        onclickfn(titleSlug);
+      }}
+    >
       <div>
         <div>
           <span>

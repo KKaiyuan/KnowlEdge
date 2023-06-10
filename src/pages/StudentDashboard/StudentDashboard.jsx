@@ -4,6 +4,8 @@ import InformationCard from '../Components/InformationCard';
 import CourseCard from '../Components/CourseCard';
 import SmallCard from '../Components/SmallCard';
 import { styled } from 'styled-components';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardStyled = styled.div`
   display: flex;
@@ -71,6 +73,12 @@ const DashboardStyled = styled.div`
 `;
 
 const StudentDashboard = () => {
+  const navigate = useNavigate();
+
+  const handleCourseCardClick = (courseTitle) => {
+    navigate(`/courses/${courseTitle}`);
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -108,12 +116,13 @@ const StudentDashboard = () => {
             </h3>
           </div>
           <div className="container less-top-padding">
-            <CourseCard title="CPSC 310" />
-            <CourseCard title="CPSC 221" />
-            <CourseCard title="CPSC 213" />
+            <CourseCard title="CPSC 310" onclickfn={handleCourseCardClick} />
+            <CourseCard title="CPSC 221" onclickfn={handleCourseCardClick} />
+            <CourseCard title="CPSC 213" onclickfn={handleCourseCardClick} />
           </div>
         </div>
       </DashboardStyled>
+    
     </>
   );
 };
