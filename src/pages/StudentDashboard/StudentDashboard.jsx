@@ -4,6 +4,7 @@ import InformationCard from '../Components/InformationCard';
 import CourseCard from '../Components/CourseCard';
 import SmallCard from '../Components/SmallCard';
 import { styled } from 'styled-components';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const DashboardStyled = styled.div`
@@ -121,6 +122,7 @@ const StudentDashboard = () => {
           </div>
         </div>
       </DashboardStyled>
+    
     </>
   );
 };

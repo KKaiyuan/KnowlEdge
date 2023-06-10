@@ -1,7 +1,9 @@
+
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import './App.css';
 import StudentDashboard from './pages/StudentDashboard/StudentDashboard';
 import CoursePage from './pages/Student-Course-Page-Folder/CoursePage';
@@ -21,5 +23,8 @@ function App() {
     </Router>
   );
 }
+
+
+
 
 export default App;
