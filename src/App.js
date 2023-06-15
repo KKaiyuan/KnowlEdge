@@ -9,6 +9,8 @@ import StudentDashboard from './pages/StudentDashboard/StudentDashboard';
 import CoursePage from './pages/Student-Course-Page-Folder/CoursePage';
 import Announcement from './pages/Announcement-Page-Folder/Announcement';
 import StudentProfileAndNavbarComponent from './pages/studentProfilePage/StudentProfileAndNavbarComponent';
+import StudySets from './pages/StudySets/StudySets';
+
 function App() {
   return (
     <Router>
@@ -19,6 +21,7 @@ function App() {
         <Route path="/courses/*" element={<CoursePage />} />
         <Route path="/announcements" element={<Announcement />} />
         <Route path="/profile" element={<StudentProfileAndNavbarComponent />} />
+        <Route path="/studysets" element={<StudySets />} />
       </Routes>
     </Router>
   );

@@ -2,12 +2,14 @@
 import { combineReducers } from 'redux';
 import  ReducerAnnouncementPage from './ReducerAnnouncementPage';
 import studentProfileReducer from './studentProfileReducer';
+import flashcards from './flashcards';
+import indexCount from './indexCount';
 
 const rootReducer = combineReducers({
     ReducerAnnouncementPage,
-    studentProfileReducer
-
-    
+    studentProfileReducer,
+    flashcards,
+    indexCount,
 });
 
 export default rootReducer;
