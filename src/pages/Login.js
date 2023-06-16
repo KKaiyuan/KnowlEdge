@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { Avatar, createTheme, ThemeProvider } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
@@ -64,6 +65,11 @@ const LoginStyled = styled.div`
     width: 50vw;
   }
 
+  #username:focus,
+  #password:focus {
+    box-shadow: none;
+  }
+
   form {
     justify-content: center;
     align-items: center;
@@ -86,6 +92,15 @@ const LoginStyled = styled.div`
   .login-button-div .divider-div {
     margin: 2% 8%;
     color: #0074d9;
+  }
+
+  .text-focus {
+    border: none !important; /* Override the interfering border style */
+    /* Add any other necessary overrides */
+  }
+
+  input:focus {
+    outline: none;
   }
 
   .css-oy83vm-MuiDivider-root {
@@ -115,19 +130,28 @@ export default function Login() {
           <div className="login-form-container">
             <div className="login-form">
               <Box
-                component="form"
                 sx={{
                   '& .MuiTextField-root': {
                     m: 1,
                     width: '30vw',
                     marginLeft: '20%',
+                    border: 'none',
                   },
                 }}
                 noValidate
                 autoComplete="off"
               >
-                <TextField id="username" label="Your Email Address" />
-                <TextField id="password" label="Your Password" />
+                <TextField
+                  id="username"
+                  variant="outlined"
+                  label="Your Email Address"
+                />
+
+                <TextField
+                  id="password"
+                  variant="outlined"
+                  label="Your Password"
+                />
                 <div className="login-button-div">
                   <Button variant="contained" onClick={() => navigate('/')}>
                     Login

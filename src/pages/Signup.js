@@ -49,6 +49,12 @@ const SignUpStyled = styled.div`
     width: 25vw;
   }
 
+  #email:focus,
+  #username:focus,
+  #password:focus {
+    box-shadow: none;
+  }
+
   .sign-up-form-container {
     width: 50vw;
     height: 100vh;
@@ -122,13 +128,22 @@ export default function SignUp() {
                     m: 1,
                     width: '30vw',
                     marginLeft: '20%',
+                    border: 'none',
                   },
                 }}
                 noValidate
                 autoComplete="off"
               >
-                <TextField id="username" label="Your Full Name" />
-                <TextField id="username" label="Your Email Address" />
+                <TextField
+                  id="username"
+                  variant="outlined"
+                  label="Your Full Name"
+                />
+                <TextField
+                  id="email"
+                  variant="outlined"
+                  label="Your Email Address"
+                />
                 <TextField
                   id="password"
                   label="Your Password"
