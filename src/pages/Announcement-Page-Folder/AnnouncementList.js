@@ -18,7 +18,7 @@ export default function AnnouncementList({allAnnouncements, handleDelete}) {
                             <li key={announcementId} className = {'announcementElement'}>
                                 <h2 className = {"announcementTitle"}>{announcementTitle}</h2>
                                 <p className= {"tempUser"}>Posted by: Unknown User</p>
-                                    <p className= {"paragraph"}>{announcement}</p>
+                                <p className= {"paragraph"}>{announcement}</p>
                           
                                 <div class="dropdown">
                                 <button class="dropbtn">:</button>

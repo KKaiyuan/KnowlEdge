@@ -3,7 +3,7 @@ import './AnnouncementForm.css'
 
 // Citation for making elements appear and disappear on click: https://www.youtube.com/watch?v=uXk62ZgPH-4&ab_channel=Accessworld
 // learnt how to add and remove elements dynamically from Code Academy
-export default function AnnouncementForm({newAnnouncement, handleChange, handleSubmit, show}) {
+export default function AnnouncementForm({newAnnouncement, handleChange, handleSubmit, show, toggle}) {
     
 
     return (
@@ -29,6 +29,7 @@ export default function AnnouncementForm({newAnnouncement, handleChange, handleS
             />
             <br></br>
             <button type = "submit" className="submitButton">Submit</button>
+            <button className = "cancelButton"  onClick = {() => toggle()}>Cancel</button>
           </form > 
         }
            

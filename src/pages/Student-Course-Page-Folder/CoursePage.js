@@ -3,6 +3,8 @@ import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MediumCard from '../Components/MediumCard';
 import NavbarComponent from '../Components/Navbar';
+import { useNavigate } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import {
     faClipboard,
@@ -12,6 +14,11 @@ import {
 export default function CoursePage() {
     const [show, setShow] = useState(false);
     const [showTwo, setShowTwo] = useState(false);
+
+    const navigate = useNavigate();
+
+    const allAnnouncements = useSelector(state => state.ReducerAnnouncementPage);
+
 
     return (
         <>
@@ -24,22 +31,24 @@ export default function CoursePage() {
         <h3 className = "topComponentName">Study Sets</h3>
         <MediumCard type="study-set" title="CPSC 310 - SLDC" />
         <MediumCard type="study-set" title="CPSC 221 - Arrays" />
-        <p className = "seeMoreLink">See more...</p>
+        <button className = "seeMoreLink" onClick={() => navigate('/studysets')}>See more...</button>
         </div>
 
         <div className="notes">
         <h3 className = "topComponentName">Notes</h3>
         <MediumCard type="notes" title="CPSC 310 - SLDC" />
         <MediumCard type="notes" title="CPSC 221 - Arrays" />
-        <p className = "seeMoreLink">See more...</p>
+        <p className = "seeMoreLink" >See more...</p>
         
         </div>
 
         <div className="announcement">
-        <h3 className = "topComponentName">Announcements</h3>
-        <MediumCard type="announcement" title="CPSC 310 - Test" />
-        <MediumCard type="announcement" title="CPSC 221 - Questions Ready" />
-        <p className = "seeMoreLink">See more...</p>
+
+        <h3 className = "topComponentName" >Announcements</h3>
+        
+        <MediumCard type="announcement" title={allAnnouncements[0].announcementTitle} />
+        <MediumCard type="announcement" title={allAnnouncements[1].announcementTitle} />
+        <button className = "seeMoreLink" onClick={() => navigate('/announcements')}>See more...</button>
         </div>
       </div>
 
