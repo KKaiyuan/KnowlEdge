@@ -6,7 +6,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { updateDetails } from '../../actions/index.js';
 import NavbarComponent from '../Components/Navbar';
 export default function StudentProfile() {
-  const [editMode, setEditMode] = useState(false); 
+  const [editMode, setEditMode] = useState(false);
 
   const student = useSelector((state) => state.studentProfileReducer);
   const dispatch = useDispatch();
@@ -15,10 +15,19 @@ export default function StudentProfile() {
     setEditMode(!editMode);
   };
 
-  const editStudentDetails = (updatedDetails) => {
-    dispatch(updateDetails(updatedDetails));
+  const editStudentDetails = (updatedDetails) => { 
+    const oldName = student.preferredName;
+    const nameArray = oldName.split(' ');
+    let updatedName = oldName;
+  
+    if (updatedDetails.preferredName.trim() !== '') {
+      updatedName = `${nameArray[0]} ${nameArray[1]} (${updatedDetails.preferredName})`;
+    }
+  
+    const updatedStudent = { ...student, ...updatedDetails, preferredName: updatedName };
+    dispatch(updateDetails(updatedStudent));
     setEditMode(false);
-  }
+  };
 
   return (
     <div className="container">
@@ -43,8 +52,11 @@ export default function StudentProfile() {
           <strong>Contact:</strong> {student.contact}
         </h1>
       </div>
+  
       <div className="about-section">
-        <h1 className="aboutMeHeading"><strong>About Me:</strong></h1>
+        <h1 className="aboutMeHeading">
+          <strong>About Me:</strong>
+        </h1>
         <br />
         <p className="aboutMe">{student.aboutMe}</p>
       </div>
@@ -52,10 +64,17 @@ export default function StudentProfile() {
         {editMode ? (
           <EditStudentInfo student={student} onSubmit={editStudentDetails} />
         ) : (
-          <button onClick={toggleEditMode} className="editBtn" style={{ fontSize: '35px' }}>
+          <button
+            onClick={toggleEditMode}
+            className="editBtn"
+            style={{ fontSize: '35px' }}
+          >
+             <span className="buttonFrame">
             <ModeEditIcon style={{ fontSize: '35px' }} />
             &nbsp;Edit
+            </span>
           </button>
+          
         )}
       </div>
     </div>
