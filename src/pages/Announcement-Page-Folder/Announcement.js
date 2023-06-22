@@ -51,6 +51,7 @@ export default function Announcement() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         show = {show}
+        toggle = {toggle}
         />
         {showAnnouncement && <button type ='button' onClick = {() => toggle()} className={"makeNewAnnouncement"}>Make New Announcement</button>}
         <br/>

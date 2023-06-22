@@ -81,3 +81,16 @@
 
 
 }
+
+.cancelButton {
+    margin-left: 10px;
+    padding: 10px;
+    /* border: 0.1px rgb(192, 192, 192) solid; */
+    border-radius: 5px;
+    /* Rectangle 55 */
+    color: red;
+    text-decoration: underline;
+
+    border-radius: 5px;
+}
+
