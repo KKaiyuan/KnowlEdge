@@ -8,12 +8,13 @@ function StudySets() {
       <div className="StudySets">
         <header className="StudySets-header">
           <h1>Spécialités gastronomiques françaises</h1>
-          <h2>New Flashcards</h2>
+          {/* <h2>New Flashcards</h2> */}
           <InputForm/>
         </header>
-        <div className="container">
+        <div className="studysets_container">
           <FlashcardList  />
         </div>
+        <div>Footer - to be completed</div>
   
       </div>
     );
