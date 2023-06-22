@@ -1,33 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditStudentInfo from './EditStudentInfo';
 import './studentProfile.css';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { updateDetails } from '../../actions/index.js';
 import NavbarComponent from '../Components/Navbar';
+import { editStudentProfileAsync } from './thunks';
+import { getStudentProfileAsync } from './thunks';
+
 export default function StudentProfile() {
   const [editMode, setEditMode] = useState(false);
+ 
+  useEffect(() => {
+    dispatch(getStudentProfileAsync());
+  }, []);
 
-  const student = useSelector((state) => state.studentProfileReducer);
+  const student = useSelector((state) => state.studentProfileReducer.student);
   const dispatch = useDispatch();
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
   };
 
-  const editStudentDetails = (updatedDetails) => { 
+  const editStudentDetails = (updatedDetails) => {
     const oldName = student.preferredName;
     const nameArray = oldName.split(' ');
     let updatedName = oldName;
-  
+
     if (updatedDetails.preferredName.trim() !== '') {
       updatedName = `${nameArray[0]} ${nameArray[1]} (${updatedDetails.preferredName})`;
     }
-  
-    const updatedStudent = { ...student, ...updatedDetails, preferredName: updatedName };
-    dispatch(updateDetails(updatedStudent));
+
+    const updatedStudent = {
+      ...student,
+      ...updatedDetails,
+      preferredName: updatedName,
+    };
+    dispatch(editStudentProfileAsync(updatedStudent));
     setEditMode(false);
   };
+
+  
 
   return (
     <div className="container">
@@ -52,7 +65,7 @@ export default function StudentProfile() {
           <strong>Contact:</strong> {student.contact}
         </h1>
       </div>
-  
+
       <div className="about-section">
         <h1 className="aboutMeHeading">
           <strong>About Me:</strong>
@@ -69,12 +82,11 @@ export default function StudentProfile() {
             className="editBtn"
             style={{ fontSize: '35px' }}
           >
-             <span className="buttonFrame">
-            <ModeEditIcon style={{ fontSize: '35px' }} />
-            &nbsp;Edit
+            <span className="buttonFrame">
+              <ModeEditIcon style={{ fontSize: '35px' }} />
+              &nbsp;Edit
             </span>
           </button>
-          
         )}
       </div>
     </div>

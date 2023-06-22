@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import { useDispatch } from "react-redux";
+import { editStudentProfileAsync } from './thunks';
 
 export default function EditStudentInfo({ student, onSubmit }) {
   const [editedStudent, setEditedStudent] = useState(student);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setEditedStudent((prevStudent) => ({ ...prevStudent, preferredName: '' }));
@@ -18,23 +21,23 @@ export default function EditStudentInfo({ student, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("ERE" + editedStudent);
+    dispatch(editStudentProfileAsync(editedStudent));
+  //  dispatch(getItemsAsync());
+  //   setNewTask({ // clear form after add new item
+  //     title: "",
+  //     description: "",
+  //     price: "",
+  //     image: ""
+  //   });
+  //   dispatch(getItemsAsync(editedStudent));
     onSubmit(editedStudent);
   };
 
   return (
     <form className="formContainer" onSubmit={handleSubmit}>
-      <p style = {{fontSize: '20px'}}><strong>Preferred Name:</strong></p>
-      <input
-        type="text"
-        id="preferredName"
-        name="preferredName"
-        value={editedStudent.preferredName}
-        onChange={handleChange}
-        style={{ fontSize: 20 }}
-        className="preferredName"
-      />
-
-      <p style = {{fontSize: '20px'}}><strong>Contact:</strong></p>
+      
+    <p style = {{fontSize: '20px'}}><strong>Contact:</strong></p>
       <input
         type="text"
         id="contact"
