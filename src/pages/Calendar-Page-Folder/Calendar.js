@@ -1,28 +1,21 @@
-import NavbarComponent from '../Components/Navbar';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import React from 'react';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { styled } from 'styled-components';
-import SideMenu from './SideMenu';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { useRef } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { PropTypes } from 'prop-types';
-import SearchBar from 'material-ui-search-bar';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import Icon from '@mui/material/Icon';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import { ClassNames } from '@emotion/react';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
@@ -167,22 +160,14 @@ class CustomToolbar extends React.Component {
 
   handleEventSearch = (event, value) => {
     var idstring = value.slice(10);
-    console.log(idstring);
     var nextSpaceIndex = idstring.indexOf(' ');
     var id = idstring.slice(0, nextSpaceIndex);
-    console.log(id);
     var newSelectedEvent = this.state.events.filter((event) => event.id === id);
-    console.log(newSelectedEvent);
     this.setState({ selectedEvent: newSelectedEvent });
-    console.info('[handleSelected - event]', event, value);
     const date = new Date(newSelectedEvent[0].start);
-    console.log(date);
-    console.log(date.getMonth());
-    console.log(this.props.date);
     this.props.date.setDate(date.getDate());
     this.props.date.setMonth(date.getMonth());
     this.props.date.setFullYear(date.getFullYear());
-    console.log(this.props.date);
     this.props.onNavigate(date);
   };
   handleChange = (event) => {
@@ -339,8 +324,8 @@ export default function CalendarPage({ events }) {
             <ul>
               {selectedEvent.links.map((link, index) => (
                 <li key={index}>
-                  <a href={link} target="_blank" rel="noopener noreferrer">
-                    {link}
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.name}
                   </a>
                 </li>
               ))}
@@ -370,7 +355,7 @@ export default function CalendarPage({ events }) {
           onNavigate={handleNavigate}
           onSelectEvent={handleEventClick}
         />
-        {eventPopover}
+        {eventPopover ? eventPopover : undefined}
       </div>
     </CalendarStyled>
   );

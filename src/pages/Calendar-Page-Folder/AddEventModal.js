@@ -85,14 +85,10 @@ export default function AddEventModal({ isOpen, handleClose }) {
   const [selectedEndTime, setSelectedEndTime] = useState(new Date());
   const [location, setLocation] = useState('');
   const [eventDescription, setEventDescription] = useState('');
-  const [links, setLinks] = useState(['']);
+  const [links, setLinks] = useState([{ name: '', url: '' }]);
   const dispatch = useDispatch();
 
   const handleClickAddEvent = () => {
-    console.log(selectedStartDate);
-    console.log(selectedEndDate);
-    console.log(selectedStartTime);
-    console.log(selectedEndTime);
     var newEvent = {
       id: '',
       title: eventTitle,
@@ -113,7 +109,6 @@ export default function AddEventModal({ isOpen, handleClose }) {
       location: location,
       links: links,
     };
-    console.log(newEvent);
     dispatch(addEvent(newEvent));
   };
 
@@ -127,8 +122,9 @@ export default function AddEventModal({ isOpen, handleClose }) {
   };
 
   const handleLinkChange = (index, event) => {
+    const { name, value } = event.target;
     const newLinks = [...links];
-    newLinks[index] = event.target.value;
+    newLinks[index][name] = value;
     setLinks(newLinks);
   };
 
@@ -157,7 +153,7 @@ export default function AddEventModal({ isOpen, handleClose }) {
   };
 
   const handleAddLink = () => {
-    const newLinks = [...links, ''];
+    const newLinks = [...links, {}];
     setLinks(newLinks);
   };
 
@@ -283,11 +279,20 @@ export default function AddEventModal({ isOpen, handleClose }) {
             <div className="icon-field" key={index}>
               <LinkIcon />
               <TextField
-                key={index}
-                value={link}
+                value={link.name}
+                name="name"
                 onChange={(event) => handleLinkChange(index, event)}
                 variant="outlined"
-                label={`Link ${index + 1}`}
+                label={`Link ${index + 1} Name`}
+                placeholder="Add link name"
+              />
+              <TextField
+                value={link.url}
+                name="url"
+                onChange={(event) => handleLinkChange(index, event)}
+                variant="outlined"
+                label={`Link ${index + 1} URL`}
+                placeholder="Add link url"
               />
               <CloseIcon onClick={(event) => handleDeleteLink(index)} />
             </div>
