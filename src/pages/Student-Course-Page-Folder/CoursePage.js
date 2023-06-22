@@ -1,11 +1,11 @@
 import './CoursePage.css';
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MediumCard from '../Components/MediumCard';
 import NavbarComponent from '../Components/Navbar';
 import { useNavigate } from 'react-router-dom';
-import {useSelector} from 'react-redux';
-
+import {useSelector, useDispatch} from 'react-redux';
+import { getAnnouncementsAsync } from '../Announcement-Page-Folder/redux/thunks';
 import {
     faClipboard,
     faFileLines
@@ -17,8 +17,23 @@ export default function CoursePage() {
 
     const navigate = useNavigate();
 
-    const allAnnouncements = useSelector(state => state.ReducerAnnouncementPage);
+    const dispatch = useDispatch();
 
+    let firstTitle = '';
+    let secondTitle = '';
+    useEffect(() => {
+        dispatch(getAnnouncementsAsync());
+        if (allAnnouncements.length > 0) {
+            firstTitle = allAnnouncements[0].announcementTitle;
+            secondTitle = allAnnouncements[1].announcementTitle;
+            console.log(firstTitle);
+        }
+        console.log(allAnnouncements);
+      }, [dispatch]);
+      
+      const allAnnouncements = useSelector(state => state.announcementPageReducerStore.announcements);
+
+  
 
     return (
         <>
@@ -46,8 +61,8 @@ export default function CoursePage() {
 
         <h3 className = "topComponentName" >Announcements</h3>
         
-        <MediumCard type="announcement" title={allAnnouncements[0].announcementTitle} />
-        <MediumCard type="announcement" title={allAnnouncements[1].announcementTitle} />
+        <MediumCard type="announcement" title= {"CPSC TEST"} />
+        <MediumCard type="announcement" title={"CPSC QUIZ"} />
         <button className = "seeMoreLink" onClick={() => navigate('/announcements')}>See more...</button>
         </div>
       </div>

@@ -5,7 +5,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var studentProfileRouter = require('./routes/studentProfile');
-
+var announcementRouter = require('./routes/announcement');
 var app = express();
 var cors = require('cors');
 
@@ -18,5 +18,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/studentProfile', studentProfileRouter);
-
+app.use('/announcements', announcementRouter);
 module.exports = app;

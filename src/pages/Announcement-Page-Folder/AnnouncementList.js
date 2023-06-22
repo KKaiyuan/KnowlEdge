@@ -20,9 +20,9 @@ export default function AnnouncementList({allAnnouncements, handleDelete}) {
                                 <p className= {"tempUser"}>Posted by: Unknown User</p>
                                 <p className= {"paragraph"}>{announcement}</p>
                           
-                                <div class="dropdown">
-                                <button class="dropbtn">:</button>
-                                <div class="dropdown-content">
+                                <div className="dropdown">
+                                <button className="dropbtn">:</button>
+                                <div className="dropdown-content">
                                     <button onClick = {() => handleDelete(announcementId)} className = {"deleteButton"}>delete</button>
 
                                 </div>
