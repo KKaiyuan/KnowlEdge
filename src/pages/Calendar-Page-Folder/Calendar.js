@@ -1,219 +1,377 @@
 import NavbarComponent from '../Components/Navbar';
-import { Calendar, globalizeLocalizer } from 'react-big-calendar';
-import globalize from 'globalize';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
 import React from 'react';
-import './Calendar.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-const localizer = globalizeLocalizer(globalize);
-const myEventsList = [
-  {
-    id: 0,
-    title: 'All Day Event very long title',
-    allDay: true,
-    start: new Date(2015, 3, 0),
-    end: new Date(2015, 3, 1),
-  },
-  {
-    id: 1,
-    title: 'Long Event',
-    start: new Date(2015, 3, 7),
-    end: new Date(2015, 3, 10),
-  },
+import { styled } from 'styled-components';
+import SideMenu from './SideMenu';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { useRef } from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { PropTypes } from 'prop-types';
+import SearchBar from 'material-ui-search-bar';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
+import Icon from '@mui/material/Icon';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import { ClassNames } from '@emotion/react';
+import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/EditOutlined';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import EmailIcon from '@mui/icons-material/EmailOutlined';
+import CloseIcon from '@mui/icons-material/CloseOutlined';
+import { useDispatch } from 'react-redux';
+import { deleteEvent } from './calendaractions/CalendarAction';
 
-  {
-    id: 2,
-    title: 'DTS STARTS',
-    start: new Date(2016, 2, 13, 0, 0, 0),
-    end: new Date(2016, 2, 20, 0, 0, 0),
-  },
+export let navigate = {
+  PREVIOUS: 'PREV',
+  NEXT: 'NEXT',
+  TODAY: 'TODAY',
+  DATE: 'DATE',
+};
 
-  {
-    id: 3,
-    title: 'DTS ENDS',
-    start: new Date(2016, 10, 6, 0, 0, 0),
-    end: new Date(2016, 10, 13, 0, 0, 0),
-  },
+const propTypes = {
+  view: PropTypes.string.isRequired,
+  views: PropTypes.arrayOf(PropTypes.string).isRequired,
+  label: PropTypes.node.isRequired,
+  localizer: PropTypes.object,
+  onNavigate: PropTypes.func.isRequired,
+  onView: PropTypes.func.isRequired,
+};
 
-  {
-    id: 4,
-    title: 'Some Event',
-    start: new Date(2015, 3, 9, 0, 0, 0),
-    end: new Date(2015, 3, 10, 0, 0, 0),
-  },
-  {
-    id: 5,
-    title: 'Conference',
-    start: new Date(2015, 3, 11),
-    end: new Date(2015, 3, 13),
-    desc: 'Big conference for important people',
-  },
-  {
-    id: 6,
-    title: 'Meeting',
-    start: new Date(2015, 3, 12, 10, 30, 0, 0),
-    end: new Date(2015, 3, 12, 12, 30, 0, 0),
-    desc: 'Pre-meeting meeting, to prepare for the meeting',
-  },
-  {
-    id: 7,
-    title: 'Lunch',
-    start: new Date(2015, 3, 12, 12, 0, 0, 0),
-    end: new Date(2015, 3, 12, 13, 0, 0, 0),
-    desc: 'Power lunch',
-  },
-  {
-    id: 8,
-    title: 'Meeting',
-    start: new Date(2015, 3, 12, 14, 0, 0, 0),
-    end: new Date(2015, 3, 12, 15, 0, 0, 0),
-  },
-  {
-    id: 9,
-    title: 'Happy Hour',
-    start: new Date(2015, 3, 12, 17, 0, 0, 0),
-    end: new Date(2015, 3, 12, 17, 30, 0, 0),
-    desc: 'Most important meal of the day',
-  },
-  {
-    id: 10,
-    title: 'Dinner',
-    start: new Date(2015, 3, 12, 20, 0, 0, 0),
-    end: new Date(2015, 3, 12, 21, 0, 0, 0),
-  },
-  {
-    id: 11,
-    title: 'Planning Meeting with Paige',
-    start: new Date(2015, 3, 13, 8, 0, 0),
-    end: new Date(2015, 3, 13, 10, 30, 0),
-  },
-  {
-    id: 11.1,
-    title: 'Inconvenient Conference Call',
-    start: new Date(2015, 3, 13, 9, 30, 0),
-    end: new Date(2015, 3, 13, 12, 0, 0),
-  },
-  {
-    id: 11.2,
-    title: "Project Kickoff - Lou's Shoes",
-    start: new Date(2015, 3, 13, 11, 30, 0),
-    end: new Date(2015, 3, 13, 14, 0, 0),
-  },
-  {
-    id: 11.3,
-    title: 'Quote Follow-up - Tea by Tina',
-    start: new Date(2015, 3, 13, 15, 30, 0),
-    end: new Date(2015, 3, 13, 16, 0, 0),
-  },
-  {
-    id: 12,
-    title: 'Late Night Event',
-    start: new Date(2015, 3, 17, 19, 30, 0),
-    end: new Date(2015, 3, 18, 2, 0, 0),
-  },
-  {
-    id: 12.5,
-    title: 'Late Same Night Event',
-    start: new Date(2015, 3, 17, 19, 30, 0),
-    end: new Date(2015, 3, 17, 23, 30, 0),
-  },
-  {
-    id: 13,
-    title: 'Multi-day Event',
-    start: new Date(2015, 3, 20, 19, 30, 0),
-    end: new Date(2015, 3, 22, 2, 0, 0),
-  },
-  {
-    id: 14,
-    title: 'Today',
-    start: new Date(new Date().setHours(new Date().getHours() - 3)),
-    end: new Date(new Date().setHours(new Date().getHours() + 3)),
-  },
-  {
-    id: 16,
-    title: 'Video Record',
-    start: new Date(2015, 3, 14, 15, 30, 0),
-    end: new Date(2015, 3, 14, 19, 0, 0),
-  },
-  {
-    id: 17,
-    title: 'Dutch Song Producing',
-    start: new Date(2015, 3, 14, 16, 30, 0),
-    end: new Date(2015, 3, 14, 20, 0, 0),
-  },
-  {
-    id: 18,
-    title: 'Itaewon Halloween Meeting',
-    start: new Date(2015, 3, 14, 16, 30, 0),
-    end: new Date(2015, 3, 14, 17, 30, 0),
-  },
-  {
-    id: 19,
-    title: 'Online Coding Test',
-    start: new Date(2015, 3, 14, 17, 30, 0),
-    end: new Date(2015, 3, 14, 20, 30, 0),
-  },
-  {
-    id: 20,
-    title: 'An overlapped Event',
-    start: new Date(2015, 3, 14, 17, 0, 0),
-    end: new Date(2015, 3, 14, 18, 30, 0),
-  },
-  {
-    id: 21,
-    title: 'Phone Interview',
-    start: new Date(2015, 3, 14, 17, 0, 0),
-    end: new Date(2015, 3, 14, 18, 30, 0),
-  },
-  {
-    id: 22,
-    title: 'Cooking Class',
-    start: new Date(2015, 3, 14, 17, 30, 0),
-    end: new Date(2015, 3, 14, 19, 0, 0),
-  },
-  {
-    id: 23,
-    title: 'Go to the gym',
-    start: new Date(2015, 3, 14, 18, 30, 0),
-    end: new Date(2015, 3, 14, 20, 0, 0),
-  },
-  {
-    id: 24,
-    title: 'DST ends on this day (Europe)',
-    start: new Date(2022, 9, 30, 0, 0, 0),
-    end: new Date(2022, 9, 30, 4, 30, 0),
-  },
-  {
-    id: 25,
-    title: 'DST ends on this day (America)',
-    start: new Date(2022, 10, 6, 0, 0, 0),
-    end: new Date(2022, 10, 6, 4, 30, 0),
-  },
-  {
-    id: 26,
-    title: 'DST starts on this day (America)',
-    start: new Date(2023, 2, 12, 0, 0, 0),
-    end: new Date(2023, 2, 12, 4, 30, 0),
-  },
-  {
-    id: 27,
-    title: 'DST starts on this day (Europe)',
-    start: new Date(2023, 2, 26, 0, 0, 0),
-    end: new Date(2023, 2, 26, 4, 30, 0),
-  },
-];
-export default function CalendarPage() {
+const localizer = momentLocalizer(moment);
+
+/* styling was adapted from Google Calendar CSS using DevTools */
+const CalendarStyled = styled.div`
+  font-family: Roboto;
+
+  .calendarComponent {
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 80vw;
+  }
+
+  .rbc-toolbar button {
+    border: none;
+  }
+
+  .rbc-btn-group {
+    border: none;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .rbc-header {
+    border-bottom: none;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .rbc-searchbar{
+    margin-right:2%;
+    width: 40vw;
+  }
+
+  .rbc-toolbar .rbc-toolbar-label{
+    text-align:left;
+  }
+
+  .MuiInputBase-input:focus{
+    box-shadow:none;
+  }
+
+  .rbc-date-cell {
+    text-align: center;
+    white-space: nowrap;
+    width: max-content;
+    min-width: 24px;
+    font-size:12px;
+    margin-top:8px;
+    display:inline-block
+    line-height: 16px;
+    pointer-events: auto;
+  }
+
+  .rbc-event-content {
+    font-size: 12px;
+  }
+
+  .rbc-off-range-bg {
+    background: transparent;
+  }
+
+  .rbc-calendar {
+  }
+
+  .modal-show {
+    display: block;
+  }
+  
+  .modal-hide {
+    display: none;
+  }
+
+
+  .calendarContainer {
+    position: relative;
+  }
+
+  .popover-text {
+    margin: 12px 8px;
+  }
+  
+`;
+
+const PopoverContent = styled.div`
+  margin: 2%;
+  padding: 2%;
+  width: 300px;
+
+  font-family: Roboto;
+  h4 {
+    font-size: 18px;
+  }
+  p {
+    font-size: 12px;
+  }
+  .popover-buttons {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+  }
+`;
+
+/* Adapted code from https://stackoverflow.com/questions/54597239/importing-custom-toolbar-component-doesnt-fire-methods-in-react-big-calendar 
+ and https://github.com/jquense/react-big-calendar/issues/191 to make a custom toolbar for the react-big-calendar module. The form elements
+ are primarily pre-made mui components.*/
+
+class CustomToolbar extends React.Component {
+  static propTypes = propTypes;
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: 'month',
+      query: '',
+      events: props.events,
+    };
+  }
+
+  handleEventSearch = (event, value) => {
+    var idstring = value.slice(10);
+    console.log(idstring);
+    var nextSpaceIndex = idstring.indexOf(' ');
+    var id = idstring.slice(0, nextSpaceIndex);
+    console.log(id);
+    var newSelectedEvent = this.state.events.filter((event) => event.id === id);
+    console.log(newSelectedEvent);
+    this.setState({ selectedEvent: newSelectedEvent });
+    console.info('[handleSelected - event]', event, value);
+    const date = new Date(newSelectedEvent[0].start);
+    console.log(date);
+    console.log(date.getMonth());
+    console.log(this.props.date);
+    this.props.date.setDate(date.getDate());
+    this.props.date.setMonth(date.getMonth());
+    this.props.date.setFullYear(date.getFullYear());
+    console.log(this.props.date);
+    this.props.onNavigate(date);
+  };
+  handleChange = (event) => {
+    this.setState({ view: event.target.value });
+    this.props.onView(event.target.value);
+  };
+
+  render() {
+    let {
+      localizer: { messages },
+      label,
+    } = this.props;
+    const { view } = this.state;
+
+    return (
+      <div className="rbc-toolbar">
+        <span className="rbc-btn-group">
+          <button
+            type="button"
+            onClick={this.navigate.bind(null, navigate.TODAY)}
+          >
+            Today
+          </button>
+          <button
+            type="button"
+            onClick={this.navigate.bind(null, navigate.PREVIOUS)}
+          >
+            <ChevronLeftIcon />
+          </button>
+          <button
+            type="button"
+            onClick={this.navigate.bind(null, navigate.NEXT)}
+          >
+            <ChevronRightIcon />
+          </button>
+        </span>
+        <span className="rbc-toolbar-label">{label}</span>
+        <span className="rbc-searchbar">
+          <Autocomplete
+            clearIcon=""
+            disableClearable
+            popupIcon={<SearchIcon size="medium" />}
+            sx={{
+              [`& .${autocompleteClasses.popupIndicator}`]: {
+                transform: 'none',
+                backgroundColor: 'white',
+              },
+            }}
+            onChange={this.handleEventSearch}
+            options={this.state.events.map(
+              (option) => 'event id: ' + option.id + ' ' + option.title
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Find Event"
+                InputProps={{
+                  ...params.InputProps,
+                  type: 'search',
+                }}
+              />
+            )}
+          />
+        </span>
+        <span className="rbc-btn-group">
+          <FormControl>
+            <InputLabel id="demo-simple-select-label">view</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={view}
+              label="view"
+              onChange={this.handleChange}
+            >
+              <MenuItem value={'day'}>Day</MenuItem>
+              <MenuItem value={'week'}>Week</MenuItem>
+              <MenuItem value={'month'}>Month</MenuItem>
+            </Select>
+          </FormControl>
+        </span>
+      </div>
+    );
+  }
+  navigate = (action) => {
+    this.props.onNavigate(action);
+  };
+}
+
+export default function CalendarPage({ events }) {
+  const [day, setDay] = useState(new Date()); // Initial day
+  const [selectedEvent, setSelectedEvent] = useState(undefined);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
+  const handleNavigate = (date) => {
+    console.log('setting day in calendar page');
+    setDay(date);
+  };
+
+  /* code for handleEventClick() and the eventPopover was adapted from ChatGPT prompts on how to add event popovers to react-big-calendar events*/
+  const handleEventClick = (event, e) => {
+    console.log('In handle click event');
+    setSelectedEvent(event);
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    setSelectedEvent(null);
+    setAnchorEl(null);
+  };
+
+  const handleDeleteEvent = () => {
+    var eventid = selectedEvent.id;
+    dispatch(deleteEvent(eventid));
+  };
+
+  const open = Boolean(anchorEl);
+
+  const eventPopover = (
+    <Popover
+      open={open}
+      anchorEl={anchorEl}
+      onClose={handleClosePopover}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+    >
+      {selectedEvent && (
+        <PopoverContent>
+          <div className="popover-buttons">
+            <IconButton size="small">
+              <EditIcon />
+            </IconButton>
+            <IconButton size="small" onClick={handleDeleteEvent}>
+              <DeleteIcon />
+            </IconButton>
+            <IconButton size="small">
+              <EmailIcon />
+            </IconButton>
+            <IconButton size="small">
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <h4>{selectedEvent.title}</h4>
+          <p>{selectedEvent.description}</p>
+          <p>Start: {selectedEvent.start.toLocaleString()}</p>
+          <p>End: {selectedEvent.end.toLocaleString()}</p>
+          {selectedEvent.location && <p>Location: {selectedEvent.location}</p>}
+          {selectedEvent.links && (
+            <ul>
+              {selectedEvent.links.map((link, index) => (
+                <li key={index}>
+                  <a href={link} target="_blank" rel="noopener noreferrer">
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </PopoverContent>
+      )}
+    </Popover>
+  );
+
   return (
-    <div>
-      <NavbarComponent />
+    <CalendarStyled>
       <div className="calendarComponent">
         <Calendar
+          setDay={setDay}
           localizer={localizer}
-          events={myEventsList}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
+          events={events}
+          startAccessor={(event) => moment.utc(event.start).toDate()}
+          endAccessor={(event) => moment.utc(event.end).toDate()}
+          style={{ height: '80vh' }}
+          components={{
+            toolbar: (toolbarProps) => (
+              <CustomToolbar {...toolbarProps} events={events} />
+            ),
+          }}
+          date={day}
+          onNavigate={handleNavigate}
+          onSelectEvent={handleEventClick}
         />
+        {eventPopover}
       </div>
-    </div>
+    </CalendarStyled>
   );
 }
