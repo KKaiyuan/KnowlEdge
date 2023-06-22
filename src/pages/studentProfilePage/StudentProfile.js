@@ -80,6 +80,7 @@ export default function StudentProfile() {
     font-size: 25px;
   }
   
+  
   .aboutMe {
     font-size: 20px;
   }
