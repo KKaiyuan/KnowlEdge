@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import { addAnnouncement, removeAnnouncement } from "./actions/Action";
+// import { addAnnouncement, removeAnnouncement } from "./actions/Action";
 import AnnouncementForm from "./AnnouncementForm";
 import AnnouncementList from "./AnnouncementList";
 import './Announcement.css';
@@ -27,7 +27,7 @@ export default function Announcement() {
   
     useEffect(() => {
       dispatch(getAnnouncementsAsync());
-    }, []);
+    }, [dispatch]);
     const handleSubmit = (event) => {
       console.log(newAnnouncement);
       event.preventDefault();
