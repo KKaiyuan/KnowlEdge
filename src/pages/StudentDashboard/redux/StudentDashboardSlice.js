@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   showEnrollModal: false,
+  searchContent: '',
 };
 
 const studentDashboardSlice = createSlice({
@@ -11,9 +12,13 @@ const studentDashboardSlice = createSlice({
     setEnrollModal: (state, action) => {
       state.showEnrollModal = action.payload;
     },
+    setSearchContent: (state, action) => {
+      state.searchContent = action.payload;
+    },
   },
 });
 
-export const { setEnrollModal } = studentDashboardSlice.actions;
+export const { setEnrollModal, setSearchContent } =
+  studentDashboardSlice.actions;
 const studentDashboardReducer = studentDashboardSlice.reducer;
 export default studentDashboardReducer;
