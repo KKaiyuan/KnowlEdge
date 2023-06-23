@@ -286,28 +286,29 @@ export default function EditEventModal({
               placeholder="Add description"
             />
           </div>
-          {links.map((link, index) => (
-            <div className="icon-field" key={index}>
-              <LinkIcon />
-              <TextField
-                value={link.name}
-                name="name"
-                onChange={(event) => handleLinkChange(index, event)}
-                variant="outlined"
-                label={`Link ${index + 1} Name`}
-                placeholder="Add link name"
-              />
-              <TextField
-                value={link.url}
-                name="url"
-                onChange={(event) => handleLinkChange(index, event)}
-                variant="outlined"
-                label={`Link ${index + 1} URL`}
-                placeholder="Add link url"
-              />
-              <CloseIcon onClick={(event) => handleDeleteLink(index)} />
-            </div>
-          ))}
+          {links &&
+            links.map((link, index) => (
+              <div className="icon-field" key={index}>
+                <LinkIcon />
+                <TextField
+                  value={link.name}
+                  name="name"
+                  onChange={(event) => handleLinkChange(index, event)}
+                  variant="outlined"
+                  label={`Link ${index + 1} Name`}
+                  placeholder="Add link name"
+                />
+                <TextField
+                  value={link.url}
+                  name="url"
+                  onChange={(event) => handleLinkChange(index, event)}
+                  variant="outlined"
+                  label={`Link ${index + 1} URL`}
+                  placeholder="Add link url"
+                />
+                <CloseIcon onClick={(event) => handleDeleteLink(index)} />
+              </div>
+            ))}
           <div className="icon-field">
             <Button id="addlink" variant="contained" onClick={handleAddLink}>
               Add Link

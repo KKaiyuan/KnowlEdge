@@ -256,7 +256,7 @@ class CustomToolbar extends React.Component {
 
 export default function CalendarPage({ events }) {
   const [day, setDay] = useState(new Date()); // Initial day
-  const [selectedEvent, setSelectedEvent] = useState(undefined);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editEventModal, setEditEventModal] = useState(false);
   const dispatch = useDispatch();
