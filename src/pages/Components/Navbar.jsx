@@ -37,24 +37,17 @@ const NavbarComponent = () => {
     <>
       {showEnrollModal ? <CourseEnrollement /> : ''}
 
-    <CustomNavbar fluid rounded>
-      <Navbar.Brand href="/">
-        <img alt="Logo" className="mr-3 h-6 sm:h-9" src={logo} />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          <img alt="KnowlEdge" className="mr-3 h-6 sm:h-9" src={name} />
-        </span>
-      </Navbar.Brand>
-      <div className="flex md:order-2">
-        {/* what's this for? */}
-        <Navbar.Toggle />
-      </div>
-      <Navbar.Collapse>
-        <CustomNavbarLink href="/" className="font-sans font-bold">
-          <span>
-            <FontAwesomeIcon icon={faHouse} className="mr-2" />
-            Dashboard
+      <CustomNavbar fluid rounded>
+        <Navbar.Brand href="/">
+          <img alt="Logo" className="mr-3 h-6 sm:h-9" src={logo} />
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            <img alt="KnowlEdge" className="mr-3 h-6 sm:h-9" src={name} />
           </span>
         </Navbar.Brand>
+        <div className="flex md:order-2">
+          {/* what's this for? */}
+          <Navbar.Toggle />
+        </div>
         <div className="flex md:order-2">
           {/* what's this for? */}
           <Navbar.Toggle />
