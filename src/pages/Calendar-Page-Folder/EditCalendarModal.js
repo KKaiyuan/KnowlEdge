@@ -17,9 +17,9 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import NotesIcon from '@material-ui/icons/Notes';
 import LinkIcon from '@material-ui/icons/Link';
 import { useDispatch } from 'react-redux';
-import { addEvent } from './calendaractions/CalendarAction';
+import { editEvent } from './calendaractions/CalendarAction';
 
-const AddEventModalStyled = styled('div')`
+const EditEventModalStyled = styled('div')`
   #event-title:focus,
   #datepicker:focus,
   #timepicker:focus,
@@ -76,21 +76,30 @@ const style = {
   p: 4,
 };
 
-export default function AddEventModal({ isOpen, handleClose }) {
+export default function EditEventModal({
+  isOpen,
+  handleClose,
+  event,
+  updateParentEvent,
+}) {
   const open = isOpen;
-  const [eventTitle, setEventTitle] = useState('');
-  const [selectedStartDate, setSelectedStartDate] = useState(new Date());
-  const [selectedStartTime, setSelectedStartTime] = useState(new Date());
-  const [selectedEndDate, setSelectedEndDate] = useState(new Date());
-  const [selectedEndTime, setSelectedEndTime] = useState(new Date());
-  const [location, setLocation] = useState('');
-  const [eventDescription, setEventDescription] = useState('');
-  const [links, setLinks] = useState([{ name: '', url: '' }]);
+  const [eventTitle, setEventTitle] = useState(event.title);
+  const [selectedStartDate, setSelectedStartDate] = useState(
+    new Date(event.start)
+  );
+  const [selectedStartTime, setSelectedStartTime] = useState(
+    new Date(event.start)
+  );
+  const [selectedEndDate, setSelectedEndDate] = useState(new Date(event.end));
+  const [selectedEndTime, setSelectedEndTime] = useState(new Date(event.end));
+  const [location, setLocation] = useState(event.location);
+  const [eventDescription, setEventDescription] = useState(event.description);
+  const [links, setLinks] = useState(event.links);
   const dispatch = useDispatch();
 
-  const handleClickAddEvent = () => {
-    var newEvent = {
-      id: '',
+  const handleClickUpdateEvent = () => {
+    var updatedEvent = {
+      id: event.id,
       title: eventTitle,
       start: new Date(
         selectedStartDate.getFullYear(),
@@ -110,7 +119,8 @@ export default function AddEventModal({ isOpen, handleClose }) {
       location: location,
       links: links,
     };
-    dispatch(addEvent(newEvent));
+    dispatch(editEvent(updatedEvent));
+    updateParentEvent(updatedEvent);
   };
 
   const handleEventTitleChange = (event) => {
@@ -166,7 +176,7 @@ export default function AddEventModal({ isOpen, handleClose }) {
 
   return (
     <div>
-      <AddEventModalStyled
+      <EditEventModalStyled
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -306,13 +316,13 @@ export default function AddEventModal({ isOpen, handleClose }) {
               id="createevent"
               variant="contained"
               type="submit"
-              onClick={handleClickAddEvent}
+              onClick={handleClickUpdateEvent}
             >
-              Create Event
+              Update Event
             </Button>
           </div>
         </Box>
-      </AddEventModalStyled>
+      </EditEventModalStyled>
     </div>
   );
 }

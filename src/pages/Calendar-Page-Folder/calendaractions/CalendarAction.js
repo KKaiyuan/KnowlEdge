@@ -6,6 +6,13 @@ export const addEvent = (event) => {
   };
 };
 
+export const editEvent = (event) => {
+  return {
+    type: 'EDIT_EVENT',
+    payload: event,
+  };
+};
+
 export const deleteEvent = (eventId) => {
   return {
     type: 'DELETE_EVENT',
