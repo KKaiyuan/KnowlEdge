@@ -47,6 +47,7 @@ export default function InputForm() {
 
     return (
         <form className="header" onSubmit={handleSubmit}>
+            <h2>New Flashcards</h2>
             <div className="form-group">
                 <label>
                     Term: <input type="text" id="term" name="term" placeholder="Please enter term..." />
