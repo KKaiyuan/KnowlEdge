@@ -1,35 +1,129 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditStudentInfo from './EditStudentInfo';
-import './studentProfile.css';
+// import './studentProfile.css';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { updateDetails } from '../../actions/index.js';
 import NavbarComponent from '../Components/Navbar';
+import { editStudentProfileAsync } from './thunks';
+import { getStudentProfileAsync } from './thunks';
+import { styled } from 'styled-components';
+
 export default function StudentProfile() {
   const [editMode, setEditMode] = useState(false);
+ 
+  const StylingComp = styled.div`.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin-left: 5%;
+  }
+  
+  .container div {
+    /* align-items: center;
+    border: 1px #ccc solid; */
+    padding: 10px;
+    /* margin: 10px; */
+  }
 
-  const student = useSelector((state) => state.studentProfileReducer);
+  .buttonFrame {
+    display: inline-block;
+    border: 2px solid #000;
+    padding: 2px 8px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .buttonFrame:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .left-section {
+    flex: 2;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0%;
+  }
+  
+  .middle-section {
+    flex: 1;
+    order: 2;
+    font-size: 25px;
+    margin-top: 10%;
+  }
+  
+  .right-section {
+    flex: 1;
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 9%;
+    margin-right: 0%;
+  }
+  
+  .studentImage {
+    width: 350px;
+  }
+  
+  .about-section {
+    text-align: center;
+    margin-top: 20px;
+    order: 4;
+    flex: 100%;
+    margin-left: 10%;
+  }
+  
+  .aboutMeHeading {
+    font-size: 25px;
+  }
+  
+  
+  .aboutMe {
+    font-size: 20px;
+  }
+
+  br {
+    display: block;
+    margin-top: 0; 
+ }`;
+
+
+  useEffect(() => {
+    dispatch(getStudentProfileAsync());
+  }, []);
+
+  const student = useSelector((state) => state.studentProfileReducer.student);
   const dispatch = useDispatch();
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
   };
 
-  const editStudentDetails = (updatedDetails) => { 
+  const editStudentDetails = (updatedDetails) => {
     const oldName = student.preferredName;
     const nameArray = oldName.split(' ');
     let updatedName = oldName;
-  
+
     if (updatedDetails.preferredName.trim() !== '') {
       updatedName = `${nameArray[0]} ${nameArray[1]} (${updatedDetails.preferredName})`;
     }
-  
-    const updatedStudent = { ...student, ...updatedDetails, preferredName: updatedName };
-    dispatch(updateDetails(updatedStudent));
+
+    const updatedStudent = {
+      ...student,
+      ...updatedDetails,
+      preferredName: updatedName,
+    };
+    dispatch(editStudentProfileAsync(updatedStudent));
     setEditMode(false);
   };
 
+  
+
   return (
+    <StylingComp>
     <div className="container">
       <div className="left-section">
         <br />
@@ -52,7 +146,7 @@ export default function StudentProfile() {
           <strong>Contact:</strong> {student.contact}
         </h1>
       </div>
-  
+
       <div className="about-section">
         <h1 className="aboutMeHeading">
           <strong>About Me:</strong>
@@ -69,14 +163,14 @@ export default function StudentProfile() {
             className="editBtn"
             style={{ fontSize: '35px' }}
           >
-             <span className="buttonFrame">
-            <ModeEditIcon style={{ fontSize: '35px' }} />
-            &nbsp;Edit
+            <span className="buttonFrame">
+              <ModeEditIcon style={{ fontSize: '35px' }} />
+              &nbsp;Edit
             </span>
           </button>
-          
         )}
       </div>
     </div>
+    </StylingComp>
   );
 }

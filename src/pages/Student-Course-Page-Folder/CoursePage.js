@@ -5,7 +5,6 @@ import MediumCard from '../Components/MediumCard';
 import NavbarComponent from '../Components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from 'react-redux';
-
 import {
     faClipboard,
     faFileLines
@@ -17,8 +16,10 @@ export default function CoursePage() {
 
     const navigate = useNavigate();
 
+
     const allAnnouncements = useSelector(state => state.ReducerAnnouncementPage);
 
+  
 
     return (
         <>
@@ -46,7 +47,7 @@ export default function CoursePage() {
 
         <h3 className = "topComponentName" >Announcements</h3>
         
-        <MediumCard type="announcement" title={allAnnouncements[0].announcementTitle} />
+        <MediumCard type="announcement" title= {allAnnouncements[0].announcementTitle} />
         <MediumCard type="announcement" title={allAnnouncements[1].announcementTitle} />
         <button className = "seeMoreLink" onClick={() => navigate('/announcements')}>See more...</button>
         </div>
