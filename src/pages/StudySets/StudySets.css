@@ -2,22 +2,23 @@
   text-align: center;
 }
 
-/* .StudySets-logo {
-  height: 40vmin;
-  pointer-events: none;
-} */
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .StudySets-logo {
-    animation: StudySets-logo-spin infinite 20s linear;
-  }
-} */
-
 .StudySets{
   padding: 1em;
-  background-color: #282c34;
-  min-height: 100vh;
-  height: fit-content;
+  /* background-color: #282c34; */
+  
+  /* Referred to tutorial at https://www.w3schools.com/css/css_background_image.asp */
+  /* Referred to tutorial at https://stackoverflow.com/questions/49003911/how-to-use-google-drive-image-inside-css-background-image-url-function */
+  background-image: url("http://drive.google.com/uc?export=view&id=1sbS-C4UekriYtKrplux3yPr8OMP-L_Yp");
+  /* Referred to Youtube Video at the timestamp around https://youtu.be/zHZRFwWQt2w?t=937 */
+  background-size: cover;
+  /* Referred to tutorial at https://www.w3schools.com/cssref/pr_background-attachment.php; sample code at https://www.w3schools.com/cssref/tryit.php?filename=trycss_background-attachment */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* Referred to tutorial at https://www.w3schools.com/html/html_images_background.asp */
+  /* background-size: 100% 100%; */
+
+  /* min-height: 100vh; */
+  /* height: fit-content; */
   align-items: center;
   justify-content: center;
 }
@@ -25,22 +26,19 @@
 .StudySets-header {
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* font-size: calc(10px + 2vmin); */
+  /* color: white; */
+  margin-top: 3rem;
 }
 
-/* .StudySets-link {
-  color: #61dafb;
-} */
 
-/* @keyframes StudySets-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+/* Referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/10668056/in-css-how-do-you-change-font-size-of-h1-and-h2 */
+/* Do not forget to add classname before h1 tag */
+.StudySets-header h1 {
+  font-weight: 1000;
+  color:darkblue /* #fff */;
+  font-size: 2rem;
+}
 
 
 /* Referred to StackOverflow 1st Answer at https://stackoverflow.com/questions/13091433/center-child-divs-inside-parent-div */
@@ -137,9 +135,10 @@ input[name="definitionDisplay"] {
   margin: 0;
 } */
 
-.container {
+.studysets_container {
   max-width: 1300px; /* change how many cards displayed per row; with grid setting ...minmax(200px, 1fr)... -- 900px: 4 cards/row ; 1100px: 5 cards/row ; 1300px: 6 cards/row */
   margin: 1rem 2rem;
+  min-height: 100vh;
 }
 
 /* .header {
@@ -153,8 +152,54 @@ input[name="definitionDisplay"] {
 } */
 
 .header {
+  margin-top: 1rem;
   margin-bottom: 3rem;
+
+  /* background-color: white; */
+
+  /* Referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/23484871/css-creating-opacity-gradient */
+  /* background: linear-gradient(to bottom,  rgba(255, 255, 255, 1) 0%, rgba(233, 233, 233, 0) 100%); */ /* W3C */
+
+  /* Referred to StackOverflow Answer #2 at https://stackoverflow.com/questions/28409395/css-linear-gradient-transparency-on-both-side-of-image */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+  /* Referred to Tutorial about CSS Opacity at https://developer.mozilla.org/en-US/docs/Web/CSS/opacity#description */
+
+  border-radius: 1rem;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+
+  width: fit-content;
+  
+  /* Referred to Tutorial "Center an Image " at https://www.w3schools.com/css/css_align.asp */
+  /* display: block;
+  margin-left: auto;
+  margin-right: auto; */
+  
+
+  /* Referred to Tutorial "Left and Right Align - Using position" at https://www.w3schools.com/css/css_align.asp */
+  position: absolute;
+  right: 0px;
+  width: 300px;
+  border: 1px solid grey;
+  padding: 10px;
+
+  /* Referred to StackOverflow Answer #1 at "Div position fixed on the top of web page" https://stackoverflow.com/questions/8935704/div-position-fixed-on-the-top-of-web-page */
+  /* position: fixed; */
+
+
+  margin-right: 2.5rem;
+  margin-top: 5rem;
 }
+
+  /* Referred to Tutorial at https://www.w3schools.com/howto/howto_css_blurred_background.asp */
+  /* filter: blur(8px);
+  -webkit-filter: blur(8px); */
+
+.header h2 {
+  font-weight: bold;
+  color:darkblue /* #fff */;
+  font-size: 1.5rem;
+}
+
 
 .form-group {
   display: flex;
@@ -163,14 +208,16 @@ input[name="definitionDisplay"] {
 }
 
 .form-group > label {
-  color: lightgray; /* color: #777; */
+  color: darkblue /* lightgray */ /* #777 */;
   font-size: 1.25rem; /* font-size: .75rem; */
+  font-weight: 600;
   margin-bottom: .25rem;
 }
 
 .btn {
-  background-color: hsl(200, 100%, 50%);
-  color: white;
+  background-color: hsl(200, 100%, 50%); /* TODO: check why this is not working */
+  font-weight: 1000;
+  color: darkblue /* white */;
   padding: .5em 1em;
   border-radius: .3em;
   border: none;
@@ -180,10 +227,12 @@ input[name="definitionDisplay"] {
 
 .btn:hover {
   background-color: hsl(200, 100%, 40%);
+  font-weight: normal;
+  color: white;
 }
 
 .card-grid {
-  display: grid;
+  display: grid; /* TODO: check why this is nont working */
   align-items: center;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 5rem;
