@@ -138,6 +138,7 @@ Standard Requirements
     -  Students will be able to create announcements for other users to be able to see
 
     -  Students will be able to use a search bar to search for the announcements which they want to find
+
 Stretch Requirements
 
 1.  **Student Dashboard notifications**:
