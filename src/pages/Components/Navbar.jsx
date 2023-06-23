@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Dropdown, Avatar } from 'flowbite-react';
+import { Navbar, Dropdown } from 'flowbite-react';
 import logo from '../../assets/logo.png';
 import name from '../../assets/name.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import CourseEnrollement from './CourseEnrollement';
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEnrollModal } from '../StudentDashboard/redux/StudentDashboardSlice';
 
