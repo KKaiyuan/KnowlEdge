@@ -246,6 +246,24 @@ const CalendarEventReducer = (calendarEvents = initialState, action) => {
       action.payload.id = id;
       return [...calendarEvents, action.payload];
     }
+    case 'EDIT_EVENT': {
+      const index = calendarEvents.findIndex(
+        (event) => event.id === action.payload.id
+      );
+
+      if (index === -1) {
+        return calendarEvents;
+      }
+
+      const updatedCalendarEvents = [...calendarEvents];
+      updatedCalendarEvents[index] = {
+        ...updatedCalendarEvents[index],
+        ...action.payload,
+      };
+
+      calendarEvents = updatedCalendarEvents;
+      return calendarEvents;
+    }
     case 'DELETE_EVENT': {
       return calendarEvents.filter((event) => event.id !== action.payload);
     }

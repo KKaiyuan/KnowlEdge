@@ -69,10 +69,7 @@ const Drawer = styled(MuiDrawer, {
 
 export default function SideMenu() {
   const myEventsList = useSelector((state) => state.calendarEventReducer);
-  const dispatch = useDispatch();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [events, setEvents] = React.useState(myEventsList);
   const [isAddEventModalOpen, setAddEventModal] = React.useState(false);
   const handleCloseAddEventModal = () => setAddEventModal(false);
 
