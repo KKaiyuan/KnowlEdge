@@ -23,6 +23,7 @@ import EmailIcon from '@mui/icons-material/EmailOutlined';
 import CloseIcon from '@mui/icons-material/CloseOutlined';
 import { useDispatch } from 'react-redux';
 import { deleteEvent } from './calendaractions/CalendarAction';
+import EditEventModal from './EditCalendarModal';
 
 export let navigate = {
   PREVIOUS: 'PREV',
@@ -176,10 +177,7 @@ class CustomToolbar extends React.Component {
   };
 
   render() {
-    let {
-      localizer: { messages },
-      label,
-    } = this.props;
+    let { label } = this.props;
     const { view } = this.state;
 
     return (
@@ -258,9 +256,15 @@ class CustomToolbar extends React.Component {
 
 export default function CalendarPage({ events }) {
   const [day, setDay] = useState(new Date()); // Initial day
-  const [selectedEvent, setSelectedEvent] = useState(undefined);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [editEventModal, setEditEventModal] = useState(false);
   const dispatch = useDispatch();
+
+  const handleCloseEditEventModal = () => {
+    setEditEventModal(false);
+  };
+
   const handleNavigate = (date) => {
     console.log('setting day in calendar page');
     setDay(date);
@@ -283,6 +287,10 @@ export default function CalendarPage({ events }) {
     dispatch(deleteEvent(eventid));
   };
 
+  const handleClickUpdateEvent = () => {
+    setEditEventModal(true);
+  };
+
   const open = Boolean(anchorEl);
 
   const eventPopover = (
@@ -299,10 +307,10 @@ export default function CalendarPage({ events }) {
         horizontal: 'center',
       }}
     >
-      {selectedEvent && (
+      {!editEventModal && selectedEvent && (
         <PopoverContent>
           <div className="popover-buttons">
-            <IconButton size="small">
+            <IconButton size="small" onClick={handleClickUpdateEvent}>
               <EditIcon />
             </IconButton>
             <IconButton size="small" onClick={handleDeleteEvent}>
@@ -322,13 +330,18 @@ export default function CalendarPage({ events }) {
           {selectedEvent.location && <p>Location: {selectedEvent.location}</p>}
           {selectedEvent.links && (
             <ul>
-              {selectedEvent.links.map((link, index) => (
-                <li key={index}>
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
+              {selectedEvent.links &&
+                selectedEvent.links.map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
             </ul>
           )}
         </PopoverContent>
@@ -355,7 +368,15 @@ export default function CalendarPage({ events }) {
           onNavigate={handleNavigate}
           onSelectEvent={handleEventClick}
         />
-        {eventPopover ? eventPopover : undefined}
+        {eventPopover && !editEventModal ? eventPopover : undefined}
+        {editEventModal && selectedEvent && (
+          <EditEventModal
+            open={true}
+            event={selectedEvent}
+            handleClose={handleCloseEditEventModal}
+            updateParentEvent={setSelectedEvent}
+          />
+        )}
       </div>
     </CalendarStyled>
   );
