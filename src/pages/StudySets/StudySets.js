@@ -6,11 +6,15 @@ function StudySets() {
     return (
       // <h1>Hello World</h1>
       <div className="StudySets">
-        <header className="StudySets-header">
-          <h1>Spécialités gastronomiques françaises</h1>
-          {/* <h2>New Flashcards</h2> */}
-          <InputForm/>
-        </header>
+        <div className="HeaderAndInputForm">
+          <header className="StudySets-header">
+            <h1>Spécialités gastronomiques françaises</h1>
+            {/* <h2>New Flashcards</h2> */}
+            <div className="FlashcardsDisplay">
+              <InputForm/>
+            </div>
+          </header>
+        </div>
         <div className="studysets_container">
           <FlashcardList  />
         </div>
