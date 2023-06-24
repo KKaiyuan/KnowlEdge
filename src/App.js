@@ -9,8 +9,6 @@ import CoursePage from './pages/Student-Course-Page-Folder/CoursePage';
 import Announcement from './pages/Announcement-Page-Folder/Announcement';
 import StudentProfileAndNavbarComponent from './pages/studentProfilePage/StudentProfileAndNavbarComponent';
 import StudySets from './pages/StudySets/StudySets';
-import CalendarPage from './pages/Calendar-Page-Folder/Calendar';
-import SideMenu from './pages/Calendar-Page-Folder/SideMenu';
 import CalendarView from './pages/Calendar-Page-Folder/CalendarView';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
