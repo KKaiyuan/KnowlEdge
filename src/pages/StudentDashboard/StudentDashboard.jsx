@@ -84,7 +84,7 @@ const StudentDashboard = () => {
       <NavbarComponent />
       <DashboardStyled>
         <div className="card-container no-btm-padding">
-          <h2 className="greeting">Welcome Mirabel</h2>
+          <h2 className="greeting">Welcome Mirabel&nbsp;&nbsp;&nbsp;👋🏻</h2>
           <div>
             <StudentCard />
           </div>
