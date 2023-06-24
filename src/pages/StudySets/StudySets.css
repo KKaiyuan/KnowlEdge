@@ -3,7 +3,7 @@
 }
 
 .StudySets{
-  padding: 1em;
+  /* padding: 1em; */
   /* background-color: #282c34; */
   
   /* Referred to tutorial at https://www.w3schools.com/css/css_background_image.asp */
@@ -28,7 +28,8 @@
   flex-direction: column;
   /* font-size: calc(10px + 2vmin); */
   /* color: white; */
-  margin-top: 3rem;
+  /* margin-top: 3rem; */
+  margin: 3rem;
 }
 
 
@@ -36,8 +37,11 @@
 /* Do not forget to add classname before h1 tag */
 .StudySets-header h1 {
   font-weight: 1000;
-  color:darkblue /* #fff */;
+  color: lightseagreen /* darkblue */ /* #fff */;
   font-size: 2rem;
+
+  /* Referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/4919076/outline-effect-to-text */
+  text-shadow: -1px -1px 0 #00ffff, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 
@@ -53,7 +57,7 @@
   font-size: 1.2rem;
   color: grey;
   /* margin: 1rem; */
-  margin-bottom: 4.5rem;
+  margin-bottom: 3rem/* 4.5rem */;
 }
 
 .definition {
@@ -141,17 +145,7 @@ input[name="definitionDisplay"] {
   min-height: 100vh;
 }
 
-/* .header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: white;
-  padding: 0 1.5rem;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
-} */
-
-.header {
+.InputFormPanel {
   margin-top: 1rem;
   margin-bottom: 3rem;
 
@@ -176,8 +170,8 @@ input[name="definitionDisplay"] {
   
 
   /* Referred to Tutorial "Left and Right Align - Using position" at https://www.w3schools.com/css/css_align.asp */
-  position: absolute;
-  right: 0px;
+  /* position: absolute; */
+  /* right: 0px; */
   width: 300px;
   border: 1px solid grey;
   padding: 10px;
@@ -186,7 +180,9 @@ input[name="definitionDisplay"] {
   /* position: fixed; */
 
 
-  margin-right: 2.5rem;
+  /* Referred to Tutorial at https://www.w3.org/Style/Examples/007/center.en.html */
+  margin-right: auto /* 2.5rem */;
+  margin-left: auto /* 2.5rem */;
   margin-top: 5rem;
 }
 
@@ -194,7 +190,7 @@ input[name="definitionDisplay"] {
   /* filter: blur(8px);
   -webkit-filter: blur(8px); */
 
-.header h2 {
+.InputFormPanel h2 {
   font-weight: bold;
   color:darkblue /* #fff */;
   font-size: 1.5rem;
@@ -232,10 +228,11 @@ input[name="definitionDisplay"] {
 }
 
 .card-grid {
-  display: grid; /* TODO: check why this is nont working */
+  display: grid; /* TODO: check why this is not working */
   align-items: center;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 5rem;
+  width: 100%;
 }
 
 .card {
@@ -260,7 +257,7 @@ input[name="definitionDisplay"] {
 
 .card.flip {
   --rotate-y: 180deg;
-  justify-content: right;
+  /* justify-content: right; */
   padding-right: 1.5rem;
 }
 
@@ -283,4 +280,67 @@ input[name="definitionDisplay"] {
 
 .card .back {
   transform: rotateY(180deg);
+}
+
+
+
+
+/* For splitting the webpage into left and right sections (each with scrollbar), referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/71364923/html-split-page-vertically-in-two-halves-and-allow-individual-scrolling */
+
+.StudySetsBody {
+  /* display: flex; */ /* prevents weird whitespace issues */
+  margin: 0; /* makes the website take up the whole window */
+}
+
+.StudySetsSidePanelSection {
+  display: inline-block; /* inline: allows multiple side by side. block: allows for more complex styling */
+  width: 30%; /* make side panel section have a width of 30% of the window */
+  height: 100vh; /* make the sections take up 100% of the vertical height of the window */
+  overflow-y: auto; /* if the content of a section does not fit, the section will be scrollable vertically (on the y axis) */
+  /* the following css is irrelevant styling */
+  /* font-size: 20vmin; */
+  word-wrap: break-word;
+}
+
+.StudySetsMainSection {
+  align-items: start;
+  display: inline-block; /* inline: allows multiple side by side. block: allows for more complex styling */
+  width: 70%; /* make main section have a width of 70% of the window */
+  height: 100vh; /* make the sections take up 100% of the vertical height of the window */
+  overflow-y: auto; /* if the content of a section does not fit, the section will be scrollable vertically (on the y axis) */
+  /* the following css is irrelevant styling */
+  /* font-size: 20vmin; */
+  word-wrap: break-word;
+}
+
+/* section:nth-child(1) {
+  background-color: yellow;
+}
+section:nth-child(2) {
+  background-color: beige;
+} */
+
+
+.FlashcardsPractice {
+  margin: 1.5rem;
+
+  /* Referred to Tutorial at https://www.w3.org/Style/Examples/007/center.en.html */
+  margin-left: auto;
+  margin-right: auto;
+
+  /* Referred to Tutorial at https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units */
+  width: 20rem;
+
+  font-size: x-large/* larger */;
+  font-weight: 700;
+
+  /* Referred to Tutorial at https://www.w3schools.com/cssref/css_websafe_fonts.php ; Code Demo at https://www.w3schools.com/cssref/tryit.php?filename=trycss_font_brushscriptmt */
+  font-family: 'Brush Script MT', cursive;
+
+  color: darkblue;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+}
+
+.FlashcardsPractice:hover {
+  background: linear-gradient(to right, rgba(173, 216, 230, 0.0), rgba(173, 216, 230, 0.8), rgba(173, 216, 230, 1), rgba(173, 216, 230, 0.8), rgba(173, 216, 230, 0.0));
 }
