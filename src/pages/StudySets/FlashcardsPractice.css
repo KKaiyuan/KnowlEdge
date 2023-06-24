@@ -1,0 +1,80 @@
+.FlashcardsPracticePage {
+    text-align: center;
+
+    /* Referred to tutorial at https://www.w3schools.com/css/css_background_image.asp */
+    /* Referred to tutorial at https://stackoverflow.com/questions/49003911/how-to-use-google-drive-image-inside-css-background-image-url-function */
+    background-image: url("http://drive.google.com/uc?export=view&id=1sbS-C4UekriYtKrplux3yPr8OMP-L_Yp");
+    /* Referred to Youtube Video at the timestamp around https://youtu.be/zHZRFwWQt2w?t=937 */
+    background-size: cover;
+    /* Referred to tutorial at https://www.w3schools.com/cssref/pr_background-attachment.php; sample code at https://www.w3schools.com/cssref/tryit.php?filename=trycss_background-attachment */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Referred to tutorial at https://www.w3schools.com/html/html_images_background.asp */
+    /* background-size: 100% 100%; */
+
+    min-height: 100vh;
+    min-width: 100vh;
+
+    padding-top: 3rem; /* TODO: check why margin does not work for .FlashcardsPracticeHeader - would add white space at the top of the background image */
+}
+
+.FlashcardsPracticeCardDisplay {
+    max-width: 50rem;
+
+    /* Referred to Tutorial at https://www.w3.org/Style/Examples/007/center.en.html */
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 1.5rem;
+}
+
+
+/* Referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/2099252/how-can-i-apply-styles-to-multiple-classes-at-once */
+.FlashcardsPracticeButtonPrevious, .FlashcardsPracticeButtonNext {
+    background-color: hsl(200, 100%, 50%); /* TODO: check why this is not working */
+    font-weight: normal/* 1000 */;
+    color: /* darkblue  */white;
+    padding: .5em 1em;
+    border-radius: .3em;
+    border: none;
+    cursor: pointer;
+    margin: .5em; /* added */
+}
+
+/* Referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/2099252/how-can-i-apply-styles-to-multiple-classes-at-once */
+.FlashcardsPracticeButtonPrevious:hover, .FlashcardsPracticeButtonNext:hover {
+    background-color: hsl(200, 100%, 40%);
+    font-weight: 700/* normal */;
+    color: white;
+}
+
+
+.FlashcardsPracticeHeader h1 {
+    font-weight: 1000;
+    color:darkblue /* #fff */;
+    font-size: 2rem;
+}
+
+
+.FlashcardsPracticeGoBackButton {
+    position: absolute;
+    left: 0px;
+    margin: 2rem;
+}
+
+.FlashcardsPracticeGoBackButton {
+    background-color: hsl(200, 100%, 50%); /* TODO: check why this is not working */
+    font-weight: normal/* 1000 */;
+    color: /* darkblue  */white;
+    padding: .5em 1em;
+    border-radius: .3em;
+    border: none;
+    cursor: pointer;
+    /* margin: .5em; */
+}
+
+.FlashcardsPracticeGoBackButton:hover {
+    background-color: hsl(200, 100%, 40%);
+    font-weight: 700/* normal */;
+    color: white;
+}

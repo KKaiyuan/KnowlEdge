@@ -10,6 +10,7 @@ import CoursePage from './pages/Student-Course-Page-Folder/CoursePage';
 import Announcement from './pages/Announcement-Page-Folder/Announcement';
 import StudentProfileAndNavbarComponent from './pages/studentProfilePage/StudentProfileAndNavbarComponent';
 import StudySets from './pages/StudySets/StudySets';
+import FlashcardsPractice from './pages/StudySets/FlashcardsPractice';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/announcements" element={<Announcement />} />
         <Route path="/profile" element={<StudentProfileAndNavbarComponent />} />
         <Route path="/studysets" element={<StudySets />} />
+        <Route path="/studysets/flashcards" element={<FlashcardsPractice />} />
       </Routes>
     </Router>
   );

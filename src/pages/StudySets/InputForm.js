@@ -46,7 +46,7 @@ export default function InputForm() {
     }
 
     return (
-        <form className="header" onSubmit={handleSubmit}>
+        <form className="InputFormPanel" onSubmit={handleSubmit}>
             <h2>New Flashcards</h2>
             <div className="form-group">
                 <label>
