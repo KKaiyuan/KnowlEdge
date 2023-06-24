@@ -13,13 +13,13 @@ const DashboardStyled = styled.div`
   width: 100%;
   flex-wrap: wrap;
 
-  .container {
+  .card-container {
     display: flex;
 
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
-    min-width: 100%;
+    max-width: 100%;
     padding: 25px 100px;
   }
 
@@ -83,13 +83,13 @@ const StudentDashboard = () => {
     <>
       <NavbarComponent />
       <DashboardStyled>
-        <div className="container no-btm-padding">
-          <h2 className="greeting">Welcome Mirabel</h2>
+        <div className="card-container no-btm-padding">
+          <h2 className="greeting">Welcome Mirabel&nbsp;&nbsp;&nbsp;👋🏻</h2>
           <div>
             <StudentCard />
           </div>
         </div>
-        <div className="container text-align-left">
+        <div className="card-container text-align-left">
           <div>
             <h3 className="section-titles">Study Sets</h3>
             <SmallCard type="study-set" title="CPSC 310 - SLDC" />
@@ -115,14 +115,13 @@ const StudentDashboard = () => {
               Courses
             </h3>
           </div>
-          <div className="container less-top-padding">
+          <div className="card-container less-top-padding">
             <CourseCard title="CPSC 310" onclickfn={handleCourseCardClick} />
             <CourseCard title="CPSC 221" onclickfn={handleCourseCardClick} />
             <CourseCard title="CPSC 213" onclickfn={handleCourseCardClick} />
           </div>
         </div>
       </DashboardStyled>
-    
     </>
   );
 };

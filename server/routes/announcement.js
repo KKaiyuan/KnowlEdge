@@ -1,6 +1,11 @@
-// Code inspired from Workshop 2's react-redux-button-counter-2022 repo: https://github.com/danyakarras/react-redux-button-counter-2022
-const initialState = [
-	{
+// Code inpsired from Workshop 3's cs455-express-demo repo: https://github.com/svmah/cs455-express-demo/tree/add-server
+
+var express = require('express');
+var router = express.Router();
+
+
+var announcements = [
+    {
 		announcement: "Hey class! Remember to submit your CPSC 455 Workshop 2 Survey by 11:59 PM Wednesday.",
 		announcementId: -1,
 		announcementTitle: "Workshop 2 Survey Reminder"
@@ -14,18 +19,21 @@ const initialState = [
 ]
 
 
-const ReducerAnnouncementPage = (allAnnouncements = initialState, action) => {
-	switch(action.type) {
-        case 'ADD_ANNOUNCEMENT':
-            return [...allAnnouncements, action.payload];
-		case 'REMOVE_ANNOUNCEMENT' :
-			return allAnnouncements.filter(
-				(announcement) => announcement.announcementId !== action.payload
-			  );
-		default:
-			return allAnnouncements;
-	}
-};
 
+router.get('/', function (req, res, next) {
+    res.status(200).send(announcements);
+})
 
-export default ReducerAnnouncementPage;
+router.post('/', function(req, res, next) {
+	// announcements = [...announcements, req.body];
+	console.log(req.body);
+	announcements.push(req.body);
+	const announcement = announcements.filter((announcement) => announcement.announcementId === req.body.announcementId);
+	res.status(201).send(announcement[0]);
+})
+
+router.delete('/:id', function(req, res, next) {
+	announcements = announcements.filter((announcement) => announcement.announcementId !== Number(req.params.id));
+	res.status(204).send();
+})
+module.exports = router;
