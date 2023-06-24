@@ -4,7 +4,7 @@
 */
 
 import { Button, Modal } from 'flowbite-react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEnrollModal } from '../StudentDashboard/redux/StudentDashboardSlice';
 import { ListGroup } from 'flowbite-react';
@@ -54,6 +54,8 @@ const CourseEnrollement = () => {
   const [searchContent, setSearchContent] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
+  const rootRef = useRef(null);
+  const inputRef = useRef(null);
 
   const handleInputChange = (event) => {
     setSearchContent(event.target.value);
@@ -94,6 +96,9 @@ const CourseEnrollement = () => {
   };
 
   const handleSelectItem = (event) => {
+    setSearchContent('');
+    inputRef.current.value = '';
+
     const courseToAdd = event.target.textContent;
     setSelectedCourses((prevCourses) => {
       if (!prevCourses.includes(courseToAdd)) {
@@ -106,14 +111,28 @@ const CourseEnrollement = () => {
   };
 
   const handleUnselectCourse = (event) => {
-    console.log(event.target.parent);
+    event.preventDefault();
+    try {
+      const course = event.target.parentNode.childNodes[1].textContent;
+      setSelectedCourses((prevCourses) => {
+        const updatedCourses = prevCourses.filter((c) => c !== course);
+        return updatedCourses;
+      });
+    } catch (e) {
+      console.log("can't remove course");
+    }
   };
 
+  useEffect(() => {
+    inputRef?.current?.focus();
+  }, [inputRef.current]);
+
   return (
-    <>
+    <div ref={rootRef}>
       <Modal
         dismissible
         show={openModal === 'true'}
+        root={rootRef.current ?? undefined}
         onClose={() => setOpenModal(undefined)}
       >
         <Modal.Header>Enroll in a course</Modal.Header>
@@ -141,19 +160,20 @@ const CourseEnrollement = () => {
                     </svg>
                   </div>
                   <input
+                    autoComplete="off"
+                    ref={inputRef}
                     type="text"
                     id="simple-search"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Search"
-                    required
                     onChange={handleInputChange}
                   />
                 </div>
               </div>
               <div>
-                {searchResult.length > 0 && (
+                {searchResult.length > 0 && searchContent && (
                   <ListGroup id="custom-list-item">
-                    {searchResult.map((result, index) => {
+                    {searchResult.slice(0, 4).map((result, index) => {
                       return (
                         <StyleListGroupItem
                           key={index} // Add a unique key prop here
@@ -190,7 +210,7 @@ const CourseEnrollement = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 
