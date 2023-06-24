@@ -8,9 +8,10 @@ const CardStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px 5px;
+  padding: 15px;
   justify-content: space-between;
   height: 270px;
+
   div {
     display: flex;
     width: 100%;

@@ -9,6 +9,7 @@ import CoursePage from './pages/Student-Course-Page-Folder/CoursePage';
 import Announcement from './pages/Announcement-Page-Folder/Announcement';
 import StudentProfileAndNavbarComponent from './pages/studentProfilePage/StudentProfileAndNavbarComponent';
 import StudySets from './pages/StudySets/StudySets';
+import FlashcardsPractice from './pages/StudySets/FlashcardsPractice';
 import CalendarView from './pages/Calendar-Page-Folder/CalendarView';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
@@ -33,6 +34,7 @@ function App() {
         <Route path="/announcements" element={<Announcement />} />
         <Route path="/profile" element={<StudentProfileAndNavbarComponent />} />
         <Route path="/studysets" element={<StudySets />} />
+        <Route path="/studysets/flashcards" element={<FlashcardsPractice />} />
         <Route path="/calendar" element={<CalendarView />} />
       </Routes>
     </Router>

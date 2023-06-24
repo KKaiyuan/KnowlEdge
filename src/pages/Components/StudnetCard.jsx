@@ -16,6 +16,10 @@ const CardStyled = styled.div`
   align-items: center;
   padding: 15px;
 
+  &:hover {
+    color: black;
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -51,13 +55,21 @@ const CardStyled = styled.div`
   .icon {
     cursor: pointer;
   }
+
+  .icon:hover {
+    color: #0074d9;
+  }
+
+  .margin-right {
+    margin-right: 8px;
+  }
 `;
 
 const StudentCard = CardGeneric(() => {
   const navigate = useNavigate();
   return (
     <CardStyled>
-      <div className="rounded-container flex-item">
+      <div className="rounded-container flex-item margin-right">
         <img src={profile_image}></img>
       </div>
       <div className="flex-item">

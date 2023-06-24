@@ -18,6 +18,11 @@ const CardStyled = styled.div`
   margin-bottom: 20px;
   height: 100%;
 
+  &:hover {
+    cursor: default;
+    color: black;
+  }
+
   div {
     display: flex;
     width: 100%;
