@@ -1,5 +1,5 @@
 import NavbarComponent from '../Components/Navbar';
-import StudentCard from '../Components/StudnetCard';
+import StudentCard from '../Components/StudentCard';
 import InformationCard from '../Components/InformationCard';
 import CourseCard from '../Components/CourseCard';
 import SmallCard from '../Components/SmallCard';
