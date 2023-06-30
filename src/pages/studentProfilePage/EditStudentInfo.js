@@ -37,7 +37,18 @@ export default function EditStudentInfo({ student, onSubmit }) {
   return (
     <form className="formContainer" onSubmit={handleSubmit}>
       
-    <p style = {{fontSize: '20px'}}><strong>Contact:</strong></p>
+    <p style = {{fontSize: '20px'}}><strong>Preferred Name:</strong></p>
+
+    <input
+        type="text"
+        id="preferredName"
+        name="preferredName"
+        value={editedStudent.preferredName}
+        onChange={handleChange}
+        style={{ fontSize: 20 }}
+      />
+
+<p style = {{fontSize: '20px'}}><strong>Contact:</strong></p>
       <input
         type="text"
         id="contact"
