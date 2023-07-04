@@ -2,12 +2,15 @@ import { styled } from 'styled-components';
 import CardGeneric from './CardGeneric';
 import profile_image from '../../assets/profile_img.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState, useEffect } from 'react';
 import {
   faPenToSquare,
   faBell,
   faGear,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+import { app } from '../../firebase';
 
 const CardStyled = styled.div`
   width: 300px;
@@ -67,13 +70,29 @@ const CardStyled = styled.div`
 
 const StudentCard = CardGeneric(() => {
   const navigate = useNavigate();
+  const auth = getAuth(app);
+  const [user, setUser] = useState('');
+  const profileImage = user.photoURL ? user.photoURL : profile_image;
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        navigate('/signup');
+      }
+    };
+    fetchUserData();
+  }, []);
+
   return (
     <CardStyled>
       <div className="rounded-container flex-item margin-right">
-        <img src={profile_image}></img>
+        <img src={profileImage}></img>
       </div>
       <div className="flex-item">
-        <h2>Mirabel</h2>
+        <h2>{user.displayName}</h2>
       </div>
       <div className="flex-item icons-container">
         <FontAwesomeIcon

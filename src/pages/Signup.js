@@ -6,6 +6,15 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { app, analytics, auth } from '../firebase';
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  fetchSignInMethodsForEmail,
+} from 'firebase/auth';
+import { useState, useEffect } from 'react';
 
 const theme = createTheme({
   typography: {
@@ -102,6 +111,107 @@ const SignUpStyled = styled.div`
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [nameError, setNameError] = useState('');
+
+  const handleSignUp = () => {
+    if (fullName === '') {
+      setNameError('Invalid Name');
+      return;
+    }
+    if (!validateEmail(email)) {
+      setErrorMessage('Invalid Email');
+      return;
+    }
+    fetchSignInMethodsForEmail(auth, email)
+      .then((signInMethods) => {
+        if (signInMethods && signInMethods.length > 0) {
+          // User with the same email already exists, show error message
+          setErrorMessage(
+            'An account with this email already exists. Please log in instead.'
+          );
+          return;
+        }
+      })
+      .then((signInMethods) => {
+        if (validatePasswordStrength(password)) {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              updateProfile(user, {
+                displayName: fullName,
+              })
+                .then(() => {
+                  navigate('/');
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  console.log(errorCode);
+                  console.log(errorMessage);
+                });
+            })
+            .catch((error) => {
+              // if (error.code === 'auth/email-already-in-use') {
+              //   // Redirect to login with email field populated
+              //   const searchParams = new URLSearchParams();
+              //   searchParams.set('email', email);
+              //   navigate(`/login?${searchParams.toString()}`);
+              // }
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              console.log(errorCode);
+              console.log(errorMessage);
+            });
+        } else {
+          // Password is not strong enough, show error message
+          setPasswordError(
+            'Password should be at least 8 characters long and contain a combination of letters, numbers, and special characters.'
+          );
+        }
+      });
+  };
+
+  const validatePasswordStrength = (password) => {
+    // Password validation rules (change as needed)
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  function validateEmail(email) {
+    // Regular expression pattern for email validation
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return emailPattern.test(email);
+  }
+
+  const handleSignUpWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        navigate('/');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          // Account with the same email already exists, try logging in with Google instead
+          const email = error.email;
+          const googleProvider = new GoogleAuthProvider();
+          googleProvider.setCustomParameters({ login_hint: email });
+
+          signInWithPopup(auth, googleProvider).then((userCredential) => {
+            // Successful sign-in, redirect to dashboard
+            navigate('/dashboard');
+          });
+        }
+        console.log(error.message);
+        console.log(error.code);
+      });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -138,19 +248,36 @@ export default function SignUp() {
                   id="username"
                   variant="outlined"
                   label="Your Full Name"
+                  error={!!nameError}
+                  helperText={nameError}
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
                 <TextField
                   id="email"
                   variant="outlined"
                   label="Your Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  error={!!errorMessage}
+                  helperText={errorMessage}
                 />
                 <TextField
                   id="password"
                   label="Your Password"
-                  helperText="At least 8 characters."
+                  helperText={
+                    passwordError
+                      ? passwordError
+                      : 'Password should be at least 8 characters long and contain a combination of letters, numbers, and special characters.'
+                  }
+                  error={!!passwordError}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="sign-up-button-div">
-                  <Button variant="contained">Create Account</Button>
+                  <Button variant="contained" onClick={handleSignUp}>
+                    Create Account
+                  </Button>
                   <div className="divider-div">
                     <Divider variant="middle">or</Divider>
                   </div>
@@ -163,6 +290,7 @@ export default function SignUp() {
                         src={require('../assets/images/google-icon.png')}
                       />
                     }
+                    onClick={handleSignUpWithGoogle}
                   >
                     Sign up with Google
                   </Button>
@@ -171,7 +299,9 @@ export default function SignUp() {
                   </div>
                   <Button
                     variant="contained"
-                    onClick={() => navigate('/login')}
+                    onClick={() => {
+                      navigate('/login');
+                    }}
                   >
                     Login
                   </Button>

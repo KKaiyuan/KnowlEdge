@@ -2,11 +2,17 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { Avatar, createTheme, ThemeProvider } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useState } from 'react';
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { app, auth, analytics } from '../firebase';
 
 const theme = createTheme({
   typography: {
@@ -111,6 +117,51 @@ const LoginStyled = styled.div`
 
 export default function Login() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleLogIn = () => {
+    if (!validateEmail(email)) {
+      setErrorMessage('Invalid Email');
+      return;
+    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigate('/');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          // Email does not exist, show error message
+          setErrorMessage(
+            'Invalid email address. Please check your email and try again.'
+          );
+        } else if (error.code === 'auth/wrong-password') {
+          // Password does not match, show error message
+          setErrorMessage(
+            'Invalid password. Please check your password and try again.'
+          );
+        } else {
+          console.log('Error logging in:', error);
+        }
+      });
+  };
+
+  function validateEmail(email) {
+    // Regular expression pattern for email validation
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return emailPattern.test(email);
+  }
+
+  const handleLoginWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(provider, auth)
+      .then((result) => {})
+      .catch((error) => {});
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <LoginStyled>
@@ -145,15 +196,21 @@ export default function Login() {
                   id="username"
                   variant="outlined"
                   label="Your Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  error={!!errorMessage}
+                  helperText={errorMessage}
                 />
 
                 <TextField
                   id="password"
                   variant="outlined"
                   label="Your Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="login-button-div">
-                  <Button variant="contained" onClick={() => navigate('/')}>
+                  <Button variant="contained" onClick={handleLogIn}>
                     Login
                   </Button>
                   <div className="divider-div">
@@ -168,6 +225,7 @@ export default function Login() {
                         src={require('../assets/images/google-icon.png')}
                       />
                     }
+                    onClick={handleLoginWithGoogle}
                   >
                     Sign in with Google
                   </Button>
