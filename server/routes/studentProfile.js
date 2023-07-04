@@ -17,7 +17,7 @@ let student =
 
 // EDIT STUDENT PROFILE
 router.patch('/', function(req, res, next) {
-  student.preferredName = student.preferredName;
+  student.preferredName = req.body.preferredName;
   student.contact = req.body.contact;
   student.aboutMe = req.body.aboutMe;
   res.status(200).send(student);

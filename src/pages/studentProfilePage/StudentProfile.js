@@ -44,7 +44,7 @@ export default function StudentProfile() {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 0%;
+    margin-left: -5%;
   }
   
   .middle-section {
@@ -73,7 +73,7 @@ export default function StudentProfile() {
     margin-top: 20px;
     order: 4;
     flex: 100%;
-    margin-left: 10%;
+    margin-left: 0%;
   }
   
   .aboutMeHeading {
