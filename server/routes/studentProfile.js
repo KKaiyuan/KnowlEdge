@@ -1,6 +1,23 @@
 var express = require('express');
 var router = express.Router();
+var { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 
+const mongoURI =
+  "mongodb+srv://test:7ueN1afSy5AyI81v@cluster0.xvtwtwp.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(mongoURI);
+
+async function connect() {
+  // https://www.youtube.com/watch?v=bhiEJW5poHU&ab_channel=ArpanNeupane CONNECT NODE.JS TO MONGODB
+  try {
+    await mongoose.connect(mongoURI);
+    console.log("CONNECTED");
+  } catch (error) {
+    console.log(error);
+  }
+}
+connect();
 
 
 let student = 
@@ -16,7 +33,19 @@ let student =
 
 
 // EDIT STUDENT PROFILE
-router.patch('/', function(req, res, next) {
+router.patch('/', async function(req, res, next) {
+  try {
+    //  console.log("HERE");
+      await client.connect();
+      const database = client.db("KnowlEdge");
+      const collection = database.collection("Student");
+      const item = await collection.updateOne({faculty: "Science"}, {$set: {preferredName: req.body.preferredName, contact: req.body.contact, aboutMe: req.body.aboutMe}});
+      
+      
+} catch (error) {
+  console.log(error);
+  return res.status(404).send("NOT FOUND");
+}
   student.preferredName = req.body.preferredName;
   student.contact = req.body.contact;
   student.aboutMe = req.body.aboutMe;
@@ -24,9 +53,37 @@ router.patch('/', function(req, res, next) {
 });
 
 
-router.get('/', function(req, res, next) {
-  res.status(200).send(student);
-})
+router.get('/', async function(req, res, next) {
+  let items = [];
+  try {
+    //  console.log("HERE");
+      await client.connect();
+      const database = client.db("KnowlEdge");
+      const collection = database.collection("Student");
+      const item = await collection.find(
+        {},
+        {_id: 0, preferredName: 1, faculty: 1, major: 1, contact: 1, image: 1, aboutMe: 1} 
+      );
+      for await (const doc of item) {
+        items.push(doc);
+      }
+  
+} catch (error) {
+  console.log(error);
+  return res.status(404).send("NOT FOUND");
+}
+
+let obj = {
+  preferredName: items[0].preferredName,
+  faculty: items[0].faculty,
+  major: items[0].major,
+  contact: items[0].contact,
+  image: items[0].image,
+  aboutMe: items[0].aboutMe
+}
+
+res.status(200).send(obj);
+});
 
 module.exports = router;
 
