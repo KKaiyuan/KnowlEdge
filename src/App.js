@@ -13,6 +13,9 @@ import FlashcardsPractice from './pages/StudySets/FlashcardsPractice';
 import CalendarView from './pages/Calendar-Page-Folder/CalendarView';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
+import RequireAuth from './pages/Components/RequireAuth';
+import EmailVerification from './pages/EmailVerification';
+
 console.warn = () => {};
 
 function App() {
@@ -27,15 +30,65 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<StudentDashboard />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <StudentDashboard />
+            </RequireAuth>
+          }
+        />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/courses/*" element={<CoursePage />} />
-        <Route path="/announcements" element={<Announcement />} />
-        <Route path="/profile" element={<StudentProfileAndNavbarComponent />} />
-        <Route path="/studysets" element={<StudySets />} />
-        <Route path="/studysets/flashcards" element={<FlashcardsPractice />} />
-        <Route path="/calendar" element={<CalendarView />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/emailverification" element={<EmailVerification />} />
+        <Route
+          path="/courses/*"
+          element={
+            <RequireAuth>
+              <CoursePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/announcements"
+          element={
+            <RequireAuth>
+              <Announcement />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <StudentProfileAndNavbarComponent />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/studysets"
+          element={
+            <RequireAuth>
+              <StudySets />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/studysets/flashcards"
+          element={
+            <RequireAuth>
+              <FlashcardsPractice />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <RequireAuth>
+              <CalendarView />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </Router>
   );

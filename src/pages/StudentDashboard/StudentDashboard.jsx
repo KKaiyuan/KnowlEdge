@@ -1,11 +1,14 @@
 import NavbarComponent from '../Components/Navbar';
-import StudentCard from '../Components/StudnetCard';
+import StudentCard from '../Components/StudentCard';
 import InformationCard from '../Components/InformationCard';
 import CourseCard from '../Components/CourseCard';
 import SmallCard from '../Components/SmallCard';
 import { styled } from 'styled-components';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+import { app } from '../../firebase';
+import { useState, useEffect } from 'react';
 
 const DashboardStyled = styled.div`
   display: flex;
@@ -74,6 +77,20 @@ const DashboardStyled = styled.div`
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
+  const auth = getAuth(app);
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        navigate('/signup');
+      }
+    };
+    fetchUserData();
+  }, []);
 
   const handleCourseCardClick = (courseTitle) => {
     navigate(`/courses/${courseTitle}`);
@@ -84,7 +101,9 @@ const StudentDashboard = () => {
       <NavbarComponent />
       <DashboardStyled>
         <div className="card-container no-btm-padding">
-          <h2 className="greeting">Welcome Mirabel&nbsp;&nbsp;&nbsp;👋🏻</h2>
+          <h2 className="greeting">
+            Welcome {user.displayName}&nbsp;&nbsp;&nbsp;👋🏻
+          </h2>
           <div>
             <StudentCard />
           </div>

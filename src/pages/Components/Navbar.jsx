@@ -15,6 +15,9 @@ import styled from 'styled-components';
 import CourseEnrollement from './CourseEnrollement';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEnrollModal } from '../StudentDashboard/redux/StudentDashboardSlice';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
 
 const CustomNavbarLink = styled(Navbar.Link)`
   &:hover {
@@ -31,6 +34,17 @@ const NavbarComponent = () => {
     (state) => state.studentDashboardReducer
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      navigate('/signup'); // Redirect to the login page after signing out
+    } catch (error) {
+      console.log('Error signing out:', error);
+    }
+  };
 
   return (
     <>
@@ -173,6 +187,7 @@ const NavbarComponent = () => {
             </Dropdown>
           </CustomNavbarLink>
         </Navbar.Collapse>
+        <Button onClick={handleSignOut}>Log Out</Button>
       </CustomNavbar>
     </>
   );
