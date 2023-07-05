@@ -6,15 +6,16 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { app, analytics, auth } from '../firebase';
+import { auth } from '../firebase';
 import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
   updateProfile,
   fetchSignInMethodsForEmail,
+  sendEmailVerification,
 } from 'firebase/auth';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const theme = createTheme({
   typography: {
@@ -127,6 +128,12 @@ export default function SignUp() {
       setErrorMessage('Invalid Email');
       return;
     }
+    if (isGoogleEmail(email)) {
+      setErrorMessage(
+        'This is a google email please use the Sign in with Google option instead'
+      );
+      return;
+    }
     fetchSignInMethodsForEmail(auth, email)
       .then((signInMethods) => {
         if (signInMethods && signInMethods.length > 0) {
@@ -137,7 +144,7 @@ export default function SignUp() {
           return;
         }
       })
-      .then((signInMethods) => {
+      .then(() => {
         if (validatePasswordStrength(password)) {
           createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -146,7 +153,14 @@ export default function SignUp() {
                 displayName: fullName,
               })
                 .then(() => {
-                  navigate('/');
+                  sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                      navigate('/emailverification');
+                    })
+                    .catch((error) => {
+                      console.log(error.code);
+                      console.log(error.message);
+                    });
                 })
                 .catch((error) => {
                   const errorCode = error.code;
@@ -190,6 +204,12 @@ export default function SignUp() {
     return emailPattern.test(email);
   }
 
+  const isGoogleEmail = (email) => {
+    const googleEmailRegex =
+      /@gmail\.com$|^[\w.+-]+@(googlemail|google)\.[a-z]{2,}$/i;
+    return googleEmailRegex.test(email);
+  };
+
   const handleSignUpWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
@@ -197,19 +217,10 @@ export default function SignUp() {
         navigate('/');
       })
       .catch((error) => {
-        if (error.code === 'auth/account-exists-with-different-credential') {
-          // Account with the same email already exists, try logging in with Google instead
-          const email = error.email;
-          const googleProvider = new GoogleAuthProvider();
-          googleProvider.setCustomParameters({ login_hint: email });
-
-          signInWithPopup(auth, googleProvider).then((userCredential) => {
-            // Successful sign-in, redirect to dashboard
-            navigate('/dashboard');
-          });
-        }
-        console.log(error.message);
-        console.log(error.code);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
       });
   };
 
@@ -292,7 +303,7 @@ export default function SignUp() {
                     }
                     onClick={handleSignUpWithGoogle}
                   >
-                    Sign up with Google
+                    Sign in with Google
                   </Button>
                   <div className="divider-div">
                     <Divider variant="middle">or</Divider>

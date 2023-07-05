@@ -12,7 +12,7 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { app, auth, analytics } from '../firebase';
+import { auth } from '../firebase';
 
 const theme = createTheme({
   typography: {
@@ -122,13 +122,19 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogIn = () => {
+    if (isGoogleEmail(email)) {
+      setErrorMessage(
+        'This is a google email address, use the log in with google option instead'
+      );
+      return;
+    }
     if (!validateEmail(email)) {
       setErrorMessage('Invalid Email');
       return;
     }
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
         navigate('/');
       })
       .catch((error) => {
@@ -157,9 +163,22 @@ export default function Login() {
 
   const handleLoginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(provider, auth)
-      .then((result) => {})
-      .catch((error) => {});
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        navigate('/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  };
+
+  const isGoogleEmail = (email) => {
+    const googleEmailRegex =
+      /@gmail\.com$|^[\w.+-]+@(googlemail|google)\.[a-z]{2,}$/i;
+    return googleEmailRegex.test(email);
   };
 
   return (
