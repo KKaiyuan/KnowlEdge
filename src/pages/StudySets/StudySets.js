@@ -11,6 +11,14 @@ function StudySets() {
       <div className="StudySetsBody">
         <section className="StudySetsMainSection">
           <header className="StudySets-header">
+            <button
+              className="StudySetsGoBackButton"
+              onClick={() => navigate('/')} // TODO: figure out how to go back to the page calling this StudySets page
+            >
+              Go Back
+            </button>{' '}
+            {/* TODO: figure how how to type the left arrow <-- in html */}
+
             <h1>Spécialités gastronomiques françaises</h1>
           </header>
           <div className="studysets_container">

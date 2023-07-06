@@ -11,7 +11,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import DetailedView from './DetailedView'
 import { useDispatch } from 'react-redux'
-import { changeDefinition, changeDescription, changeImageURL, changeTerm, deleteFlashcard } from '../../actions'
+import { deleteFlashcardAsync, patchDefinitionAsync, patchTermAsync, patchDescriptionAsync, patchImageURLAsync } from './redux/StudySetsThunks'
 
 export default function Flashcard({ flashcard }) {
     const [flip, setFlip] = useState(false)
@@ -40,7 +40,7 @@ export default function Flashcard({ flashcard }) {
     const dispatch = useDispatch();
 
     function handleDelete(key) {
-        dispatch(deleteFlashcard(key));
+        dispatch(deleteFlashcardAsync(key));
         // console.log("Delete button clicked!");
         // console.log("key: " + key);
     };
@@ -51,25 +51,49 @@ export default function Flashcard({ flashcard }) {
     const handleSetTerm = (event) => {
         const value = event.target.value;
         setTerm(value);
-        dispatch(changeTerm(flashcard.id, value)); // TODO: check
+
+        const dispatchThunkObject = {
+            flashcardId : flashcard.id,
+            term : value
+        }
+
+        dispatch(patchTermAsync(dispatchThunkObject));
     };
 
     const handleSetDefinition = (event) => {
         const value = event.target.value;
         setDefinition(value);
-        dispatch(changeDefinition(flashcard.id, value)); // TODO: check
+
+        const dispatchThunkObject = {
+            flashcardId : flashcard.id,
+            definition : value
+        }
+
+        dispatch(patchDefinitionAsync(dispatchThunkObject));
     };
 
     const handleSetDescription = (event) => {
         const value = event.target.value;
         setTerm(value);
-        dispatch(changeDescription(flashcard.id, value)); // TODO: check
+
+        const dispatchThunkObject = {
+            flashcardId : flashcard.id,
+            description : value
+        }
+
+        dispatch(patchDescriptionAsync(dispatchThunkObject));
     };
 
     const handleSetImageURL = (event) => {
         const value = event.target.value;
         setTerm(value);
-        dispatch(changeImageURL(flashcard.id, value)); // TODO: check
+
+        const dispatchThunkObject = {
+            flashcardId : flashcard.id,
+            imageURL : value
+        }
+
+        dispatch(patchImageURLAsync(dispatchThunkObject));
     };
 
 

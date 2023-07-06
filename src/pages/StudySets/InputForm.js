@@ -12,6 +12,7 @@
 import React from 'react';
 import { addFlashcard, increment } from '../../actions/index.js';
 import { useDispatch, useSelector } from 'react-redux';
+import { addFlashcardAsync } from './redux/StudySetsThunks.js';
 
 export default function InputForm() {
     const index = useSelector(state => state.indexCount);
@@ -36,13 +37,10 @@ export default function InputForm() {
         const newFlashcard /* formJson */ = Object.fromEntries(formData.entries());
         // console.log(formJson);
 
-        dispatch(increment(1));
 
-        // Referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/1168807/how-can-i-add-a-key-value-pair-to-a-javascript-object
-        // Referred to the code to set the id at https://github.com/WebDevSimplified/React-Flashcard-App/blob/master/src/App.js
-        newFlashcard["id"] = index + 1; // TODO: check why index at this point is always one less than the intended ID
-
-        dispatch(addFlashcard(newFlashcard));
+        // Referred to StackOverflow Answer #1 at https://stackoverflow.com/questions/73606974/how-to-get-a-return-value-from-dispatching-an-action
+        // Referred to Tutorial at https://redux-toolkit.js.org/api/createAsyncThunk#unwrapping-result-actions
+        const serverResponse = /* await */ dispatch(addFlashcardAsync(newFlashcard)).unwrap(); // TODO: check why await cannot be here
     }
 
     return (

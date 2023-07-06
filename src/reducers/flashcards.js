@@ -1,3 +1,5 @@
+// This file is supposed to be deprecated
+
 // Reference Material:
 // Danya's Sample Code at https://github.com/danyakarras/react-redux-button-counter-2022/blob/main/src/reducers/buttonCount.js
 // Stephanie's Slide at https://docs.google.com/presentation/d/1E3wPQHLgIr4a1p2ZiKexwzFBxX3ZqUr8/edit#slide=id.p22

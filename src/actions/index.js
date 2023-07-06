@@ -1,3 +1,5 @@
+// This file is supposed to be deprecated
+
 export const updateDetails = updatedDetails => {
     return {
       type: 'editDetails',
@@ -42,7 +44,7 @@ export const changeTerm = (flashcardID, newTerm) => {
 export const changeDefinition = (flashcardID, newDefinition) => {
   // console.log(newDefinition);
   return {
-    type: 'CHANGE_TERM',
+    type: 'CHANGE_DEFINITION',
     payload: newDefinition,
     id: flashcardID
   }
@@ -51,7 +53,7 @@ export const changeDefinition = (flashcardID, newDefinition) => {
 export const changeDescription = (flashcardID, newDescription) => {
   // console.log(newDescription);
   return {
-    type: 'CHANGE_TERM',
+    type: 'CHANGE_DESCRIPTION',
     payload: newDescription,
     id: flashcardID
   }
