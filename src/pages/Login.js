@@ -13,7 +13,6 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../firebase';
-
 const theme = createTheme({
   typography: {
     button: {
