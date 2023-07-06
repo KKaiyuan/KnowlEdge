@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchStudentInfoAsync } from './thunks.js';
 
 const initialState = {
   showEnrollModal: false,
   searchContent: '',
+  studentInfo: '',
 };
 
 const studentDashboardSlice = createSlice({
@@ -15,6 +17,11 @@ const studentDashboardSlice = createSlice({
     setSearchContent: (state, action) => {
       state.searchContent = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchStudentInfoAsync.fulfilled, (state, action) => {
+      state.studentInfo = action.payload;
+    });
   },
 });
 

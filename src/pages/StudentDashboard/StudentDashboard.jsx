@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../firebase';
 import { useState, useEffect } from 'react';
-import { getStudentProfileAsync } from '../studentProfilePage/thunks';
+import { fetchStudentInfoAsync } from './redux/thunks';
 import { useSelector, useDispatch } from 'react-redux';
 
 const DashboardStyled = styled.div`
@@ -81,20 +81,21 @@ const StudentDashboard = () => {
   const navigate = useNavigate();
   const auth = getAuth(app);
   const [user, setUser] = useState('');
-
-  const studentInfo = useSelector(
-    (state) => state.studentProfileReducer.student
-  );
-  const [studentCourses, setStudentCourses] = useState([]);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getStudentProfileAsync());
+    dispatch(fetchStudentInfoAsync());
   }, [dispatch]);
+
+  const studentInfo = useSelector(
+    (state) => state.studentDashboardReducer.studentInfo
+  );
+
+  const [studentCourses, setStudentCourses] = useState([]);
 
   useEffect(() => {
     setStudentCourses(studentInfo.courses);
+    console.log(studentCourses);
   }, [studentInfo]);
 
   useEffect(() => {
