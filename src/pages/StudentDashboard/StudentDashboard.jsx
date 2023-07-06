@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../firebase';
 import { useState, useEffect } from 'react';
+import { getStudentProfileAsync } from '../studentProfilePage/thunks';
+import { useSelector, useDispatch } from 'react-redux';
 
 const DashboardStyled = styled.div`
   display: flex;
@@ -79,6 +81,22 @@ const StudentDashboard = () => {
   const navigate = useNavigate();
   const auth = getAuth(app);
   const [user, setUser] = useState('');
+
+  const studentInfo = useSelector(
+    (state) => state.studentProfileReducer.student
+  );
+  const [studentCourses, setStudentCourses] = useState([]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getStudentProfileAsync());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setStudentCourses(studentInfo.courses);
+    console.log(studentCourses);
+  }, [studentInfo]);
 
   useEffect(() => {
     const fetchUserData = async () => {

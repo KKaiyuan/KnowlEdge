@@ -8,6 +8,7 @@ const studentSchema = new mongoose.Schema(
     contact: String,
     image: String,
     aboutMe: String,
+    courses: [String],
   },
   { versionKey: false }
 );
