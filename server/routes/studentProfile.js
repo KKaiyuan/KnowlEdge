@@ -1,89 +1,60 @@
 var express = require('express');
 var router = express.Router();
-var { MongoClient } = require("mongodb");
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
+const Student = require('../database/model');
 
-const mongoURI =
-  "mongodb+srv://test:7ueN1afSy5AyI81v@cluster0.xvtwtwp.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(mongoURI);
-
-async function connect() {
-  // https://www.youtube.com/watch?v=bhiEJW5poHU&ab_channel=ArpanNeupane CONNECT NODE.JS TO MONGODB
-  try {
-    await mongoose.connect(mongoURI);
-    console.log("CONNECTED");
-  } catch (error) {
-    console.log(error);
-  }
-}
-connect();
-
-
-let student = 
-  {
-    preferredName: "Bob Jones",
-    faculty: "Science",
-    major: "Computer Science",
-    contact: "bob.jones@gmail.com",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/800px-Twemoji_1f600.svg.png",
-    aboutMe: "October arrived, spreading a damp chill over the grounds and into the castle. Madam Pomfrey, the nurse, was kept busy by a sudden spate of colds among the staff and students. Her Pepperup potion worked instantly, though it left the drinker smoking at the ears for several hours afterward. Ginny Weasley, who had been looking pale, was bullied into taking some by Percy. The steam pouring from under her vivid hair gave the impression that her whole head was on fire. Raindrops the size of bullets thundered on the castle windows for days on end; the lake rose, the flower beds turned into muddy streams, and Hagrid's pumpkins swelled to the size of garden sheds. Oliver Wood's enthusiasm for regular training sessions, however, was not dampened, which was why Harry was to be found, late one stormy Saturday afternoon a few days before Halloween, returning to Gryffindor Tower, drenched to the skin and splattered with mud."
-  }
-
-
+let student = {
+  preferredName: 'Bob Jones',
+  faculty: 'Science',
+  major: 'Computer Science',
+  contact: 'bob.jones@gmail.com',
+  image:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/800px-Twemoji_1f600.svg.png',
+  aboutMe:
+    "October arrived, spreading a damp chill over the grounds and into the castle. Madam Pomfrey, the nurse, was kept busy by a sudden spate of colds among the staff and students. Her Pepperup potion worked instantly, though it left the drinker smoking at the ears for several hours afterward. Ginny Weasley, who had been looking pale, was bullied into taking some by Percy. The steam pouring from under her vivid hair gave the impression that her whole head was on fire. Raindrops the size of bullets thundered on the castle windows for days on end; the lake rose, the flower beds turned into muddy streams, and Hagrid's pumpkins swelled to the size of garden sheds. Oliver Wood's enthusiasm for regular training sessions, however, was not dampened, which was why Harry was to be found, late one stormy Saturday afternoon a few days before Halloween, returning to Gryffindor Tower, drenched to the skin and splattered with mud.",
+};
 
 // EDIT STUDENT PROFILE
-router.patch('/', async function(req, res, next) {
+router.patch('/', async function (req, res, next) {
   try {
-    //  console.log("HERE");
-      await client.connect();
-      const database = client.db("KnowlEdge");
-      const collection = database.collection("Student");
-      const item = await collection.updateOne({faculty: "Science"}, {$set: {preferredName: req.body.preferredName, contact: req.body.contact, aboutMe: req.body.aboutMe}});
-      
-      
-} catch (error) {
-  console.log(error);
-  return res.status(404).send("NOT FOUND");
-}
+    const item = await Student.updateOne(
+      { faculty: 'Science' },
+      {
+        $set: {
+          preferredName: req.body.preferredName,
+          contact: req.body.contact,
+          aboutMe: req.body.aboutMe,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    return res.status(404).send('NOT FOUND');
+  }
   student.preferredName = req.body.preferredName;
   student.contact = req.body.contact;
   student.aboutMe = req.body.aboutMe;
   res.status(200).send(student);
 });
 
-
-router.get('/', async function(req, res, next) {
+router.get('/', async function (req, res, next) {
   let items = [];
   try {
-    //  console.log("HERE");
-      await client.connect();
-      const database = client.db("KnowlEdge");
-      const collection = database.collection("Student");
-      const item = await collection.find(
-        {},
-        {_id: 0, preferredName: 1, faculty: 1, major: 1, contact: 1, image: 1, aboutMe: 1} 
-      );
-      for await (const doc of item) {
-        items.push(doc);
-      }
-  
-} catch (error) {
-  console.log(error);
-  return res.status(404).send("NOT FOUND");
-}
+    items = await Student.find();
+  } catch (error) {
+    console.log(error);
+    return res.status(404).send('NOT FOUND');
+  }
 
-let obj = {
-  preferredName: items[0].preferredName,
-  faculty: items[0].faculty,
-  major: items[0].major,
-  contact: items[0].contact,
-  image: items[0].image,
-  aboutMe: items[0].aboutMe
-}
+  let obj = {
+    preferredName: items[0].preferredName,
+    faculty: items[0].faculty,
+    major: items[0].major,
+    contact: items[0].contact,
+    image: items[0].image,
+    aboutMe: items[0].aboutMe,
+  };
 
-res.status(200).send(obj);
+  res.status(200).send(obj);
 });
 
 module.exports = router;
-

@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var studentProfileRouter = require('./routes/studentProfile');
 var announcementRouter = require('./routes/announcement');
 var app = express();
+const db = require('./database/db');
 var cors = require('cors');
 
 app.use(logger('dev'));
