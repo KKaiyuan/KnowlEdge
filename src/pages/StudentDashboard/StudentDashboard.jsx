@@ -95,7 +95,6 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     setStudentCourses(studentInfo.courses);
-    console.log(studentCourses);
   }, [studentInfo]);
 
   useEffect(() => {
@@ -153,9 +152,16 @@ const StudentDashboard = () => {
             </h3>
           </div>
           <div className="card-container less-top-padding">
-            <CourseCard title="CPSC 310" onclickfn={handleCourseCardClick} />
-            <CourseCard title="CPSC 221" onclickfn={handleCourseCardClick} />
-            <CourseCard title="CPSC 213" onclickfn={handleCourseCardClick} />
+            {studentCourses.map((course) => {
+              const [courseCode] = course.split(' - ');
+              return (
+                <CourseCard
+                  key={courseCode}
+                  title={course}
+                  onclickfn={handleCourseCardClick}
+                />
+              );
+            })}
           </div>
         </div>
       </DashboardStyled>
