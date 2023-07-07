@@ -59,4 +59,27 @@ router.get('/', async function (req, res, next) {
   res.status(200).send(obj);
 });
 
+router.patch('/courses', async function (req, res, next) {
+  const { courses } = req.body;
+
+  try {
+    // TODO: need to change to findbyidandupdate
+    const updatedStudent = await Student.updateOne(
+      {},
+      { $set: { courses: courses } },
+      { new: true }
+    );
+
+    if (updatedStudent === null) {
+      return res.status(400).json({ error: 'Student does not exist' });
+    } else {
+      student.courses = courses;
+      return res.status(200).json(updatedStudent);
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;

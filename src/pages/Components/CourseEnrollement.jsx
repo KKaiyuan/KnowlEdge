@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setEnrollModal } from '../StudentDashboard/redux/StudentDashboardSlice';
 import { ListGroup } from 'flowbite-react';
 import styled from 'styled-components';
+import { patchStudentCoursesAsync } from '../StudentDashboard/redux/thunks';
 
 const StyleListGroupItem = styled(ListGroup.Item)`
   button:hover {
@@ -57,6 +58,29 @@ const CourseEnrollement = () => {
   const rootRef = useRef(null);
   const inputRef = useRef(null);
 
+  const dispatch = useDispatch();
+
+  const studentCourses = useSelector(
+    (state) => state.studentDashboardReducer.studentInfo.courses
+  );
+
+  const [initializedStudentCourse, setInitializedStudentCourse] =
+    useState(false);
+
+  useEffect(() => {
+    if (studentCourses && !initializedStudentCourse) {
+      const newCourses = studentCourses.filter(
+        (course) => !selectedCourses.includes(course)
+      );
+      setSelectedCourses(newCourses);
+      setInitializedStudentCourse(true);
+    }
+  }, [studentCourses, initializedStudentCourse, selectedCourses]);
+
+  useEffect(() => {
+    dispatch(patchStudentCoursesAsync(selectedCourses));
+  }, [selectedCourses]);
+
   const handleInputChange = (event) => {
     setSearchContent(event.target.value);
     findCourse();
@@ -89,7 +113,6 @@ const CourseEnrollement = () => {
   const openModal = useSelector(
     (state) => state.studentDashboardReducer.showEnrollModal
   );
-  const dispatch = useDispatch();
 
   const setOpenModal = (payload) => {
     dispatch(setEnrollModal(payload));
@@ -206,7 +229,7 @@ const CourseEnrollement = () => {
         </Modal.Body>
         <Modal.Footer className="flex justify-end">
           <Button color="gray" onClick={() => setOpenModal(undefined)}>
-            Enroll
+            Done
           </Button>
         </Modal.Footer>
       </Modal>

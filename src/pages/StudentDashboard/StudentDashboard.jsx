@@ -95,7 +95,6 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     setStudentCourses(studentInfo.courses);
-    console.log(studentCourses);
   }, [studentInfo]);
 
   useEffect(() => {
@@ -153,7 +152,7 @@ const StudentDashboard = () => {
             </h3>
           </div>
           <div className="card-container less-top-padding">
-            {studentCourses.map((course) => {
+            {studentCourses?.map((course) => {
               const [courseCode] = course.split(' - ');
               return (
                 <CourseCard

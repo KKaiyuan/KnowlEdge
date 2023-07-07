@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchStudentInfoAsync } from './thunks.js';
+import { fetchStudentInfoAsync, patchStudentCoursesAsync } from './thunks.js';
 
 const initialState = {
   showEnrollModal: false,
@@ -19,9 +19,16 @@ const studentDashboardSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchStudentInfoAsync.fulfilled, (state, action) => {
-      state.studentInfo = action.payload;
-    });
+    builder
+      .addCase(fetchStudentInfoAsync.fulfilled, (state, action) => {
+        state.studentInfo = action.payload;
+      })
+      .addCase(patchStudentCoursesAsync.fulfilled, (state, action) => {
+        state.studentInfo = {
+          ...state.studentInfo,
+          courses: [...action.meta.arg],
+        };
+      });
   },
 });
 
