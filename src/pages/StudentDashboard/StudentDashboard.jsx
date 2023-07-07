@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../firebase';
 import { useState, useEffect } from 'react';
+import { fetchStudentInfoAsync } from './redux/thunks';
+import { useSelector, useDispatch } from 'react-redux';
 
 const DashboardStyled = styled.div`
   display: flex;
@@ -79,6 +81,21 @@ const StudentDashboard = () => {
   const navigate = useNavigate();
   const auth = getAuth(app);
   const [user, setUser] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchStudentInfoAsync());
+  }, [dispatch]);
+
+  const studentInfo = useSelector(
+    (state) => state.studentDashboardReducer.studentInfo
+  );
+
+  const [studentCourses, setStudentCourses] = useState([]);
+
+  useEffect(() => {
+    setStudentCourses(studentInfo.courses);
+  }, [studentInfo]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -135,9 +152,16 @@ const StudentDashboard = () => {
             </h3>
           </div>
           <div className="card-container less-top-padding">
-            <CourseCard title="CPSC 310" onclickfn={handleCourseCardClick} />
-            <CourseCard title="CPSC 221" onclickfn={handleCourseCardClick} />
-            <CourseCard title="CPSC 213" onclickfn={handleCourseCardClick} />
+            {studentCourses?.map((course) => {
+              const [courseCode] = course.split(' - ');
+              return (
+                <CourseCard
+                  key={courseCode}
+                  title={course}
+                  onclickfn={handleCourseCardClick}
+                />
+              );
+            })}
           </div>
         </div>
       </DashboardStyled>
