@@ -9,6 +9,7 @@ import { editStudentProfileAsync } from './thunks';
 import { getStudentProfileAsync } from './thunks';
 import { styled } from 'styled-components';
 
+
 export default function StudentProfile() {
   const [editMode, setEditMode] = useState(false);
  
@@ -93,6 +94,7 @@ export default function StudentProfile() {
 
   useEffect(() => {
     dispatch(getStudentProfileAsync());
+    console.log(process.env.MONGO_DB_URL);
   }, []);
 
   const student = useSelector((state) => state.studentProfileReducer.student);

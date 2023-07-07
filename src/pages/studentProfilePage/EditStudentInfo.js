@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { editStudentProfileAsync } from './thunks';
 
 export default function EditStudentInfo({ student, onSubmit }) {
@@ -8,6 +8,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // setEditedStudent((prevStudent) => ({ ...prevStudent, preferredName: '' }));
     setEditedStudent((prevStudent) => ({ ...prevStudent, preferredName: '' }));
   }, []);
 
@@ -21,25 +22,26 @@ export default function EditStudentInfo({ student, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("ERE" + editedStudent);
-    dispatch(editStudentProfileAsync(editedStudent));
-  //  dispatch(getItemsAsync());
-  //   setNewTask({ // clear form after add new item
-  //     title: "",
-  //     description: "",
-  //     price: "",
-  //     image: ""
-  //   });
-  //   dispatch(getItemsAsync(editedStudent));
+    console.log('ERE' + editedStudent.preferredName);
+    // dispatch(editStudentProfileAsync(editedStudent));
+    //  dispatch(getItemsAsync());
+    //   setNewTask({ // clear form after add new item
+    //     title: "",
+    //     description: "",
+    //     price: "",
+    //     image: ""
+    //   });
+    //   dispatch(getItemsAsync(editedStudent));
     onSubmit(editedStudent);
   };
 
   return (
     <form className="formContainer" onSubmit={handleSubmit}>
-      
-    <p style = {{fontSize: '20px'}}><strong>Preferred Name:</strong></p>
+      <p style={{ fontSize: '20px' }}>
+        <strong>Preferred Name:</strong>
+      </p>
 
-    <input
+      <input
         type="text"
         id="preferredName"
         name="preferredName"
@@ -48,7 +50,9 @@ export default function EditStudentInfo({ student, onSubmit }) {
         style={{ fontSize: 20 }}
       />
 
-<p style = {{fontSize: '20px'}}><strong>Contact:</strong></p>
+      <p style={{ fontSize: '20px' }}>
+        <strong>Contact:</strong>
+      </p>
       <input
         type="text"
         id="contact"
@@ -58,7 +62,9 @@ export default function EditStudentInfo({ student, onSubmit }) {
         style={{ fontSize: 20 }}
       />
 
-      <p style = {{fontSize: '20px'}}><strong>About Me:</strong></p>
+      <p style={{ fontSize: '20px' }}>
+        <strong>About Me:</strong>
+      </p>
       <textarea
         id="aboutMe"
         name="aboutMe"
@@ -68,7 +74,11 @@ export default function EditStudentInfo({ student, onSubmit }) {
         onChange={handleChange}
         style={{ fontSize: 20 }}
       />
-      <Button variant="contained" type="submit" style={{ width: 150, height: 50, fontSize: 30 }}>
+      <Button
+        variant="contained"
+        type="submit"
+        style={{ width: 150, height: 50, fontSize: 30 }}
+      >
         Submit
       </Button>
     </form>
