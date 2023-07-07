@@ -13,6 +13,15 @@ const studentSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+const courseSchema = new mongoose.Schema(
+  {
+    courseName: String,
+  },
+  { versionKey: false }
+);
+
 const Student = mongoose.model('Student', studentSchema);
 
-module.exports = Student;
+const Course = mongoose.model('Course', courseSchema);
+
+module.exports = { Student, Course };

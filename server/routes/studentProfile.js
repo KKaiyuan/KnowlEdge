@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Student = require('../database/model');
+const { Student } = require('../database/model');
 
 let student = {
   preferredName: 'Bob Jones',
