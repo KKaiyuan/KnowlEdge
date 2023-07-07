@@ -1,10 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchStudentInfoAsync, patchStudentCoursesAsync } from './thunks.js';
+import {
+  fetchStudentInfoAsync,
+  patchStudentCoursesAsync,
+  fetchAllCoursesAsync,
+} from './thunks.js';
 
 const initialState = {
   showEnrollModal: false,
   searchContent: '',
   studentInfo: '',
+  allCourses: '',
 };
 
 const studentDashboardSlice = createSlice({
@@ -28,6 +33,9 @@ const studentDashboardSlice = createSlice({
           ...state.studentInfo,
           courses: [...action.meta.arg],
         };
+      })
+      .addCase(fetchAllCoursesAsync.fulfilled, (state, action) => {
+        state.allCourses = action.payload;
       });
   },
 });

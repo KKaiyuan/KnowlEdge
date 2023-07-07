@@ -9,7 +9,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setEnrollModal } from '../StudentDashboard/redux/StudentDashboardSlice';
 import { ListGroup } from 'flowbite-react';
 import styled from 'styled-components';
-import { patchStudentCoursesAsync } from '../StudentDashboard/redux/thunks';
+import {
+  fetchAllCoursesAsync,
+  patchStudentCoursesAsync,
+} from '../StudentDashboard/redux/thunks';
 
 const StyleListGroupItem = styled(ListGroup.Item)`
   button:hover {
@@ -64,6 +67,10 @@ const CourseEnrollement = () => {
     (state) => state.studentDashboardReducer.studentInfo.courses
   );
 
+  const allCourses = useSelector(
+    (state) => state.studentDashboardReducer.allCourses
+  );
+
   const [initializedStudentCourse, setInitializedStudentCourse] =
     useState(false);
 
@@ -86,21 +93,12 @@ const CourseEnrollement = () => {
     findCourse();
   };
 
-  const findCourse = () => {
-    const data = {
-      courses: [
-        'CPSC 121 - Models of Computation',
-        'CPSC 210 - Software Construction',
-        'CPSC 213 - Introduction to Computer Systems',
-        'CPSC 221 - Basic Algorithms and Data Structures',
-        'CPSC 310 - Introduction to Software Engineering',
-        'CPSC 313 - Computer Hardware and Operating Systems',
-        'CPSC 320 - Intermediate Algorithm Design and Analysis',
-        'CPSC 455 - Applied Industry Practices',
-      ],
-    };
+  useEffect(() => {
+    dispatch(fetchAllCoursesAsync());
+  }, []);
 
-    const matchingCourses = data.courses.filter((course) => {
+  const findCourse = () => {
+    const matchingCourses = allCourses.filter((course) => {
       return (
         course.toLowerCase().includes(searchContent.toLowerCase()) &&
         !selectedCourses.includes(course)
