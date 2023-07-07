@@ -2,8 +2,16 @@
 // Stephanie's Sample Code at https://github.com/svmah/cs455-express-demo/blob/add-server/client/src/redux/users/reducer.js
 
 import { createSlice } from '@reduxjs/toolkit';
-import { REQUEST_STATE } from '../utils';
-import { addFlashcardAsync, getFlashcardsAsync, deleteFlashcardAsync, patchQuantityAsync, patchFlashcardNameAsync } from './StudySetsThunks';
+import { REQUEST_STATE } from '../../../utils';
+import {
+    addFlashcardAsync,
+    getFlashcardsAsync,
+    deleteFlashcardAsync,
+    patchTermAsync,
+    patchDefinitionAsync,
+    patchDescriptionAsync,
+    patchImageURLAsync
+} from './StudySetsThunks';
 
 
 // TODO: needs to put this on the server side and use GTE request
@@ -88,7 +96,12 @@ const flashcardsSlice = createSlice({
             })
             .addCase(patchTermAsync.fulfilled, (state, action) => {
                 state.patchTerm = REQUEST_STATE.FULFILLED;
-                state.list.at(action.payload.id).term = action.payload.term;
+                // state.list.at(action.payload.id).term = action.payload.term;
+                state.list.forEach((flashcard) => {
+                    if (flashcard.id === action.payload.id) {
+                        flashcard.term = action.payload.term;
+                    }
+                })
             })
             .addCase(patchTermAsync.rejected, (state, action) => {
                 state.patchTerm = REQUEST_STATE.REJECTED;
@@ -101,7 +114,12 @@ const flashcardsSlice = createSlice({
             })
             .addCase(patchDefinitionAsync.fulfilled, (state, action) => {
                 state.patchDefinition = REQUEST_STATE.FULFILLED;
-                state.list.at(action.payload.id).definition = action.payload.definition;
+                // state.list.at(action.payload.id).definition = action.payload.definition;
+                state.list.forEach((flashcard) => {
+                    if (flashcard.id === action.payload.id) {
+                        flashcard.definition = action.payload.definition;
+                    }
+                })
             })
             .addCase(patchDefinitionAsync.rejected, (state, action) => {
                 state.patchDefinition = REQUEST_STATE.REJECTED;
@@ -114,7 +132,12 @@ const flashcardsSlice = createSlice({
             })
             .addCase(patchDescriptionAsync.fulfilled, (state, action) => {
                 state.patchDescription = REQUEST_STATE.FULFILLED;
-                state.list.at(action.payload.id).term = action.payload.description;
+                // state.list.at(action.payload.id).description = action.payload.description;
+                state.list.forEach((flashcard) => {
+                    if (flashcard.id === action.payload.id) {
+                        flashcard.description = action.payload.description;
+                    }
+                })
             })
             .addCase(patchDescriptionAsync.rejected, (state, action) => {
                 state.patchDescription = REQUEST_STATE.REJECTED;
@@ -127,7 +150,12 @@ const flashcardsSlice = createSlice({
             })
             .addCase(patchImageURLAsync.fulfilled, (state, action) => {
                 state.patchImageURL = REQUEST_STATE.FULFILLED;
-                state.list.at(action.payload.id).imageURL = action.payload.imageURL;
+                // state.list.at(action.payload.id).imageURL = action.payload.imageURL;
+                state.list.forEach((flashcard) => {
+                    if (flashcard.id === action.payload.id) {
+                        flashcard.imageURL = action.payload.imageURL;
+                    }
+                })
             })
             .addCase(patchImageURLAsync.rejected, (state, action) => {
                 state.patchImageURL = REQUEST_STATE.REJECTED;
@@ -136,4 +164,4 @@ const flashcardsSlice = createSlice({
     }
 });
 
-export default flashcardsSlice.reducer;
+export const flashcardsReducer = flashcardsSlice.reducer;

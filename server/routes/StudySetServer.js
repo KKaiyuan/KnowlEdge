@@ -15,7 +15,7 @@ const { v4: uuid } = require('uuid');
 
 const flashcards = [
     {
-      id: 1,
+      id: uuid(),
       term: 'vin',
       definition: 'wine',
       description:
@@ -23,7 +23,7 @@ const flashcards = [
       imageURL: 'https://m.media-amazon.com/images/I/61x8QBBsNAS._AC_SL1500_.jpg',
     },
     {
-      id: 2,
+      id: uuid(),
       term: 'fromage',
       definition: 'cheese',
       description:
@@ -72,16 +72,25 @@ router.delete('/:flashcardId', function (req, res, next) {
     }
   })
 
-  additionalInfo.forEach((info, index) => {
-    if (info.additionalInfoId === req.body.flashcardId) {
-      additionalInfo.splice(index, 1);
-    }
-  })
-
   // return res.send(req.body/* req.body.flashcardId */); // TODO: check this!!! - Wrong; Must return empty body
 
   return res.send(); // res.send() should work, i.e. do not put {} in res.send()
 })
+
+
+router.post('/', function (req, res, next) {
+  // console.log("post function called in items.js");
+
+  // console.log(req.body);
+
+  if (!req.body.term) { // TODO: check whether this is necessary / optimal to do
+    return res.status(400).send({ message: 'Flashcard must have a term!' })
+  }
+  const flashcard = { id: uuid(), ...req.body };
+  flashcards.push(flashcard);
+  return res.send(flashcard);
+});
+
 
 router.patch('/:flashcardId', function (req, res, next) {
   if (!req.body.flashcardId) {

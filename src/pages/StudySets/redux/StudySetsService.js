@@ -4,7 +4,7 @@
 const addFlashcard = async (flashcard) => { // POST request
     // console.log("addFlashcard called in service.js");
     // console.log(flashcard);
-    const response = await fetch('http://localhost:3000/studysets/flashcards', {
+    const response = await fetch('http://localhost:3005/studysets/flashcards', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ const deleteFlashcard = async (flashcardId /* flashcard */) => { // DELETE reque
     // console.log("flashcardId @ service.js : " + flashcardId); // TODO: check why this line is not printed in the console (?) for some reason
     const flashcardIdJson = {flashcardId};
     // console.log("flashcardIdJson in service.js : " + JSON.stringify(flashcardIdJson));
-    const response = await fetch('http://localhost:3000/studysets/flashcards/id', {
+    const response = await fetch('http://localhost:3005/studysets/flashcards/id', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -57,14 +57,14 @@ const deleteFlashcard = async (flashcardId /* flashcard */) => { // DELETE reque
 }
 
 const getFlashcards = async () => { // GET request
-    const response = await fetch('http://localhost:3000/studysets/flashcards', {
+    const response = await fetch('http://localhost:3005/studysets/flashcards', {
         method: 'GET'
     });
     return response.json();
 };
 
 const patchGeneral = async (bodyJSON) => { // PATCH request
-    const response = await fetch('http://localhost:3000/studysets/flashcards/id', {
+    const response = await fetch('http://localhost:3005/studysets/flashcards/id', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'

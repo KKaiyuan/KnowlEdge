@@ -7,10 +7,17 @@
 import React from 'react'
 import Flashcard from './Flashcard';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFlashcardsAsync } from './redux/StudySetsThunks';
+import { useEffect } from 'react';
 
 export default function FlashcardList() {
-  const cards = useSelector((state) => state.flashcards);
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.flashcards.list);
+
+  useEffect(() => {
+    dispatch(getFlashcardsAsync());
+  }, [dispatch]);
 
   return (
     <div className="card-grid">
