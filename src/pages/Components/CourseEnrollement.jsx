@@ -70,24 +70,6 @@ const CourseEnrollement = () => {
   const allCourses = useSelector(
     (state) => state.studentDashboardReducer.allCourses
   );
-
-  const [initializedStudentCourse, setInitializedStudentCourse] =
-    useState(false);
-
-  useEffect(() => {
-    if (studentCourses && !initializedStudentCourse) {
-      const newCourses = studentCourses.filter(
-        (course) => !selectedCourses.includes(course)
-      );
-      setSelectedCourses(newCourses);
-      setInitializedStudentCourse(true);
-    }
-  }, [studentCourses, initializedStudentCourse, selectedCourses]);
-
-  useEffect(() => {
-    dispatch(patchStudentCoursesAsync(selectedCourses));
-  }, [selectedCourses]);
-
   const handleInputChange = (event) => {
     setSearchContent(event.target.value);
     findCourse();
@@ -101,7 +83,7 @@ const CourseEnrollement = () => {
     const matchingCourses = allCourses.filter((course) => {
       return (
         course.toLowerCase().includes(searchContent.toLowerCase()) &&
-        !selectedCourses.includes(course)
+        !studentCourses.includes(course)
       );
     });
 
@@ -121,13 +103,12 @@ const CourseEnrollement = () => {
     inputRef.current.value = '';
 
     const courseToAdd = event.target.textContent;
-    setSelectedCourses((prevCourses) => {
-      if (!prevCourses.includes(courseToAdd)) {
-        const newCourses = [...prevCourses, courseToAdd];
-        return newCourses;
-      }
-      return prevCourses;
-    });
+
+    if (!studentCourses.includes(courseToAdd)) {
+      const newCoursesList = [...studentCourses, courseToAdd];
+      dispatch(patchStudentCoursesAsync(newCoursesList, Date.now()));
+    }
+
     setSearchResult([]);
   };
 
@@ -135,10 +116,9 @@ const CourseEnrollement = () => {
     event.preventDefault();
     try {
       const course = event.target.parentNode.childNodes[1].textContent;
-      setSelectedCourses((prevCourses) => {
-        const updatedCourses = prevCourses.filter((c) => c !== course);
-        return updatedCourses;
-      });
+
+      const updatedCourses = studentCourses.filter((c) => c !== course);
+      dispatch(patchStudentCoursesAsync(updatedCourses, Date.now()));
     } catch (e) {
       console.log("can't remove course");
     }
@@ -209,7 +189,7 @@ const CourseEnrollement = () => {
               </div>
 
               <div>
-                {selectedCourses.map((course, index) => {
+                {studentCourses.map((course, index) => {
                   return (
                     <CourseDivStyled key={index}>
                       {' '}
