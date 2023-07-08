@@ -22,6 +22,7 @@ const courseSchema = new mongoose.Schema(
 
 const commentSchema = new mongoose.Schema({
   comments: {
+    _id: mongoose.Schema.Types.ObjectId,
     content: String,
     sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     upvotes: Number,
