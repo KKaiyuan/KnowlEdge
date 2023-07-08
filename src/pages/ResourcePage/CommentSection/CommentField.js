@@ -1,8 +1,10 @@
 import { styled } from 'styled-components';
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { addReplyTo } from '../redux/ResourcePageSlice';
 
 const CommentFieldStyled = styled.div`
   padding: 25px;
@@ -38,8 +40,21 @@ const CommentFieldStyled = styled.div`
 const CommentField = ({ comment }) => {
   const [inputValue, setInputValue] = useState('');
 
+  const reply_to = useSelector((state) => state.resourcePageReducer.reply_to);
+  const commentInputRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (reply_to) setInputValue(`@${reply_to} `);
+    commentInputRef.current.focus();
+  }, [reply_to]);
+
   const handleChange = (event) => {
-    setInputValue(event.target.value);
+    const value = event.target.value;
+    if (value.trim() === '') {
+      dispatch(addReplyTo(''));
+    }
+    setInputValue(value);
   };
 
   return (
@@ -52,6 +67,7 @@ const CommentField = ({ comment }) => {
         />
       </div>
       <textarea
+        ref={commentInputRef}
         placeholder="Add a comment"
         type="text"
         value={inputValue}

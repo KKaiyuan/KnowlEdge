@@ -7,6 +7,8 @@ import {
   faCircleUser,
   faReply,
 } from '@fortawesome/free-solid-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { addReplyTo } from '../redux/ResourcePageSlice';
 
 const CommentCardStyled = styled.div`
   padding: 25px;
@@ -59,6 +61,8 @@ const CommentCardStyled = styled.div`
 `;
 
 const CommentCard = ({ comment }) => {
+  const dispatch = useDispatch();
+
   return (
     <CommentCardStyled>
       <div className="votes-container">
@@ -76,10 +80,15 @@ const CommentCard = ({ comment }) => {
             />
             <span className="span-style">{comment.sender}</span>
           </div>
-          <div className="flex-div reply-div">
+          <button
+            className="flex-div reply-div"
+            onClick={() => {
+              dispatch(addReplyTo(comment.sender));
+            }}
+          >
             <FontAwesomeIcon icon={faReply} />
             <span className="span-style">Reply</span>
-          </div>
+          </button>
         </div>
         <div className="comment">
           {comment.reply_to ? (
