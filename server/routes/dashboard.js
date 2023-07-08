@@ -28,4 +28,32 @@ router.get('/comments/:resourceId', async function (req, res, next) {
   }
 });
 
+router.post('/comments/', async function (req, res, next) {
+  const { resourceId, content, sender } = req.body;
+
+  // Check if any required variables are null
+  if (!resourceId || !content || !sender) {
+    return res.status(400).json({ error: 'Missing required data' });
+  }
+
+  const comment = {
+    content,
+    sender,
+    upvotes: 1,
+    replies: [],
+  };
+
+  try {
+    const updatedComment = await Comment.findOneAndUpdate(
+      { _id: new ObjectId(resourceId) },
+      { $push: { comments: comment } },
+      { new: true, upsert: true }
+    );
+    return res.status(200).json(updatedComment);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
