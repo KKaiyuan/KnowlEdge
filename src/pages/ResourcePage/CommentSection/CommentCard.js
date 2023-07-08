@@ -83,7 +83,7 @@ const CommentCard = ({ comment }) => {
           <button
             className="flex-div reply-div"
             onClick={() => {
-              dispatch(addReplyTo(comment.sender));
+              dispatch(addReplyTo(comment.sender.displayName));
             }}
           >
             <FontAwesomeIcon icon={faReply} />

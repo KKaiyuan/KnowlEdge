@@ -23,6 +23,10 @@ router.get('/comments/:resourceId', async function (req, res, next) {
         path: 'comments.sender',
         model: 'User',
       })
+      /*.populate({
+        path: 'comments.reply_to',
+        model: 'User',
+      })*/
       .populate({
         path: 'comments.replies.sender',
         model: 'User',
@@ -40,7 +44,7 @@ router.get('/comments/:resourceId', async function (req, res, next) {
 });
 
 router.post('/comments/', async function (req, res, next) {
-  const { resourceId, content, sender, reply_to } = req.body;
+  const { resourceId, content, sender, reply_to, replies } = req.body;
 
   // Check if any required variables are null
   if (!resourceId || !content || !sender) {
@@ -65,7 +69,24 @@ router.post('/comments/', async function (req, res, next) {
       { _id: new ObjectId(resourceId) },
       { $push: { comments: comment } },
       { new: true, upsert: true }
-    );
+    )
+      .populate({
+        path: 'comments.sender',
+        model: 'User',
+      })
+      /*.populate({
+        path: 'comments.reply_to',
+        model: 'User',
+      })*/
+      .populate({
+        path: 'comments.replies.sender',
+        model: 'User',
+      })
+      .populate({
+        path: 'comments.replies.reply_to',
+        model: 'User',
+      });
+
     return res.status(200).json(updatedComment);
   } catch (error) {
     console.error(error);

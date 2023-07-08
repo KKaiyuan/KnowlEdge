@@ -68,8 +68,8 @@ const CommentField = ({ comment }) => {
         addCommentAsync({
           resourceId: '64a88e8fdfd1b5b12adba4aa',
           content: newInputValue,
-          sender: 'Ian',
-          reply_to,
+          sender: '64a8de79980b0b6b6f40b10c',
+          /*reply_to: '64a8f8009417c2a1e5d8971d',*/
         })
       );
       setInputValue('');
