@@ -63,7 +63,7 @@ const CommentCard = ({ comment }) => {
     <CommentCardStyled>
       <div className="votes-container">
         <FontAwesomeIcon icon={faAngleUp} className="vote-icon" />
-        <span>1</span>
+        <span>{comment.upvotes}</span>
         <FontAwesomeIcon icon={faAngleDown} className="vote-icon" />
       </div>
       <div className="content-container">

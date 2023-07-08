@@ -6,6 +6,7 @@ import flashcards from './reducers/flashcards';
 import indexCount from './reducers/indexCount';
 import studentDashboardReducer from './pages/StudentDashboard/redux/StudentDashboardSlice';
 import CalendarEventReducer from './reducers/CalendarEventReducer';
+import resourcePageReducer from './pages/ResourcePage/redux/ResourcePageSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     calendarEventReducer: CalendarEventReducer,
     flashcards: flashcards,
     indexCount: indexCount,
+    resourcePageReducer: resourcePageReducer,
   },
   devTools: true,
 });
