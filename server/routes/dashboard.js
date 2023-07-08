@@ -18,9 +18,20 @@ router.get('/comments/:resourceId', async function (req, res, next) {
   const { resourceId } = req.params;
 
   try {
-    const comments = await Comment.findById({
-      _id: new ObjectId(resourceId),
-    });
+    const comments = await Comment.findOne({})
+      .populate({
+        path: 'comments.sender',
+        model: 'User',
+      })
+      .populate({
+        path: 'comments.replies.sender',
+        model: 'User',
+      })
+      .populate({
+        path: 'comments.replies.reply_to',
+        model: 'User',
+      });
+
     return res.status(200).json(comments);
   } catch (error) {
     console.error(error);
@@ -40,11 +51,13 @@ router.post('/comments/', async function (req, res, next) {
     content,
     sender,
     upvotes: 1,
-    replies: [],
   };
 
   if (reply_to) {
     comment.reply_to = reply_to;
+  }
+  if (replies) {
+    comment.replies = [];
   }
 
   try {

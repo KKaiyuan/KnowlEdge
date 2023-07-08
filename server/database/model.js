@@ -20,9 +20,27 @@ const courseSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-const commentSchema = new mongoose.Schema(
+const commentSchema = new mongoose.Schema({
+  comments: {
+    content: String,
+    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    upvotes: Number,
+    replies: [
+      {
+        content: String,
+        sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        reply_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        upvotes: Number,
+      },
+    ],
+  },
+});
+
+const userSchema = new mongoose.Schema(
   {
-    comments: [Object],
+    _id: mongoose.Schema.Types.ObjectId,
+    displayName: String,
+    uid: String,
   },
   { versionKey: false }
 );
@@ -33,4 +51,6 @@ const Course = mongoose.model('Course', courseSchema);
 
 const Comment = mongoose.model('Comment', commentSchema);
 
-module.exports = { Student, Course, Comment };
+const User = mongoose.model('User', userSchema);
+
+module.exports = { Student, Course, Comment, User };

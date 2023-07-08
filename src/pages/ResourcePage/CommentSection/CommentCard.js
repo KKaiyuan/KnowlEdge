@@ -78,7 +78,7 @@ const CommentCard = ({ comment }) => {
               icon={faCircleUser}
               size="lg"
             />
-            <span className="span-style">{comment.sender}</span>
+            <span className="span-style">{comment.sender.displayName}</span>
           </div>
           <button
             className="flex-div reply-div"
@@ -92,7 +92,7 @@ const CommentCard = ({ comment }) => {
         </div>
         <div className="comment">
           {comment.reply_to ? (
-            <span className="reply-to">{`@${comment.reply_to}`}</span>
+            <span className="reply-to">{`@${comment.reply_to.displayName}`}</span>
           ) : (
             ''
           )}
