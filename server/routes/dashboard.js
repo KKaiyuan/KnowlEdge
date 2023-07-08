@@ -29,7 +29,7 @@ router.get('/comments/:resourceId', async function (req, res, next) {
 });
 
 router.post('/comments/', async function (req, res, next) {
-  const { resourceId, content, sender } = req.body;
+  const { resourceId, content, sender, reply_to } = req.body;
 
   // Check if any required variables are null
   if (!resourceId || !content || !sender) {
@@ -42,6 +42,10 @@ router.post('/comments/', async function (req, res, next) {
     upvotes: 1,
     replies: [],
   };
+
+  if (reply_to) {
+    comment.reply_to = reply_to;
+  }
 
   try {
     const updatedComment = await Comment.findOneAndUpdate(
