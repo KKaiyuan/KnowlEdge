@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentSection from '../Components/CommentSection/CommentSection';
+import CommentSection from './CommentSection/CommentSection';
 
 const ResourcePage = () => {
   return (

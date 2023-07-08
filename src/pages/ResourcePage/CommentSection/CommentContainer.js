@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import React from 'react';
 import CommentCard from './CommentCard';
-import { fetchCommentsAsync } from '../../ResourcePage/redux/thunks';
+import { fetchCommentsAsync } from '../redux/thunks';
 
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';

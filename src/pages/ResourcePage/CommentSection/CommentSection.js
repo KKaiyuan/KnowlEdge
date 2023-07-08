@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import React from 'react';
 import CommentContainer from './CommentContainer';
-import CommentField from '../CommentField';
+import CommentField from '../../Components/CommentField';
 
 const CommentSection = () => {
   return (
