@@ -45,13 +45,16 @@ const CommentField = ({ comment }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (reply_to) setInputValue(`@${reply_to} `);
+    if (reply_to) {
+      setInputValue(`@${reply_to} `);
+    }
+
     commentInputRef.current.focus();
   }, [reply_to]);
 
   const handleChange = (event) => {
     const value = event.target.value;
-    if (value.trim() === '') {
+    if (!value.includes(reply_to)) {
       dispatch(addReplyTo(''));
     }
     setInputValue(value);
