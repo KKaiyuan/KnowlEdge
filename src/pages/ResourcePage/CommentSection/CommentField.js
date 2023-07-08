@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { addReplyTo } from '../redux/ResourcePageSlice';
+import { addCommentAsync, fetchCommentsAsync } from '../redux/thunks';
 
 const CommentFieldStyled = styled.div`
   padding: 25px;
@@ -60,6 +61,21 @@ const CommentField = ({ comment }) => {
     setInputValue(value);
   };
 
+  const handleSubmit = () => {
+    if (inputValue !== '') {
+      const newInputValue = inputValue.replace(`@${reply_to} `, '');
+      dispatch(
+        addCommentAsync({
+          resourceId: '64a88e8fdfd1b5b12adba4aa',
+          content: newInputValue,
+          sender: 'Ian',
+          reply_to,
+        })
+      );
+      setInputValue('');
+      // TODO: will need to add the resourcesID as a redux general state instead of calling it each time
+    }
+  };
   return (
     <CommentFieldStyled>
       <div className="icon-container">
@@ -77,7 +93,9 @@ const CommentField = ({ comment }) => {
         onChange={handleChange}
         className="comment-input"
       />
-      <button className="send-button">Send</button>
+      <button className="send-button" onClick={handleSubmit}>
+        Send
+      </button>
     </CommentFieldStyled>
   );
 };
