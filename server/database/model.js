@@ -20,8 +20,20 @@ const courseSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+const commentSchema = new mongoose.Schema(
+  {
+    content: String,
+    sender: String,
+    upvotes: Number,
+    replies: [Object],
+  },
+  { versionKey: false }
+);
+
 const Student = mongoose.model('Student', studentSchema);
 
 const Course = mongoose.model('Course', courseSchema);
 
-module.exports = { Student, Course };
+const Comment = mongoose.model('Comment', commentSchema);
+
+module.exports = { Student, Course, Comment };
