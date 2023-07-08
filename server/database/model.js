@@ -22,10 +22,7 @@ const courseSchema = new mongoose.Schema(
 
 const commentSchema = new mongoose.Schema(
   {
-    content: String,
-    sender: String,
-    upvotes: Number,
-    replies: [Object],
+    comments: [Object],
   },
   { versionKey: false }
 );
