@@ -10,3 +10,9 @@ export const addComment = (comment) => {
     payload: comment,
   };
 };
+
+export const patchUpvotes = (data) => {
+  return {
+    type: 'PATCH_UPVOTES',
+  };
+};

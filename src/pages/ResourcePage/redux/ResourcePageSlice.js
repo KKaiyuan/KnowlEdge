@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addCommentAsync, fetchCommentsAsync } from './thunks.js';
+import {
+  addCommentAsync,
+  fetchCommentsAsync,
+  patchUpvotesAsync,
+} from './thunks.js';
 
 const initialState = {
   id: '',
@@ -25,6 +29,9 @@ const ResourcePageSlice = createSlice({
         state.comments = action.payload.comments;
       })
       .addCase(addCommentAsync.fulfilled, (state, action) => {
+        state.comments = action.payload.comments;
+      })
+      .addCase(patchUpvotesAsync.fulfilled, (state, action) => {
         state.comments = action.payload.comments;
       });
   },

@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { addReplyTo } from '../redux/ResourcePageSlice';
+import { patchUpvotesAsync } from '../redux/thunks';
 
 const CommentCardStyled = styled.div`
   padding: 25px;
@@ -76,12 +77,39 @@ const CommentCard = ({ comment }) => {
     );
   };
 
+  const handleUpvoteChange = (change) => {
+    let upvotes = comment.upvotes;
+    if (change === '+') {
+      upvotes++;
+    } else {
+      upvotes--;
+    }
+
+    upvotes = String(upvotes);
+
+    dispatch(
+      patchUpvotesAsync({
+        resourceId: '64a88e8fdfd1b5b12adba4aa',
+        commentId: comment._id,
+        upvotes,
+      })
+    );
+  };
+
   return (
     <CommentCardStyled>
       <div className="votes-container">
-        <FontAwesomeIcon icon={faAngleUp} className="vote-icon" />
+        <FontAwesomeIcon
+          icon={faAngleUp}
+          className="vote-icon"
+          onClick={() => handleUpvoteChange('+')}
+        />
         <span>{comment.upvotes}</span>
-        <FontAwesomeIcon icon={faAngleDown} className="vote-icon" />
+        <FontAwesomeIcon
+          icon={faAngleDown}
+          className="vote-icon"
+          onClick={() => handleUpvoteChange('-')}
+        />
       </div>
       <div className="content-container">
         <div className="comment-header">
