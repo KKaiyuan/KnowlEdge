@@ -63,6 +63,19 @@ const CommentCardStyled = styled.div`
 const CommentCard = ({ comment }) => {
   const dispatch = useDispatch();
 
+  const handleReplyButton = () => {
+    const reply_to_comment_id = comment.parent_id
+      ? comment.parent_id
+      : comment._id;
+    dispatch(
+      addReplyTo({
+        person_id: comment.sender._id,
+        person_name: comment.sender.displayName,
+        comment_id: reply_to_comment_id,
+      })
+    );
+  };
+
   return (
     <CommentCardStyled>
       <div className="votes-container">
@@ -80,12 +93,7 @@ const CommentCard = ({ comment }) => {
             />
             <span className="span-style">{comment.sender.displayName}</span>
           </div>
-          <button
-            className="flex-div reply-div"
-            onClick={() => {
-              dispatch(addReplyTo(comment.sender.displayName));
-            }}
-          >
+          <button className="flex-div reply-div" onClick={handleReplyButton}>
             <FontAwesomeIcon icon={faReply} />
             <span className="span-style">Reply</span>
           </button>

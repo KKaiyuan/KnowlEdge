@@ -28,8 +28,12 @@ const CommentContainer = () => {
 
             <ReplyCommentsStyled>
               {comment.replies?.map((reply, replyIndex) => {
+                const edittedReply = { ...reply, parent_id: comment._id };
                 return (
-                  <CommentCard key={`${index}-${replyIndex}`} comment={reply} />
+                  <CommentCard
+                    key={`${index}-${replyIndex}`}
+                    comment={edittedReply}
+                  />
                 );
               })}
             </ReplyCommentsStyled>

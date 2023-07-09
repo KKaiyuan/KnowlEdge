@@ -4,7 +4,11 @@ import { addCommentAsync, fetchCommentsAsync } from './thunks.js';
 const initialState = {
   id: '',
   comments: [],
-  reply_to: '',
+  reply_to: {
+    person_id: '',
+    person_name: '',
+    comment_id: '',
+  },
 };
 
 const ResourcePageSlice = createSlice({

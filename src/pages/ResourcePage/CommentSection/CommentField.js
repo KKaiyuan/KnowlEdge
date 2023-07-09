@@ -46,8 +46,8 @@ const CommentField = ({ comment }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (reply_to) {
-      setInputValue(`@${reply_to} `);
+    if (reply_to.person_name) {
+      setInputValue(`@${reply_to.person_name} `);
     }
 
     commentInputRef.current.focus();
@@ -55,26 +55,44 @@ const CommentField = ({ comment }) => {
 
   const handleChange = (event) => {
     const value = event.target.value;
-    if (!value.includes(reply_to)) {
-      dispatch(addReplyTo(''));
+    if (!value.includes(reply_to.person_name)) {
+      dispatch(addReplyTo({}));
     }
     setInputValue(value);
   };
 
   const handleSubmit = () => {
     if (inputValue !== '') {
-      const newInputValue = inputValue.replace(`@${reply_to} `, '');
-      dispatch(
-        addCommentAsync({
-          resourceId: '64a88e8fdfd1b5b12adba4aa',
-          content: newInputValue,
-          sender: '64a8de79980b0b6b6f40b10c',
-          /*reply_to: '64a8f8009417c2a1e5d8971d',*/
-        })
-      );
-      setInputValue('');
-      // TODO: will need to add the resourcesID as a redux general state instead of calling it each time
+      const newInputValue = inputValue.replace(`@${reply_to.person_name} `, '');
+
+      console.log(reply_to);
+      // if it's not a reply
+      if (reply_to.person_id === undefined) {
+        dispatch(
+          addCommentAsync({
+            resourceId: '64a88e8fdfd1b5b12adba4aa',
+            content: newInputValue,
+            sender: '64a8de79980b0b6b6f40b10c',
+          })
+        );
+      }
+      // if it's a reply
+      else {
+        dispatch(
+          addCommentAsync({
+            resourceId: '64a88e8fdfd1b5b12adba4aa',
+            content: newInputValue,
+            sender: '64a8de79980b0b6b6f40b10c',
+            reply_to: {
+              person_id: reply_to.person_id,
+              comment_id: reply_to.comment_id,
+            },
+          })
+        );
+      }
     }
+    setInputValue('');
+    // TODO: will need to add the resourcesID as a redux general state instead of calling it each time
   };
   return (
     <CommentFieldStyled>
