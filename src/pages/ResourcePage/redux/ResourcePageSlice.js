@@ -9,9 +9,9 @@ const initialState = {
   id: '',
   comments: [],
   reply_to: {
-    person_id: '',
-    person_name: '',
-    comment_id: '',
+    person_id: undefined,
+    person_name: undefined,
+    comment_id: undefined,
   },
 };
 

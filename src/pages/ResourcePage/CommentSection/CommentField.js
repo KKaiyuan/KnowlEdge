@@ -69,7 +69,6 @@ const CommentField = () => {
     if (inputValue !== '') {
       const newInputValue = inputValue.replace(`@${reply_to.person_name} `, '');
 
-      console.log(reply_to);
       // if it's not a reply
       if (reply_to.person_id === undefined) {
         dispatch(
