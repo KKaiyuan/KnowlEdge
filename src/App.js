@@ -15,6 +15,7 @@ import WebFont from 'webfontloader';
 import { useEffect } from 'react';
 import RequireAuth from './pages/Components/RequireAuth';
 import EmailVerification from './pages/EmailVerification';
+import ResoucePage from './pages/ResourcePage/ResourcePage';
 
 console.warn = () => {};
 
@@ -89,6 +90,8 @@ function App() {
             </RequireAuth>
           }
         />
+
+        <Route path="/resource" element={<ResoucePage />} />
       </Routes>
     </Router>
   );
