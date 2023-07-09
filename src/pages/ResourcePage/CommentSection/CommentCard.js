@@ -59,6 +59,23 @@ const CommentCardStyled = styled.div`
     margin-right: 5px;
     font-weight: bold;
   }
+
+  .upvotes-counter {
+    width: 30px;
+    text-align: center;
+    font-weight: 600;
+    margin: 10px 0;
+  }
+
+  .vote-icon {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .hover-button:hover {
+    color: #0074d9;
+    cursor: pointer;
+  }
 `;
 
 const CommentCard = ({ comment }) => {
@@ -101,13 +118,13 @@ const CommentCard = ({ comment }) => {
       <div className="votes-container">
         <FontAwesomeIcon
           icon={faAngleUp}
-          className="vote-icon"
+          className="vote-icon hover-button"
           onClick={() => handleUpvoteChange('+')}
         />
-        <span>{comment.upvotes}</span>
+        <span className="upvotes-counter">{comment.upvotes}</span>
         <FontAwesomeIcon
           icon={faAngleDown}
-          className="vote-icon"
+          className="vote-icon hover-button"
           onClick={() => handleUpvoteChange('-')}
         />
       </div>
@@ -121,7 +138,10 @@ const CommentCard = ({ comment }) => {
             />
             <span className="span-style">{comment.sender.displayName}</span>
           </div>
-          <button className="flex-div reply-div" onClick={handleReplyButton}>
+          <button
+            className="flex-div reply-div hover-button"
+            onClick={handleReplyButton}
+          >
             <FontAwesomeIcon icon={faReply} />
             <span className="span-style">Reply</span>
           </button>

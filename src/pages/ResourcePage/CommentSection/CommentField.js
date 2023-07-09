@@ -27,7 +27,7 @@ const CommentFieldStyled = styled.div`
   .send-button {
     border-radius: 15px;
     width: 75px;
-    background-color: #0074d9;
+    background-color: #374151;
     color: white;
     height: 50px;
     display: flex;
@@ -36,9 +36,13 @@ const CommentFieldStyled = styled.div`
     align-self: center;
     font-weight: bold;
   }
+
+  .send-button:hover {
+    background-color: #0074d9;
+  }
 `;
 
-const CommentField = ({ comment }) => {
+const CommentField = () => {
   const [inputValue, setInputValue] = useState('');
 
   const reply_to = useSelector((state) => state.resourcePageReducer.reply_to);
