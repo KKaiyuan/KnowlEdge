@@ -1,3 +1,4 @@
+// ChatGPT helped nvm
 import './CoursePage.css';
 import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +10,7 @@ import {
     faClipboard,
     faFileLines
   } from '@fortawesome/free-solid-svg-icons';
+import {useParams} from 'react-router-dom';
 
 export default function CoursePage() {
     const [show, setShow] = useState(false);
@@ -19,13 +21,14 @@ export default function CoursePage() {
 
     const allAnnouncements = useSelector(state => state.ReducerAnnouncementPage);
 
-  
+    const {'*': dynamicSegmentValue } = useParams();    
+    console.log(dynamicSegmentValue);
 
     return (
         <>
     <NavbarComponent />
 
-    <h1 className = "courseTitle"> {"Courses > CPSC 310"}</h1>
+    <h1 className = "courseTitle"> {"Courses > " + dynamicSegmentValue.split("-")[0].toUpperCase() + " " + dynamicSegmentValue.split("-")[1]}</h1>
     <div className="topComponents">
         
         <div className="studySets">
