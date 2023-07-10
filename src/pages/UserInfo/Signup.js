@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -14,8 +14,12 @@ import {
   updateProfile,
   fetchSignInMethodsForEmail,
   sendEmailVerification,
+  setPersistence,
+  browserLocalPersistence,
 } from 'firebase/auth';
 import { useState } from 'react';
+import { postUserAsync, getUserAsync } from './UserThunks';
+import { useDispatch } from 'react-redux';
 
 const theme = createTheme({
   typography: {
@@ -111,6 +115,7 @@ const SignUpStyled = styled.div`
 `;
 
 export default function SignUp() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -148,14 +153,25 @@ export default function SignUp() {
         if (validatePasswordStrength(password)) {
           createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-              const user = userCredential.user;
+              const userobj = userCredential.user;
+              const user = {
+                uid: userobj.uid,
+                email: userobj.email,
+                displayName: fullName,
+                profilePicture: userobj.photoURL,
+              };
               updateProfile(user, {
                 displayName: fullName,
               })
                 .then(() => {
                   sendEmailVerification(auth.currentUser)
                     .then(() => {
-                      navigate('/emailverification');
+                      Promise.all([dispatch(postUserAsync(user))]).then(
+                        ([postUserResult]) => {
+                          console.log(postUserResult);
+                          navigate('/emailverification');
+                        }
+                      );
                     })
                     .catch((error) => {
                       console.log(error.code);
@@ -214,7 +230,19 @@ export default function SignUp() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        navigate('/');
+        const userobj = result.user;
+        const user = {
+          uid: userobj.uid,
+          email: userobj.email,
+          displayName: userobj.displayName,
+          profilePicture: userobj.photoURL,
+        };
+        Promise.all([dispatch(postUserAsync(user))]).then(
+          ([postUserResult]) => {
+            console.log(postUserResult);
+            navigate('/');
+          }
+        );
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -232,11 +260,11 @@ export default function SignUp() {
             <div className="logo">
               <img
                 className="logo-hat"
-                src={require('../assets/images/knowledge-hat.png')}
+                src={require('../../assets/images/knowledge-hat.png')}
               ></img>
               <img
                 className="logo-tag"
-                src={require('../assets/images/knowledge-tag.png')}
+                src={require('../../assets/images/knowledge-tag.png')}
               ></img>
             </div>
           </div>
@@ -298,7 +326,7 @@ export default function SignUp() {
                     startIcon={
                       <Avatar
                         sx={{ height: '16px', width: '16px' }}
-                        src={require('../assets/images/google-icon.png')}
+                        src={require('../../assets/images/google-icon.png')}
                       />
                     }
                     onClick={handleSignUpWithGoogle}

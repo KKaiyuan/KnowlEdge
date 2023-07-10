@@ -77,24 +77,33 @@ const style = {
   p: 4,
 };
 
-export default function EditEventModal({
+export default function EditTaskModal({
   isOpen,
   handleClose,
   event,
   updateParentEvent,
 }) {
   const open = isOpen;
-  const [eventTitle, setEventTitle] = useState(event.title);
-  const [selectedStartDate, setSelectedStartDate] = useState(
-    new Date(event.start)
+  const events = useSelector((state) => state.event.events);
+
+  const [taskTitle, setTaskTitle] = useState(event.title);
+  const [selectedPublishedDate, setSelectedPublishedDate] = useState(
+    new Date(event.published)
   );
-  const [selectedStartTime, setSelectedStartTime] = useState(
-    new Date(event.start)
+  const [selectedPublishedTime, setSelectedPublishedTime] = useState(
+    new Date(event.published)
   );
-  const [selectedEndDate, setSelectedEndDate] = useState(new Date(event.end));
-  const [selectedEndTime, setSelectedEndTime] = useState(new Date(event.end));
+  const [selectedDeadlineDate, setSelectedDeadlineDate] = useState(
+    new Date(event.deadline)
+  );
+  const [selectedDeadlineTime, setSelectedDeadlineTime] = useState(
+    new Date(event.deadline)
+  );
   const [location, setLocation] = useState(event.location);
-  const [eventDescription, setEventDescription] = useState(event.description);
+  const [course, setCourse] = useState(event.course || '');
+  const [taskDescription, setTaskDescription] = useState(
+    event.description || ''
+  );
   const [links, setLinks] = useState(event.links);
 
   const userId = useSelector((state) => state.user.currentUser.uid);
@@ -102,41 +111,43 @@ export default function EditEventModal({
 
   const handleClickUpdateEvent = () => {
     console.log('in handleClickUpdate');
-    var updatedEvent = {
+    var updatedTask = {
       _id: event._id,
-      title: eventTitle,
-      start: new Date(
-        selectedStartDate.getFullYear(),
-        selectedStartDate.getMonth(),
-        selectedStartDate.getDate(),
-        selectedStartTime.getHours(),
-        selectedStartTime.getMinutes()
+      title: taskTitle,
+      published: new Date(
+        selectedPublishedDate.getFullYear(),
+        selectedPublishedDate.getMonth(),
+        selectedPublishedDate.getDate(),
+        selectedPublishedTime.getHours(),
+        selectedPublishedTime.getMinutes()
       ).toISOString(),
-      end: new Date(
-        selectedEndDate.getFullYear(),
-        selectedEndDate.getMonth(),
-        selectedEndDate.getDate(),
-        selectedEndTime.getHours(),
-        selectedEndTime.getMinutes()
+      deadline: new Date(
+        selectedDeadlineDate.getFullYear(),
+        selectedDeadlineDate.getMonth(),
+        selectedDeadlineDate.getDate(),
+        selectedDeadlineTime.getHours(),
+        selectedDeadlineTime.getMinutes()
       ).toISOString(),
-      description: eventDescription,
+      course: course,
+      type: 'task',
       location: location,
+      description: taskDescription,
       links: links,
     };
-    console.log(updatedEvent);
-    dispatch(putEventAsync({ userId: userId, event: updatedEvent }));
+    console.log(updatedTask);
+    dispatch(putEventAsync({ userId: userId, event: updatedTask }));
     //dispatch(getEventsAsync(userId));
-    updateParentEvent(updatedEvent);
+    updateParentEvent(updatedTask);
     dispatch(getEventsAsync(userId));
   };
 
-  const handleEventTitleChange = (event) => {
+  const handleTaskTitleChange = (event) => {
     const inputValue = event.target.value;
-    setEventTitle(inputValue);
+    setTaskTitle(inputValue);
   };
 
-  const handleStartDateChange = (date) => {
-    setSelectedStartDate(date);
+  const handleTaskPublishedDateChange = (date) => {
+    setSelectedPublishedDate(date);
   };
 
   const handleLinkChange = (index, event) => {
@@ -146,18 +157,18 @@ export default function EditEventModal({
     setLinks(newLinks);
   };
 
-  const handleEndDateChange = (date) => {
+  const handleTaskDeadlineDateChange = (date) => {
     console.log('in handle End Date Change');
-    setSelectedEndDate(date);
+    setSelectedDeadlineDate(date);
   };
 
-  const handleStartTimeChange = (time) => {
+  const handleTaskPublishedTimeChange = (time) => {
     console.log(time);
-    setSelectedStartTime(time);
+    setSelectedPublishedTime(time);
   };
 
-  const handleEndTimeChange = (time) => {
-    setSelectedEndTime(time);
+  const handleTaskDeadlineTimeChange = (time) => {
+    setSelectedDeadlineTime(time);
   };
 
   const handleLocationChange = (location) => {
@@ -165,9 +176,9 @@ export default function EditEventModal({
     setLocation(locationValue);
   };
 
-  const handleEventDescriptionChange = (description) => {
+  const handleTaskDescriptionChange = (description) => {
     const descriptionValue = description.target.value;
-    setEventDescription(descriptionValue);
+    setTaskDescription(descriptionValue);
   };
 
   const handleAddLink = () => {
@@ -204,8 +215,8 @@ export default function EditEventModal({
             <EventIcon />
             <TextField
               id="event-title"
-              value={eventTitle}
-              onChange={handleEventTitleChange}
+              value={taskTitle}
+              onChange={handleTaskTitleChange}
               variant="standard"
               placeholder="Add title"
             />
@@ -214,9 +225,9 @@ export default function EditEventModal({
             <TimeIcon />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <MobileDatePicker
-                value={selectedStartDate}
-                onChange={handleStartDateChange}
-                label="Start Date"
+                value={selectedPublishedDate}
+                onChange={handleTaskPublishedDateChange}
+                label="Published Date"
                 renderInput={(props) => (
                   <TextField
                     id="datepicker"
@@ -227,9 +238,9 @@ export default function EditEventModal({
                 )}
               />
               <MobileTimePicker
-                label="Start Time"
-                value={selectedStartTime}
-                onChange={handleStartTimeChange}
+                label="Published Time"
+                value={selectedPublishedTime}
+                onChange={handleTaskPublishedTimeChange}
                 renderInput={(props) => (
                   <TextField
                     id="timepicker"
@@ -245,9 +256,9 @@ export default function EditEventModal({
             <TimeIcon />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <MobileDatePicker
-                label="End Date"
-                onChange={handleEndDateChange}
-                value={selectedEndDate}
+                label="Deadline Date"
+                onChange={handleTaskDeadlineDateChange}
+                value={selectedDeadlineDate}
                 renderInput={(props) => (
                   <TextField
                     id="datepicker"
@@ -258,9 +269,9 @@ export default function EditEventModal({
                 )}
               />
               <MobileTimePicker
-                label="End Time"
-                onChange={handleEndTimeChange}
-                value={selectedEndTime}
+                label="Deadline Time"
+                onChange={handleTaskDeadlineTimeChange}
+                value={selectedDeadlineTime}
                 renderInput={(props) => (
                   <TextField
                     id="timepicker"
@@ -286,8 +297,8 @@ export default function EditEventModal({
             <NotesIcon />
             <TextField
               id="event-title"
-              value={eventDescription}
-              onChange={handleEventDescriptionChange}
+              value={taskDescription}
+              onChange={handleTaskDescriptionChange}
               multiline
               maxRows={5}
               placeholder="Add description"
@@ -326,7 +337,7 @@ export default function EditEventModal({
               type="submit"
               onClick={handleClickUpdateEvent}
             >
-              Update Event
+              Update Task
             </Button>
           </div>
         </Box>

@@ -5,7 +5,8 @@ import ReducerAnnouncementPage from './reducers/ReducerAnnouncementPage';
 import flashcards from './reducers/flashcards';
 import indexCount from './reducers/indexCount';
 import studentDashboardReducer from './pages/StudentDashboard/redux/StudentDashboardSlice';
-import CalendarEventReducer from './reducers/CalendarEventReducer';
+import { eventReducer } from './pages/Calendar-Page-Folder/CalendarEventSlice';
+import { userReducer } from './pages/UserInfo/UserSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,9 +15,10 @@ export const store = configureStore({
     studentDashboardReducer: studentDashboardReducer,
     ReducerAnnouncementPage: ReducerAnnouncementPage,
     ReducerAnnouncementPage: ReducerAnnouncementPage,
-    calendarEventReducer: CalendarEventReducer,
+    event: eventReducer,
     flashcards: flashcards,
     indexCount: indexCount,
+    user: userReducer,
   },
   devTools: true,
 });

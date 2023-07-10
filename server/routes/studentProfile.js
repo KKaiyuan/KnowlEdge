@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Student = require('../database/model');
+const { Student } = require('../database/model');
 
 let student = {
   preferredName: 'Bob Jones',
@@ -55,6 +55,41 @@ router.get('/', async function (req, res, next) {
   };
 
   res.status(200).send(obj);
+});
+
+router.get('/:uid', async function (req, res, next) {
+  let item;
+  const { uid } = req.params;
+  try {
+    item = await Student.findOne({ uid });
+    let obj = {
+      preferredName: item.preferredName,
+      faculty: item.faculty,
+      major: item.major,
+      contact: item.contact,
+      image: item.image,
+      aboutMe: item.aboutMe,
+    };
+    res.status(200).send(obj);
+  } catch (error) {
+    console.log(error);
+    return res.status(404).send('NOT FOUND');
+  }
+});
+
+router.patch('/:uid', async function (req, res) {
+  const { uid } = req.params;
+  const studentData = req.body;
+  console.log(studentData);
+
+  Student.findOneAndUpdate({ uid: uid }, studentData, { new: true })
+    .then((student) => {
+      console.log(student);
+      res.status(200).send(student);
+    })
+    .catch((error) => {
+      res.status(404).json({ error: 'Failed to update student' });
+    });
 });
 
 module.exports = router;
