@@ -35,7 +35,7 @@ const ResourcePage = () => {
         {course.courseInformation}
       </p>
       <CommentSection />
-    </styleResource>
+    </StyleResource>
   );
 };
 
