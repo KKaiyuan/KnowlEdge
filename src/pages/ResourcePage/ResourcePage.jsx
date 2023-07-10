@@ -5,7 +5,7 @@ import NavbarComponent from '../Components/Navbar';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 
-const styleResource = styled.div`
+const StyleResource = styled.div`
 .courseTitle {
   /* Courses > CPSC 310 */
 
@@ -28,7 +28,7 @@ const ResourcePage = () => {
   const course = allCourses.find((course) => dynamicSegmentValue === course.pageType + "-" + course.courseName);
   console.log("this", course);
   return (
-    <styleResource>
+    <StyleResource>
       <NavbarComponent></NavbarComponent>
       <h1 className = "courseTitle">  {"Course > " + course.courseName.split("-")[0].toUpperCase() + " " + course.courseName.split("-")[1] + " > " + course.pageType}</h1>
       <p>

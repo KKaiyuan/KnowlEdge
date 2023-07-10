@@ -72,12 +72,12 @@ export default function CoursePage() {
             <>
             <div className = "subModules">
                 <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
-                    <p className = {"subModuleName"} onclickfn={handleCourseCardClick("Introduction-" + dynamicSegmentValue)}>Introduction</p>
+                    <button className = {"subModuleName"} onClick={() => handleCourseCardClick("Introduction-" + dynamicSegmentValue)}>Introduction</button>
             </div>
             
             <div className = "subModules">
                 <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
-                    <p className = {"subModuleName"}>Syllabus</p>
+                    <button className = {"subModuleName"}>Syllabus</button>
             </div>
             </>
             }
