@@ -9,6 +9,14 @@ const studentSchema = new mongoose.Schema(
     contact: String,
     image: String,
     aboutMe: String,
+    courses: [String],
+  },
+  { versionKey: false }
+);
+
+const courseSchema = new mongoose.Schema(
+  {
+    courseName: String,
   },
   { versionKey: false }
 );
@@ -50,3 +58,8 @@ const eventSchema = new mongoose.Schema(
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = { Student, User, Event };
+
+const Course = mongoose.model('Course', courseSchema);
+
+module.exports = { Student, Course };
+

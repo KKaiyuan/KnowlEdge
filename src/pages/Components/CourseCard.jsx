@@ -32,7 +32,8 @@ const CourseCard = CardGeneric(({ title, onclickfn }) => {
   return (
     <CardStyled
       onClick={() => {
-        const titleSlug = title.toLowerCase().replace(/\s+/g, '-');
+        const [courseCode] = title.split(' - ');
+        const titleSlug = courseCode.toLowerCase().replace(/\s+/g, '-');
         onclickfn(titleSlug);
       }}
     >
