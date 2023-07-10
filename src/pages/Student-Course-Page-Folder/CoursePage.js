@@ -24,6 +24,10 @@ export default function CoursePage() {
     const {'*': dynamicSegmentValue } = useParams();    
     console.log(dynamicSegmentValue);
 
+    const handleCourseCardClick = (courseTitle) => {
+        navigate(`/resource/${courseTitle}`);
+      };
+
     return (
         <>
     <NavbarComponent />
@@ -61,14 +65,14 @@ export default function CoursePage() {
     <>
         <button onClick = {() => setShow(!show)} className = {"courseModules"}>
         <FontAwesomeIcon icon={faClipboard} className = "moduleIcon"></FontAwesomeIcon>
-        <p className = "courseIntroduction">Course Introduction</p>
+        <p className = "courseIntroduction" >Course Introduction</p>
 
         </button>
             {show && 
             <>
             <div className = "subModules">
                 <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
-                    <p className = {"subModuleName"}>Introduction</p>
+                    <p className = {"subModuleName"} onclickfn={handleCourseCardClick("Introduction-" + dynamicSegmentValue)}>Introduction</p>
             </div>
             
             <div className = "subModules">

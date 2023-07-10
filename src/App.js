@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import RequireAuth from './pages/Components/RequireAuth';
 import EmailVerification from './pages/EmailVerification';
 import ResoucePage from './pages/ResourcePage/ResourcePage';
+import ResourcePage from './pages/ResourcePage/ResourcePage';
 
 console.warn = () => {};
 
@@ -91,7 +92,8 @@ function App() {
           }
         />
 
-        <Route path="/resource" element={<ResoucePage />} />
+        <Route path="/resource/*" element={<ResoucePage />} />
+ 
       </Routes>
     </Router>
   );
