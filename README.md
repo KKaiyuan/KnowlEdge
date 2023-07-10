@@ -127,9 +127,6 @@ Standard Requirements
         their peers with search, filter, and order functionalities to
         practice the course content.
 
-    -   Students can request for regrades through a button and dialog
-        from the specific assignment, quiz, or exam page.
-
 5.  **Comment sections:**
 
     -   Students will be able to comment on instructor published content
@@ -197,7 +194,10 @@ Stretch Requirements
     -   Instructors will be able to see added information including a
         list of students enrolled in their courses and options to post
         content including lecture notes, recordings, homework, quizzes,
-        exams, and grades. 
+        exams, and grades.
+        
+8. **Regrade Request:**  Students can request for regrades through a button and dialog
+        from the specific assignment, quiz, or exam page.
 
 Task Breakdown
 
