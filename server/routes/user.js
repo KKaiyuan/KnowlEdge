@@ -33,7 +33,11 @@ router.post('/', async (req, res) => {
       return res.status(200).send(existingUser);
     }
 
-    const newUser = new User({ uid, email, displayName });
+    const newUser = new User({
+      uid: uid,
+      email: email,
+      displayName: displayName,
+    });
     var preferredName = displayName || '';
     var faculty = 'Not specified';
     var major = 'Not specified';
