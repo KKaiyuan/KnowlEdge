@@ -57,9 +57,7 @@ const eventSchema = new mongoose.Schema(
 
 const Event = mongoose.model('Event', eventSchema);
 
-module.exports = { Student, User, Event };
-
 const Course = mongoose.model('Course', courseSchema);
 
-module.exports = { Student, Course };
+module.exports = { Student, Course, User, Event };
 
