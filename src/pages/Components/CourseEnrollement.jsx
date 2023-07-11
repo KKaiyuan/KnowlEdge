@@ -9,6 +9,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setEnrollModal } from '../StudentDashboard/redux/StudentDashboardSlice';
 import { ListGroup } from 'flowbite-react';
 import styled from 'styled-components';
+import {
+  fetchAllCoursesAsync,
+  patchStudentCoursesAsync,
+} from '../StudentDashboard/redux/thunks';
 
 const StyleListGroupItem = styled(ListGroup.Item)`
   button:hover {
@@ -57,29 +61,29 @@ const CourseEnrollement = () => {
   const rootRef = useRef(null);
   const inputRef = useRef(null);
 
+  const dispatch = useDispatch();
+
+  const studentCourses = useSelector(
+    (state) => state.studentDashboardReducer.studentInfo.courses
+  );
+
+  const allCourses = useSelector(
+    (state) => state.studentDashboardReducer.allCourses
+  );
   const handleInputChange = (event) => {
     setSearchContent(event.target.value);
     findCourse();
   };
 
-  const findCourse = () => {
-    const data = {
-      courses: [
-        'CPSC 121 - Models of Computation',
-        'CPSC 210 - Software Construction',
-        'CPSC 213 - Introduction to Computer Systems',
-        'CPSC 221 - Basic Algorithms and Data Structures',
-        'CPSC 310 - Introduction to Software Engineering',
-        'CPSC 313 - Computer Hardware and Operating Systems',
-        'CPSC 320 - Intermediate Algorithm Design and Analysis',
-        'CPSC 455 - Applied Industry Practices',
-      ],
-    };
+  useEffect(() => {
+    dispatch(fetchAllCoursesAsync());
+  }, []);
 
-    const matchingCourses = data.courses.filter((course) => {
+  const findCourse = () => {
+    const matchingCourses = allCourses.filter((course) => {
       return (
         course.toLowerCase().includes(searchContent.toLowerCase()) &&
-        !selectedCourses.includes(course)
+        !studentCourses.includes(course)
       );
     });
 
@@ -89,7 +93,6 @@ const CourseEnrollement = () => {
   const openModal = useSelector(
     (state) => state.studentDashboardReducer.showEnrollModal
   );
-  const dispatch = useDispatch();
 
   const setOpenModal = (payload) => {
     dispatch(setEnrollModal(payload));
@@ -100,13 +103,12 @@ const CourseEnrollement = () => {
     inputRef.current.value = '';
 
     const courseToAdd = event.target.textContent;
-    setSelectedCourses((prevCourses) => {
-      if (!prevCourses.includes(courseToAdd)) {
-        const newCourses = [...prevCourses, courseToAdd];
-        return newCourses;
-      }
-      return prevCourses;
-    });
+
+    if (!studentCourses.includes(courseToAdd)) {
+      const newCoursesList = [...studentCourses, courseToAdd];
+      dispatch(patchStudentCoursesAsync(newCoursesList, Date.now()));
+    }
+
     setSearchResult([]);
   };
 
@@ -114,10 +116,9 @@ const CourseEnrollement = () => {
     event.preventDefault();
     try {
       const course = event.target.parentNode.childNodes[1].textContent;
-      setSelectedCourses((prevCourses) => {
-        const updatedCourses = prevCourses.filter((c) => c !== course);
-        return updatedCourses;
-      });
+
+      const updatedCourses = studentCourses.filter((c) => c !== course);
+      dispatch(patchStudentCoursesAsync(updatedCourses, Date.now()));
     } catch (e) {
       console.log("can't remove course");
     }
@@ -188,7 +189,7 @@ const CourseEnrollement = () => {
               </div>
 
               <div>
-                {selectedCourses.map((course, index) => {
+                {studentCourses.map((course, index) => {
                   return (
                     <CourseDivStyled key={index}>
                       {' '}
@@ -206,7 +207,7 @@ const CourseEnrollement = () => {
         </Modal.Body>
         <Modal.Footer className="flex justify-end">
           <Button color="gray" onClick={() => setOpenModal(undefined)}>
-            Enroll
+            Done
           </Button>
         </Modal.Footer>
       </Modal>

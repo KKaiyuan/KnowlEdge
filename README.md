@@ -76,13 +76,19 @@ Minimal Requirements
     -   viewing upcoming due dates for assignments, exam schedules,
         lectures, and labs.
 
-    -   publishing course specific events or tasks to the calendars of 
-        students enrolled in their courses (for instructors only).
+    -   publishing course specific events or tasks to the calendars of
+      students enrolled in their courses (for instructors only).
 
-5.  **Student Course Page View:**  a student user will be able to
+4.  **Student Course Page View:**  a student user will be able to
     view a course page in order to access course content. This page will
     include content such as lecture recordings, quizzes, exams, assignment
     information, grading rubrics, course outlines etc.
+
+5. **Student Profile Page:** a student user will be able to view their
+   own student profile, which has their profile picture, name, faculty,
+   major, contact info, and an about me section. Students also have the ability
+   to add a preferred name if they wish, as well as edit their contact info and
+   about me section.
 
 Standard Requirements
 
