@@ -28,6 +28,10 @@ export default function CoursePage() {
         navigate(`/resource/${courseTitle}`);
       };
 
+    const handleSyllabusClick = (courseTitle) => {
+        navigate(`/resource/${courseTitle}`)
+    }
+
     return (
         <>
     <NavbarComponent />
@@ -72,12 +76,20 @@ export default function CoursePage() {
             <>
             <div className = "subModules">
                 <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
+<<<<<<< HEAD
                     <p className = {"subModuleName"} onClick={() => handleCourseCardClick("Introduction-" + dynamicSegmentValue)}>Introduction</p>
+=======
+                    <button className = {"subModuleName"} onClick={() => handleCourseCardClick("Introduction-" + dynamicSegmentValue)}>Introduction</button>
+>>>>>>> 5c13a78733a2e2f0e50192058fa098609261b04f
             </div>
             
             <div className = "subModules">
                 <FontAwesomeIcon icon={faFileLines} className = "subModuleIcon"></FontAwesomeIcon>
+<<<<<<< HEAD
                     <p className = {"subModuleName"} onClick={() => handleCourseCardClick("syllabus-" + dynamicSegmentValue)}>Syllabus</p>
+=======
+                    <button className = {"subModuleName"} onClick={() => handleSyllabusClick("Syllabus-" + dynamicSegmentValue)}>Syllabus</button>
+>>>>>>> 5c13a78733a2e2f0e50192058fa098609261b04f
             </div>
             </>
             }
