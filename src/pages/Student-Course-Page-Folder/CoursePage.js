@@ -1,25 +1,32 @@
 // ChatGPT helped nvm
 import './CoursePage.css';
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MediumCard from '../Components/MediumCard';
 import NavbarComponent from '../Components/Navbar';
 import { useNavigate } from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
     faClipboard,
     faFileLines
   } from '@fortawesome/free-solid-svg-icons';
 import {useParams} from 'react-router-dom';
-
+import { getAnnouncementsAsync} from "./redux/thunks";
 export default function CoursePage() {
     const [show, setShow] = useState(false);
     const [showTwo, setShowTwo] = useState(false);
 
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
 
-    const allAnnouncements = useSelector(state => state.ReducerAnnouncementPage);
+    useEffect(() => {
+        dispatch(getAnnouncementsAsync());
+      }, [dispatch]);
+
+    const allAnnouncements = useSelector(state => state.coursePageReducer.announcements);
+
+    console.log(allAnnouncements);
 
     const {'*': dynamicSegmentValue } = useParams();    
     console.log(dynamicSegmentValue);
@@ -58,8 +65,8 @@ export default function CoursePage() {
 
         <h3 className = "topComponentName" >Announcements</h3>
         
-        <MediumCard type="announcement" title= {allAnnouncements[0].announcementTitle} />
-        <MediumCard type="announcement" title={allAnnouncements[1].announcementTitle} />
+        {allAnnouncements.length >= 1? (<MediumCard type="announcement" title= {allAnnouncements[0].announcementTitle} />) : <p></p> }
+        {allAnnouncements.length >= 2? (<MediumCard type="announcement" title= {allAnnouncements[1].announcementTitle} />) : <p></p> }
         <button className = "seeMoreLink" onClick={() => navigate('/announcements')}>See more...</button>
         </div>
       </div>
