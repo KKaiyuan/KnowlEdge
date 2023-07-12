@@ -1073,6 +1073,8 @@ object {
 	clear:left;
 }`;
 
+
+
 const ResourcePage = () => {
   const {'*': dynamicSegmentValue } = useParams();    
 
