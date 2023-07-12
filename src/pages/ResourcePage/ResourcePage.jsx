@@ -445,7 +445,7 @@ a:hover{color:#9A927D;}
 }
 
 .headerimg{
-	width:100%; 
+	width:10%; 
 	height:auto;
 	display:block;
 }
@@ -701,7 +701,7 @@ postedon img{
 .entry-content img,
 .comment-content img,
 .widget img {
-	max-width: 97.5%; /* Fluid images for posts, comments, and widgets */
+	max-width: 10%; /* Fluid images for posts, comments, and widgets */
 }
 img[class*="align"],
 img[class*="wp-image-"],
@@ -710,7 +710,7 @@ img[class*="attachment-"] {
 }
 img.size-full,
 img.size-large {
-	max-width: 97.5%;
+	max-width: 10%;
 	width: auto; /* Prevent stretching of full-size and large-size images with height and width attributes in IE8 */
 	height: auto; /* Make sure images with WordPress-added height and width attributes are scaled correctly */
 }
@@ -738,7 +738,7 @@ p img,
 .wp-caption img {
 	display: block;
 	margin: 0 auto;
-	max-width: 98%;
+	max-width: 10%;
 }
 .wp-caption .wp-caption-text,
 .gallery-caption {
@@ -777,7 +777,7 @@ img#wpstats {
 	padding-right: 2%;
 }
 #content .gallery-columns-4 .gallery-item img {
-	width: 100%;
+	width: 10%;
 	height: auto;
 }
 
