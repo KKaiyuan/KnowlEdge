@@ -2181,12 +2181,522 @@ const initialState = {
     {
       courseName: "cpsc-320",
       pageType: "Introduction",
-      courseInformation: "Sense child do state to defer mr of forty. Become latter but nor abroad wisdom waited. Was delivered gentleman acuteness but daughters. In as of whole as match asked. Pleasure exertion put add entrance distance drawings. In equally matters showing greatly it as. Want name any wise are able park when. Saw vicinity judgment remember finished men throwing."
+      courseInformation: `<body>
+      <!-- page header -->
+      <div>
+      <h2>CPSC 320: Intermediate Algorithm Design and Analysis</h2>
+      </div>
+      <!-- nav header -->
+      <div class="flex-container">
+        <div><a href="./index.html" style="color:#33AAAA; text-decoration:none;"><b>Home</b></a></div>
+        <div><a href="./coursework.html" style="color:#3C3C3C; text-decoration:none;">Course Work</a></div>
+      </div>
+      <!-- page content -->
+      <div>
+      <p>
+      Welcome to the Summer 2023 Term 2 edition of CPSC 320! Anne and the entire instructional team is looking forward to getting to know you and supporting you in your learning this summer.
+      </p><p>
+      Following are the key resources you need for the course. 
+      Click on the Course Work link above to learn what work
+      you will do in this course and how your learning will be evaluated.
+      <!-- <a href="./coursework.html">Course Work</a>
+      link above learn what work
+      you will do in this course and how your learning will be evaluated.
+        -->
+      
+      </p><hr>
+      <h3>Course Staff</h3>
+      
+      <b> Instructor: </b>
+         Anne Condon <br>
+         Office: ICICS/CS X551 <br>
+      Email: condon at cs.ubc.ca  <br>
+      Office hours: MWF after class
+      
+      <!-- <br>
+         <img width=120px src="https://www.cs.ubc.ca/~condon/anne-2018.png">
+         <br>
+      -->
+         
+      <br>
+      <br>
+      
+      <b>Course Coordinator:</b>
+         Maya Vasdani, cpsc320-admin@cs.ubc.ca  <br>
+         Please email Maya regarding any administrative/logistical issues.
+      
+      <br>
+      <br>
+      
+      <b> TAs: </b> Information on TAs and their office hours is listed on the course Piazza page, accessible via Canvas.
+      
+      <hr>
+      <h3>Learning Goals</h3>
+      <p>
+      
+      In this class you'll learn about useful computational problem-solving
+      techniques, and gain experience both in applying these techniques to
+      solve computational problems efficiently and in recognizing when they
+      are not useful.  More specifically, you'll learn how to:
+            </p><ul>
+        <li>Come up with clear problem formulations, given poorly
+            specified computational tasks.
+        </li><li>Recognize which algorithm design technique, such as
+            brute force, divide and conquer, greedy,
+            or dynamic programming is used in a given algorithm.</li>
+        <li>Evaluate which design
+            technique and/or data structures can be used to solve a given
+            problem efficiently.</li>
+        <li>Implement a solution to a problem using a specified
+            algorithm design technique.</li>
+        <li>Select and apply mathematical techniques, such as
+                  asymptotic notation or recurrence relations, to obtain
+                  good upper and lower bounds on the running time of
+                  algorithms.</li>
+              <li>Recognize similarities between a new problem and problems
+                  that you have already encountered, and judge whether or
+                  not these similarities can be leveraged to design
+                  an algorithm for the new problem.</li>
+              <li> Apply the theory of NP-completeness to provide evidence
+                   that certain problems may not have algorithms that are
+                   efficient on all inputs.
+            </li></ul>
+      
+      <hr>
+      <h3>Textbook and Materials</h3>
+      <p>
+      The required textbook is <i>Algorithm Design</i> by Jon Kleinberg and Éva  Tardos (2005). There will be weekly readings from the textbook, see the Course Work page for details.
+      </p>
+      <!--<p>
+      <img src="./images/algodesign.png" />
+      </p> -->
+      <p>
+      Here some other materials that can be useful in your learning:
+      </p><ul>
+      <li>
+      <a href="https://courses.csail.mit.edu/6.042/spring18/mcs.pdf">Mathematics for Computer Science</a>
+      by Eric Lehman, Tom Leighton and Albert Meyer. Free PDF.
+      <br>This has great background material on proofs, induction, graphs, etc.
+      </li><li>
+      Cormen, Thomas H., Leiserson, Charles E., Rivest, Ronald L., and Stein, Clifford,
+      Introduction to Algorithms, 3rd edition, 2009, ISBN 0-262-03384-4.
+      </li>
+      <li>
+      <a href="http://www.cs.princeton.edu/~wayne/kleinberg-tardos/">
+      Kevin Wayne's slides</a> based on the Kleinberg-Tardos book.
+      </li>
+      <li>
+      <a href="http://jeffe.cs.illinois.edu/teaching/algorithms/">
+      Algorithms, etc.</a> by Jeff Erickson.
+      </li>
+      <li>
+      Michael Garey and David Johnson, Computers and Intractability: a Guide
+      to the theory of NP-Completeness, W.H. Freeman &amp; Company, 1979, ISBN
+      0-7167-1044-5.
+      </li>
+      </ul>
+      <p></p>
+      <!--<li>
+      Sanjoy Dasgupta, Christos Papadimitriou and Umesh Vazirani, Algorithms, McGraw Hill Book Company, 2008, ISBN 0-07-352340-2.
+      </li>
+      
+      <p>
+      The CS Reading Room has most of our references on reserve so that you can browse them in the room (but not checkout). You can find the Reading Room on the second floor of the older wing of ICCS, next to its central atrium. 
+      </p>
+      -->
+      <hr>
+      <h3>Online Tools </h3>
+      
+      <p>
+        <a href="https://www.cs.ubc.ca/students/undergrad/services/computing-accounts/">
+          <b>CS Ugrad account</b></a>:
+        </p><ul>
+          <li>
+            If you do not already have an
+        account, it should be set up soon after you register for the
+        class. Associated with this account is your CSID and
+        CS ugrad email address. See 
+        <a href="https://www.cs.ubc.ca/getacct/"> here</a> for more information.
+        <b> Make sure to activate your account right away, or you won't be
+        able to use essential online tools.</b>  Note that your CSID
+        (typically letter-number-letter-number-letter, sometimes
+        letter-number-letter-number) is provided to you when you activate
+        your CS account; it is different from your CWL.
+      </li></ul>
+      <p>
+        <a href="https://canvas.ubc.ca/courses/118754">
+      <b>Canvas</b></a>: 
+      You should able to access Canvas within 36 hours of registering for
+      the class. Integrated within canvas you'll find:
+      </p><ul>
+      <li> <b>Piazza</b>:
+      <!--  <a href="http://www.piazza.com/ubc.ca/winterterm12019/cpsc320/">
+      <b>Piazza</b></a>: Please register yourself. You will need an access
+      code which will be announced in initial classes and can also be found
+      on the Canvas home page. -->
+      Use Piazza for communication with peers and course staff
+      about class work, exams, etc. However, please exercise discretion that
+      you do not directly discuss solutions to homeworks that are yet to be
+      submitted. If you have any matter requiring private discussion, you
+      can post privately on Piazza or e-mail the instructor or course coordinator.
+      <br>
+      <br>
+      </li><li> <b>Gradescope</b>: Use Gradescope to upload your work on worksheets
+        during lectures, to upload assignments, and to
+      take quizzes and the final exam.  Marks will also be on GradeScope.
+      You can access Gradescope from our Canvas course in the left navigation menu.
+      <br><br>  
+      </li><li> Assignments, quizzes, worksheets and
+        tutorials, and solutions to these.
+      </li></ul>
+      <p></p>
+      <p>
+      </p><hr>
+      <h3>Resources</h3>
+      <p>
+      </p><ul>
+      <li>
+      <a href="https://www.cs.ubc.ca/students/undergrad/resources/equity-inclusion-wellness">
+      <b>Health &amp; Wellness</b></a>. We hope that all students
+      will find this classroom to be a supportive environment, and the
+      course staff are here to help you do your best. Resources are available to help you in
+      times of illness or distress, please check them out and talk with
+      your instructors if we can be helpful.
+      <br>
+      <br>
+      </li><li>
+      
+      <a href="https://academicintegrity.ubc.ca/">
+      <b>University Policies on Academic Integrity</b></a>.  All UBC students
+      are expected to behave as honest and responsible members of an
+      academic community. Make sure you understand UBC's academic integrity
+      principles!  Breach of UBC's policies with respect to academic honesty
+      can result in serious disciplinary action.
+      </li></ul>
+      
+      
+      
+      </div>
+      
+      
+      
+      
+      </body>`
     },
     {
       courseName: "cpsc-320",
       pageType: "Syllabus",
-      courseInformation: "Sense child do state to defer mr of forty. Become latter but nor abroad wisdom waited. Was delivered gentleman acuteness but daughters. In as of whole as match asked. Pleasure exertion put add entrance distance drawings. In equally matters showing greatly it as. Want name any wise are able park when. Saw vicinity judgment remember finished men throwing."
+      courseInformation: `<body>
+      <!-- page header -->
+      <div>
+      <h2>CPSC 320: Intermediate Algorithm Design and Analysis</h2>
+      </div>
+      <!-- nav header -->
+      <div class="flex-container">
+        <div><a href="./index.html" style="color:#3C3C3C; text-decoration:none;">Home</a></div>
+        <div><a href="./coursework.html" style="color:#33AAAA; text-decoration:none;"><b>Course Work</b></a></div>
+      </div>
+      
+      <div>
+      
+      <p>
+      Here's roughly what to expect in terms of course schedule, assignment expectations, assessment and so on. Materials other than the textbook will be made available on Canvas. Worksheets for lectures will also be handed out in class.
+      </p>
+      
+      <hr>
+      <h3>Lectures and Tutorials</h3>
+      
+        <p>
+      See 
+      <a href="https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&amp;tname=subj-course&amp;dept=CPSC&amp;course=320">here</a> for times of lectures and tutorials.
+      Tutorials will start on Wed July 5 (the first week of class) and run twice per week except for the last week, when there will be no tutorial on Fri Aug 11.
+      We expect that you will go to the tutorial for which you are registered. If for some reason that is not possible on occasion, you may attend a different
+      tutorial on that week, but make sure to let your regular tutorial TAs
+      know.
+      </p>
+      <p>
+        Because you'll learn most by interacting
+        with your peers as well as course staff, lectures and tutorials will
+        involve group and individual problem-solving work.
+        Hard copies of lecture worksheets will be provided in class, and both
+        worksheets and tutorial problems will be provided on canvas in advance
+        of the session where you will need them, and solutions plus annotated
+        worksheets will be posted later.
+      </p>
+      <p>
+      Here is a tentative course schedule, along with recommended reading.
+        
+      </p><center>
+      <table width="80%" cellspacing="5">
+      <!-- add some vertical space -->
+      
+      <!-- header -->
+      
+      <tbody><tr>
+      <th class="headingstyle">Week</th>
+      <th class="headingstyle">Topic</th>
+      <th class="headingstyle">Reading</th>
+      </tr>
+      
+      <!-- WEEK ONE -->
+        <tr class="oddstyle" valign="top">
+      <td> 1 </td>
+      <td>
+      Algorithm Design Steps
+      </td>
+      <td>
+      Chapter 1, pages 1-12
+      <br>
+      Chapter 2
+      </td>
+      </tr>
+      
+        <!-- WEEK TWO -->
+        <tr class="evenstyle" valign="top">
+      <td>2 </td>
+      
+      <td>
+      Asymptotic Notation
+      <br>
+        Graph Algorithms
+      </td>
+      <td>
+        Chapter 2
+        <br>
+        Chapter 3.1, 3.2, 3.4-3.6
+      </td>
+      </tr>
+      
+      <!-- WEEK THREE -->
+        <tr class="oddstyle" valign="top">
+      <td>3 </td>
+      
+      <td>
+        Greedy Algorithms
+        <br>
+        Divide and Conquer Algorithms, Recurrences
+       </td>
+      <td>
+        Chapter 4.1, 4.4-4.7
+        <br>
+         Chapter 5.1
+      </td>
+      </tr>
+      
+      <!-- WEEK FOUR -->
+      <tr class="evenstyle" valign="top">
+      <td>4 </td>
+      
+      <td>
+      Divide and Conquer Algorithms, Recurrences, Continued
+      <br>
+      Dynamic Programming
+      </td>
+      <td>
+        Chapter 5.2, 5.3, 5.5
+        <br>
+        Chapter 6.1
+      </td>
+      </tr>
+      
+      <!-- WEEK FIVE -->
+        <tr class="oddstyle" valign="top">
+      <td>5 </td>
+      
+      <td>
+        Dynamic Programming Continued
+        <br>
+        Reductions
+      </td>
+      <td>
+        Chapter 6.2, 6.4, 6.5
+        <br>
+        Chapter 8.1-8.3
+      </td>
+      </tr>
+      
+      <!-- WEEK SIX -->
+      <tr class="evenstyle" valign="top">
+      <td>6 </td>
+      
+      <td>
+      NP-Completeness
+      </td>
+      <td>
+        Chapter 8.4, 8.5, 8.6, 8.8
+      </td>
+      </tr>
+      
+      </tbody></table>
+      </center>
+      
+      <hr>
+      <h3>Assignments</h3>
+      
+      
+      
+      
+      <p>
+      Assignments will be available on Wednesdays, including the first week but not the last week, and due at 10pm Vancouver time on Wednesday a week later.  So there will be five assignments in total. You can work in groups of size up to three.  Each group should make a single submission per assignment.
+      </p><ul>
+      <li>
+      The group must spend at least 15 minutes working on each problem independently before collaborating with others.
+      </li><li>
+      Collaboration with others is limited to discussion and
+      brainstorming. No record of any sort (e.g., written or electronic
+      material) may be exchanged or leave the brainstorming session.
+      </li><li>
+      After collaborating, each student must take a half-hour break from the
+      problem. Treat electronic resources you consult like written resources (set them aside for a
+      half-hour and then do not consult them while writing your solution).
+      </li><li>
+      Each group must write their own independent solution, using their own words.
+      </li><li>
+      Acknowledge all collaborators or sources of assistance in your submission,
+      although you need only name CPSC 320 course staff, handouts, and
+      textbooks if you quote or adapt directly from them. 
+      You should record the names of any other people you collaborate
+      with.
+      </li></ul>
+      <p>
+        We will make the .tex version of the assignment available. You
+        should prepare your solutions using latex. We will accept
+        solutions prepared using other good formatting systems, as long as
+        they are clearly legibile. Solutions that are handwritten or
+        difficult to read will receive a grade of zero.
+      </p><p>
+      Submit your assignment <b>in pdf format</b> on Gradescope by 10pm Vancouver time. You can submit early and resubmit as often as you want up to the deadline. 
+      <b>We strongly encourage you to submit something at least a day in advance of
+      the first assignment</b>, to make sure that things are working properly.
+      </p><p>
+        After uploading to Gradescope, link each question with all the pages of your pdf containing your solution.
+        </p><p>
+      Also, add names of group members (as recorded on Canvas) on GradeScope <i>after</i> one student has made the initial submission. See the image below for adding group members to a submission: <br>
+      <a href="https://www.students.cs.ubc.ca/~cs-320/2019W1/images/gsgroup.png"><img src="https://www.students.cs.ubc.ca/~cs-320/2019W1/images/gsgroup_th.png"></a>
+      <br>
+      As a secondary failsafe, please clearly write the names of all group
+      members on the first page of each submission, and
+      if you want an extra double-check on your identity, include your student number.
+      </p>
+      <p>
+      Late homework submissions will be accepted up to <b> noon on Thursdays<b>,
+      at a penalty of 15% of the assignment's full value. To avoid the
+      deduction, have your documents imaged and ready to upload ahead of
+      time, to avoid any last-minute stress and glitches. Remember that you can always
+      upload a draft ahead of time, and resubmit later.
+      </b></b></p><b><b>
+      <p>
+      To manage TA workload, we will select some, but not all, parts of the assignment for grading.
+      </p>
+      
+      <hr>
+      <h3>Quizzes</h3>
+      Instead of midterms, there will be a weekly quiz during lecture, <b>at 11:00am on
+      Fridays</b>, except for the first and last weeks. There will be four quizzes in total. You will have 50 minutes to do the quiz. 
+      <p>
+      The quiz will test topics relating to reading, lectures, assignment
+      and tutorials from the previous Friday up to Wednesday of that week,
+      including reading for that week. Material from earlier weeks, or
+      course prerequisites, may also appear on a quiz.
+      <!--
+      <p>
+      You will take the quiz online on Gradescope.
+      You can to refer to course materials and resources, including the textbook, the lecture slides, worksheets, and Piazza. You can use calculators or even implement algorithms to check your answers. You are not permitted to discuss with other people, use web searches or look for solutions or guidance anywhere else. You can ask clarification questions to the instructors via a private post in Piazza, or using private chat in Zoom.
+      -->
+      </p><p>
+      Do not write a quiz if you feel ill. If you are unable to write a quiz,
+      inform the course coordinator (cpsc320-admin@cs.ubc.ca) immediately.
+      </p>
+      <p>
+      Your lowest mark in a quiz will be dropped.
+      If you miss two quizes, your mark for one will be dropped
+      and your mark for the second will be
+      calculated based on your performance on the final.
+      You will not be able to make up marks for additional quizzes should
+      you miss more than two.
+      </p>
+      <hr>
+      <h3>Final</h3>
+      We will post the date of the final exam here once we know it.
+      <!--The final exam will be on Thursday August 19 from 8:30-11:00am Vancouver time.-->
+      The material covered in the final exam will be cumulative over the
+      whole course.
+      If you are unable to write the final examination due to
+      illness, you must apply to your home faculty
+      for <a href="http://www.calendar.ubc.ca/vancouver/index.cfm?tree=3,48,0,0">Academic Concession</a> as soon as possible.
+      
+      <hr>
+      <h3>Evaluation</h3>
+      <p>
+        <b> Five assignments</b>  × 5% = 25% 
+      <br>
+      <b>Three quizzes</b> × 10% = 30% (there will be four quizzes, but lowest grade will be dropped)
+      <br>
+      <b>One final exam</b> × 45% 
+      
+      </p><p>
+      In accordance
+      with <a href="http://www.universitycounsel.ubc.ca/policies/policy65.pdf">UBC
+      Policy #65</a>, students who are scheduled to write
+      examinations or attend tutorials on the holy days of their religion must notify their
+      instructors two weeks in advance of the religious holiday they wish to
+      observe. Instructors will provide opportunity for students to make up
+      the missed work without penalty.
+      <br><br>
+      <b>To pass the course</b>, you must obtain at least 50% on the weighted
+      average of the quizzes and final exam. Students who fail to meet this
+      requirement will receive at most a mark of 45% for the course,
+      regardless of the results of the formula above.
+      </p>
+      
+      <hr>
+      <h3>Regrading Requests</h3>
+      
+      We do our best to grade all submissions fairly and
+      consistently. Because graders occasionally make mistakes, we welcome
+      regrade requests that help us correct such mistakes and ensure
+      fairness. You have one week from the time that the grades are posted
+      to submit a regrade request on Gradescope.  Please be respectful and
+      help us ensure that time spent on regrades is productive by following
+      these guidelines.
+      <ul>
+      <li>
+      Prior to making a regrade request, make sure you understand the
+      solution to the problem, and read any comments provided on Gradescope
+      or Piazza about how the problem was graded.  If you don't understand
+      what's missing from your answer, come see one of us during office
+      hours before submitting a regrade request.
+      </li>
+      <li>
+      Explain clearly and specifically why you believe your mark is inappropriate,
+      referring to your solution, and the rubric.  Good examples:
+      "I lost a point for not initializing my table entries, but I
+      initialize them in line 6."  Or, "My solution is quite different from the
+      one in the sample solution, but I'm confident that my approach also
+      works for the following reason..."
+      </li><li>
+      Don't submit a request because you think the rubric
+      is unfair, or if you disagree with a judgment call of the grader.
+      A bad example that disputes the rubric is:
+      "I lost a mark for not justifying my answer, but I didn't
+      think I needed to justify my answer, and I don't feel I should be
+      penalized." 
+      A bad example that disputes a judgment is:
+      "I should get 'minor errors (-0.5 points)' instead of 'significant errors (-2 points)'."
+      An example that is not sufficiently
+      specific is: "My friend gave basically the same answer and got a higher grade."
+      </li>
+      </ul>
+      <p>
+      The person who graded the question will review your request, possibly
+      with input from an instructor or other TAs.  The decision of your TA
+      or instructor is final. It may either increase or decrease your mark.
+      Submitting several poorly-explained regrade requests may result in a
+      penalty.
+      
+      
+      
+      </p></b></b></div></body>`
     },
     {
       courseName: "cpsc-313",
