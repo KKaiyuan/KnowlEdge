@@ -21,9 +21,11 @@ import EditIcon from '@mui/icons-material/EditOutlined';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EmailIcon from '@mui/icons-material/EmailOutlined';
 import CloseIcon from '@mui/icons-material/CloseOutlined';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteEvent } from './calendaractions/CalendarAction';
 import EditEventModal from './EditCalendarModal';
+import { deleteEventAsync, getEventsAsync } from './CalendarEventThunks';
+import EditTaskModal from './EditTaskModal';
 
 export let navigate = {
   PREVIOUS: 'PREV',
@@ -93,6 +95,20 @@ const CalendarStyled = styled.div`
     display:inline-block
     line-height: 16px;
     pointer-events: auto;
+  }
+
+  .rbc-event, .rbc-day-slot .rbc-background-event {
+    border: none;
+    box-sizing: border-box;
+    box-shadow: none;
+    margin: 0;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
   }
 
   .rbc-event-content {
@@ -254,12 +270,13 @@ class CustomToolbar extends React.Component {
   };
 }
 
-export default function CalendarPage({ events }) {
+export default function CalendarPage({ events, components }) {
   const [day, setDay] = useState(new Date()); // Initial day
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editEventModal, setEditEventModal] = useState(false);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.currentUser.uid);
 
   const handleCloseEditEventModal = () => {
     setEditEventModal(false);
@@ -274,6 +291,7 @@ export default function CalendarPage({ events }) {
   const handleEventClick = (event, e) => {
     console.log('In handle click event');
     setSelectedEvent(event);
+    console.log(event);
     setAnchorEl(e.currentTarget);
   };
 
@@ -283,8 +301,12 @@ export default function CalendarPage({ events }) {
   };
 
   const handleDeleteEvent = () => {
-    var eventid = selectedEvent.id;
-    dispatch(deleteEvent(eventid));
+    var eventid = selectedEvent._id;
+    console.log(eventid);
+    console.log(selectedEvent);
+    setSelectedEvent(null);
+    setAnchorEl(null);
+    dispatch(deleteEventAsync({ userId: userId, eventId: eventid }));
   };
 
   const handleClickUpdateEvent = () => {
@@ -307,7 +329,7 @@ export default function CalendarPage({ events }) {
         horizontal: 'center',
       }}
     >
-      {!editEventModal && selectedEvent && (
+      {!editEventModal && selectedEvent !== null && (
         <PopoverContent>
           <div className="popover-buttons">
             <IconButton size="small" onClick={handleClickUpdateEvent}>
@@ -325,8 +347,18 @@ export default function CalendarPage({ events }) {
           </div>
           <h4>{selectedEvent.title}</h4>
           <p>{selectedEvent.description}</p>
-          <p>Start: {selectedEvent.start.toLocaleString()}</p>
-          <p>End: {selectedEvent.end.toLocaleString()}</p>
+          {selectedEvent.type === 'event' && (
+            <p>Start: {selectedEvent.start.toLocaleString()}</p>
+          )}
+          {selectedEvent.type === 'event' && (
+            <p>End: {selectedEvent.end.toLocaleString()}</p>
+          )}
+          {selectedEvent.type === 'task' && (
+            <p>Published: {selectedEvent.published.toLocaleString()}</p>
+          )}
+          {selectedEvent.type === 'task' && (
+            <p>Deadline: {selectedEvent.deadline.toLocaleString()}</p>
+          )}
           {selectedEvent.location && <p>Location: {selectedEvent.location}</p>}
           {selectedEvent.links && (
             <ul>
@@ -360,6 +392,7 @@ export default function CalendarPage({ events }) {
           endAccessor={(event) => moment.utc(event.end).toDate()}
           style={{ height: '80vh' }}
           components={{
+            event: components.event,
             toolbar: (toolbarProps) => (
               <CustomToolbar {...toolbarProps} events={events} />
             ),
@@ -369,8 +402,16 @@ export default function CalendarPage({ events }) {
           onSelectEvent={handleEventClick}
         />
         {eventPopover && !editEventModal ? eventPopover : undefined}
-        {editEventModal && selectedEvent && (
+        {editEventModal && selectedEvent && selectedEvent.type === 'event' && (
           <EditEventModal
+            open={true}
+            event={selectedEvent}
+            handleClose={handleCloseEditEventModal}
+            updateParentEvent={setSelectedEvent}
+          />
+        )}
+        {editEventModal && selectedEvent && selectedEvent.type === 'task' && (
+          <EditTaskModal
             open={true}
             event={selectedEvent}
             handleClose={handleCloseEditEventModal}

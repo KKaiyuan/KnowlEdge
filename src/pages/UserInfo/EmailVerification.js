@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useState } from 'react';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 
 const theme = createTheme({
   typography: {
@@ -141,11 +141,11 @@ export default function EmailVerification() {
             <div className="logo">
               <img
                 className="logo-hat"
-                src={require('../assets/images/knowledge-hat.png')}
+                src={require('../../assets/images/knowledge-hat.png')}
               ></img>
               <img
                 className="logo-tag"
-                src={require('../assets/images/knowledge-tag.png')}
+                src={require('../../assets/images/knowledge-tag.png')}
               ></img>
             </div>
           </div>
