@@ -1,4 +1,5 @@
-// ChatGPT helped nvm
+// dynamicSegmentValue learnt from ChatGPT
+
 import './CoursePage.css';
 import React, {useState, useEffect} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

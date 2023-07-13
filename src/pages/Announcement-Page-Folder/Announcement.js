@@ -16,6 +16,7 @@ import { app } from '../../firebase';
 // Citation for making elements appear and disappear on click: https://www.youtube.com/watch?v=uXk62ZgPH-4&ab_channel=Accessworld
 // Citation for learning how to use and setup redux from https://github.com/danyakarras/react-redux-button-counter-2022
 // Code inpsired from Workshop 3's cs455-express-demo repo: https://github.com/svmah/cs455-express-demo/tree/add-server
+// dynamicSegmentValue learnt from ChatGPT
 const AnonuncementStyle = styled.div`.makeNewAnnouncement {
   border: none;
   color: blue;

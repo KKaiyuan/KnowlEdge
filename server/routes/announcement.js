@@ -1,13 +1,9 @@
 // Code inpsired from Workshop 3's cs455-express-demo repo: https://github.com/svmah/cs455-express-demo/tree/add-server
-
+// Mongoose learnt from: https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/ and the repo provided to us during workshop 4: https://github.com/joshuacassidygrant/mongo-sample
 var express = require('express');
 var router = express.Router();
 const {Announcement} = require('../database/model');
 
-var announcements = [
-
-
-]
 
 
 
