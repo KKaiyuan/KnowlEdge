@@ -16,3 +16,10 @@ export const patchUpvotes = (data) => {
     type: 'PATCH_UPVOTES',
   };
 };
+
+
+export const getContent = () => {
+  return {
+    type: 'GET_CONTENT',
+  };
+};

@@ -58,4 +58,20 @@ const patchUpvotes = async ({ resourceId, commentId, upvotes }) => {
   }
 };
 
-export { fetchComments, addComment, patchUpvotes };
+const getCourseContent = async (courseIdentifer) => {
+  console.log('YOOOOOOOOOOOOOOqqqwwwww')
+  try {
+    const response = await fetch(
+      `http://localhost:3005/resource/` + courseIdentifer
+    );
+    if (!response.ok) {
+      throw new Error('Request failed with status ' + response.status);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error('An error occurred: ' + error.message);
+  }
+};
+
+
+export { fetchComments, addComment, patchUpvotes, getCourseContent };

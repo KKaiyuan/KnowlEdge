@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import CommentSection from './CommentSection/CommentSection';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NavbarComponent from '../Components/Navbar';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { getCourseContentAsync } from './redux/thunks';
 
 const StyleResource = styled.div`
 .courseTitle {
@@ -1079,23 +1080,32 @@ const ResourcePage = () => {
   const {'*': dynamicSegmentValue } = useParams();    
 
   const allCourses = useSelector(state => state.resourcePageReducer.courses);
+  const courseContent = useSelector(state => state.resourcePageReducer.courseContent);
   console.log(allCourses);
   console.log("HEREEEEE")
-  const course = allCourses.find((course) => dynamicSegmentValue === course.pageType + "-" + course.courseName);
-  console.log("this", course);
+//   const course = allCourses.find((course) => dynamicSegmentValue === course.pageType + "-" + course.courseName);
+//   console.log("this", course);
+  console.log(dynamicSegmentValue);
   const location = useLocation();
+  const dispatch = useDispatch();
+  
   useEffect(() => {
+	dispatch(getCourseContentAsync(dynamicSegmentValue));
     window.scrollTo(0, 0); // Scroll to the top of the page
   }, [location.pathname]);
+
+
+
+ //console.log("NAMEE" + courseContent.courseName);
 
   return (
     <StyleResource>
       <NavbarComponent></NavbarComponent>
-      <h1 className = "courseTitle" >  {"Course > " + course.courseName.split("-")[0].toUpperCase() + " " + course.courseName.split("-")[1] + " > " + course.pageType}</h1>
+      <h1 className = "courseTitle" >  {"Course > " + courseContent.courseName.split('-')[0].toUpperCase()  + " " + courseContent.courseName.split('-')[1] + " > " + courseContent.pageType}</h1>
       {/* <h1 className = "courseTitle" >
         {course.courseInformation}
       </h1> */}
-      <StyleCourse><div dangerouslySetInnerHTML={{ __html: course.courseInformation}} /></StyleCourse>
+      <StyleCourse><div dangerouslySetInnerHTML={{ __html: courseContent.courseInformation}} /></StyleCourse>
       <CommentSection />
     </StyleResource>
   );

@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var studentProfileRouter = require('./routes/studentProfile');
 var announcementRouter = require('./routes/announcement');
 var dashboardRouter = require('./routes/dashboard');
+var courseContentRouter = require('./routes/courseContent')
 var app = express();
 const db = require('./database/db');
 var cors = require('cors');
@@ -22,4 +23,5 @@ app.use('/', indexRouter);
 app.use('/studentProfile', studentProfileRouter);
 app.use('/announcements', announcementRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/resource', courseContentRouter);
 module.exports = app;
