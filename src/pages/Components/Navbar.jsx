@@ -40,6 +40,7 @@ const NavbarComponent = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem('userToken');
       navigate('/signup'); // Redirect to the login page after signing out
     } catch (error) {
       console.log('Error signing out:', error);
@@ -106,15 +107,10 @@ const NavbarComponent = () => {
                 </span>
               }
             >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
+              <Dropdown.Item>Inbox</Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate('/calendar')}>
+                Event Calendar
               </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
             </Dropdown>
           </CustomNavbarLink>
 
