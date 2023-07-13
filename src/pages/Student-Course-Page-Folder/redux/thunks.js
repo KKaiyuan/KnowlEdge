@@ -5,7 +5,7 @@ import ItemService from './service';
 
 export const getAnnouncementsAsync = createAsyncThunk(
     actionTypes.GET_ANNOUNCEMENTS,
-    async () => {
-        return await ItemService.getAnnouncements();
+    async (course) => {
+        return await ItemService.getAnnouncements(course);
     }
 )

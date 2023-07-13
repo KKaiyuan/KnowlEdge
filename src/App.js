@@ -52,7 +52,7 @@ function App() {
           }
         />
         <Route
-          path="/announcements"
+          path="/announcements/*"
           element={
             <RequireAuth>
               <Announcement />

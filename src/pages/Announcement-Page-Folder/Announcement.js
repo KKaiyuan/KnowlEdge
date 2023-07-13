@@ -7,7 +7,7 @@ import AnnouncementList from "./AnnouncementList";
 import NavbarComponent from '../Components/Navbar';
 import { getAnnouncementsAsync, addAnnouncementAsync, removeAnnouncementAsync } from "./redux/thunks";
 import styled from 'styled-components';
-
+import {useParams} from 'react-router-dom';
 import { fetchStudentInfoAsync } from '../StudentDashboard/redux/thunks';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../firebase';
@@ -33,11 +33,17 @@ export default function Announcement() {
 
     const dispatch = useDispatch();
 
-
-  
+    const {'*': dynamicSegmentValue } = useParams();    
     useEffect(() => {
-      dispatch(getAnnouncementsAsync());
+      dispatch(getAnnouncementsAsync(dynamicSegmentValue));
+      if (dynamicSegmentValue === "all") {
+        setShowAnnouncement(false);
+      } else {
+        setShowAnnouncement(true);
+      }
     }, [dispatch]);
+
+ 
     const handleSubmit = (event) => {
       console.log(newAnnouncement);
       event.preventDefault();
@@ -79,7 +85,7 @@ export default function Announcement() {
 
     const handleChange = ({ target }) => {
       const { name, value } = target;
-      setNewAnnouncement((prevAnnouncement) => ({ ...prevAnnouncement, announcementId: Date.now(), username: user.displayName, [name]: value}));
+      setNewAnnouncement((prevAnnouncement) => ({ ...prevAnnouncement, announcementId: Date.now(), announcementCourse: dynamicSegmentValue,  username: user.displayName, [name]: value}));
     };
 
     return (

@@ -52,7 +52,8 @@ const announcementSchema = new mongoose.Schema(
   {
     announcement: String,
 		announcementId: Number,
-		announcementTitle: String
+		announcementTitle: String,
+    announcementCourse: String
   },
   { versionKey: false }
 )

@@ -2,7 +2,6 @@
 
 export const actionTypes = {
     GET_ANNOUNCEMENTS: 'studentProfile/getAnnouncements',
-    ADD_ANNOUNCEMENT: 'studentProfile/addAnnouncement',
-    REMOVE_ANNOUNCEMENT: 'studentProfile/removeAnnouncement'
+
   };
   

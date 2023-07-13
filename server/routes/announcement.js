@@ -11,9 +11,14 @@ var announcements = [
 
 
 
-router.get('/', async function (req, res, next) {
-	const announcements = await Announcement.find();
-	console.log(announcements);
+router.get('/:course', async function (req, res, next) {
+	var announcements = [];
+	if (req.params.course === "all") {
+		announcements = await Announcement.find({});
+
+	} else {
+		announcements = await Announcement.find({ announcementCourse: req.params.course});
+	}
     res.status(200).send(announcements);
 })
 

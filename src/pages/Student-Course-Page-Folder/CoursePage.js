@@ -19,17 +19,14 @@ export default function CoursePage() {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-
+    const {'*': dynamicSegmentValue } = useParams();    
+    console.log("course page", dynamicSegmentValue);
     useEffect(() => {
-        dispatch(getAnnouncementsAsync());
+        dispatch(getAnnouncementsAsync(dynamicSegmentValue));
       }, [dispatch]);
 
     const allAnnouncements = useSelector(state => state.coursePageReducer.announcements);
 
-    console.log(allAnnouncements);
-
-    const {'*': dynamicSegmentValue } = useParams();    
-    console.log(dynamicSegmentValue);
 
     const handleCourseCardClick = (courseTitle) => {
         navigate(`/resource/${courseTitle}`);
@@ -67,7 +64,7 @@ export default function CoursePage() {
         
         {allAnnouncements.length >= 1? (<MediumCard type="announcement" title= {allAnnouncements[0].announcementTitle} />) : <p></p> }
         {allAnnouncements.length >= 2? (<MediumCard type="announcement" title= {allAnnouncements[1].announcementTitle} />) : <p></p> }
-        <button className = "seeMoreLink" onClick={() => navigate('/announcements')}>See more...</button>
+        <button className = "seeMoreLink" onClick={() => navigate('/announcements/' + dynamicSegmentValue)}>See more...</button>
         </div>
       </div>
 
