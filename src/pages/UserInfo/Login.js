@@ -7,12 +7,17 @@ import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
 } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
+import { postUserAsync, getUserAsync } from './UserThunks';
+
 const theme = createTheme({
   typography: {
     button: {
@@ -116,6 +121,7 @@ const LoginStyled = styled.div`
 
 export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -134,7 +140,19 @@ export default function Login() {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/');
+        const userobj = userCredential.user;
+        const user = {
+          uid: userobj.uid,
+          email: userobj.email,
+          displayName: userobj.displayName,
+          profilePicture: userobj.photoURL,
+        };
+        Promise.all([dispatch(postUserAsync(user))]).then(
+          ([postUserResult]) => {
+            console.log(postUserResult);
+            navigate('/');
+          }
+        );
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {
@@ -164,7 +182,19 @@ export default function Login() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        navigate('/');
+        const userobj = result.user;
+        const user = {
+          uid: userobj.uid,
+          email: userobj.email,
+          displayName: userobj.displayName,
+          profilePicture: userobj.photoURL,
+        };
+        Promise.all([dispatch(postUserAsync(user))]).then(
+          ([postUserResult]) => {
+            console.log(postUserResult);
+            navigate('/');
+          }
+        );
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -188,11 +218,11 @@ export default function Login() {
             <div className="logo">
               <img
                 className="logo-hat"
-                src={require('../assets/images/knowledge-hat.png')}
+                src={require('../../assets/images/knowledge-hat.png')}
               ></img>
               <img
                 className="logo-tag"
-                src={require('../assets/images/knowledge-tag.png')}
+                src={require('../../assets/images/knowledge-tag.png')}
               ></img>
             </div>
           </div>
@@ -240,7 +270,7 @@ export default function Login() {
                     startIcon={
                       <Avatar
                         sx={{ height: '16px', width: '16px' }}
-                        src={require('../assets/images/google-icon.png')}
+                        src={require('../../assets/images/google-icon.png')}
                       />
                     }
                     onClick={handleLoginWithGoogle}
