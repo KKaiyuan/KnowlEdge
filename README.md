@@ -187,7 +187,7 @@ Stretch Requirements
     -   a navigation bar with links to access the calendar, the courses
         the instructor is teaching, grades and a message inbox.
         
-7.  **Instructor Course Page View:**  an instructor user will be able to
+7.  **Instructor Course Page View:** an instructor user will be able to
     view a course page similar to the student course page in order to access course content. This page will
     include:
 
@@ -197,7 +197,13 @@ Stretch Requirements
     -   Instructors will be able to see added information including a
         list of students enrolled in their courses and options to post
         content including lecture notes, recordings, homework, quizzes,
-        exams, and grades. 
+        exams, and grades.
+
+8. **Instructor Profile Page View:** an instructor will be able to view their
+   own instructor profile, which has their profile picture, name, faculty,
+   field of study, contact info, and an about me section. Instructors also have the ability
+   to add a preferred name if they wish, as well as edit their contact info and
+   about me section.
 
 Task Breakdown
 
