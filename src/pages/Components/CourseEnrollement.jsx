@@ -60,6 +60,7 @@ const CourseEnrollement = () => {
   const [selectedCourses, setSelectedCourses] = useState([]);
   const rootRef = useRef(null);
   const inputRef = useRef(null);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const dispatch = useDispatch();
 
@@ -105,8 +106,13 @@ const CourseEnrollement = () => {
     const courseToAdd = event.target.textContent;
 
     if (!studentCourses.includes(courseToAdd)) {
-      const newCoursesList = [...studentCourses, courseToAdd];
-      dispatch(patchStudentCoursesAsync(newCoursesList, Date.now()));
+      const updatedCourses = [...studentCourses, courseToAdd];
+      dispatch(
+        patchStudentCoursesAsync(
+          { uid: currentUser.uid, updatedCourses },
+          Date.now()
+        )
+      );
     }
 
     setSearchResult([]);
@@ -118,7 +124,12 @@ const CourseEnrollement = () => {
       const course = event.target.parentNode.childNodes[1].textContent;
 
       const updatedCourses = studentCourses.filter((c) => c !== course);
-      dispatch(patchStudentCoursesAsync(updatedCourses, Date.now()));
+      dispatch(
+        patchStudentCoursesAsync(
+          { uid: currentUser.uid, updatedCourses },
+          Date.now()
+        )
+      );
     } catch (e) {
       console.log("can't remove course");
     }

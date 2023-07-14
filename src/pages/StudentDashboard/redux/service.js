@@ -1,6 +1,7 @@
-const fetchStudentInfo = async () => {
+const fetchStudentInfo = async (uid) => {
   try {
-    const response = await fetch('http://localhost:3005/studentProfile/');
+    const response = await fetch(`http://localhost:3005/studentProfile/${uid}`);
+
     if (!response.ok) {
       throw new Error('Request failed with status ' + response.status);
     }
@@ -10,10 +11,10 @@ const fetchStudentInfo = async () => {
   }
 };
 
-const patchStudentCourses = async (newCourses) => {
+const patchStudentCourses = async (uid, newCourses) => {
   try {
     const response = await fetch(
-      'http://localhost:3005/studentProfile/courses',
+      `http://localhost:3005/studentProfile/courses/${uid}`,
       {
         method: 'PATCH',
         headers: {

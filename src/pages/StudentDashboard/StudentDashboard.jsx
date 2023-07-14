@@ -80,12 +80,14 @@ const DashboardStyled = styled.div`
 const StudentDashboard = () => {
   const navigate = useNavigate();
   const auth = getAuth(app);
-  const [user, setUser] = useState('');
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
-    dispatch(fetchStudentInfoAsync());
-  }, [dispatch]);
+    if (currentUser.uid) {
+      dispatch(fetchStudentInfoAsync(currentUser.uid));
+    }
+  }, [currentUser, dispatch]);
 
   const studentInfo = useSelector(
     (state) => state.studentDashboardReducer.studentInfo
@@ -97,18 +99,6 @@ const StudentDashboard = () => {
     setStudentCourses(studentInfo.courses);
   }, [studentInfo]);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
-      if (currentUser) {
-        setUser(currentUser);
-      } else {
-        navigate('/signup');
-      }
-    };
-    fetchUserData();
-  }, []);
-
   const handleCourseCardClick = (courseTitle) => {
     navigate(`/courses/${courseTitle}`);
   };
@@ -119,7 +109,7 @@ const StudentDashboard = () => {
       <DashboardStyled>
         <div className="card-container no-btm-padding">
           <h2 className="greeting">
-            Welcome {user.displayName}&nbsp;&nbsp;&nbsp;👋🏻
+            Welcome {currentUser.displayName}&nbsp;&nbsp;&nbsp;👋🏻
           </h2>
           <div>
             <StudentCard />
