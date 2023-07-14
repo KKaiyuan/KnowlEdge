@@ -1,12 +1,11 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import { Avatar, createTheme, ThemeProvider } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
+import { createTheme, ThemeProvider } from '@mui/material';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useState } from 'react';
+import { auth } from '../../firebase';
 
 const theme = createTheme({
   typography: {
@@ -107,10 +106,33 @@ const LoginStyled = styled.div`
     margin-left: 15%;
     margin-right: 15%;
   }
+
+  .proceed-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    align-self: center;
+  }
 `;
 
-export default function Login() {
+export default function EmailVerification() {
   const navigate = useNavigate();
+  const [redirected, setRedirected] = useState(false);
+  const handleProceed = async () => {
+    try {
+      await auth.currentUser.reload(); // Refresh user's authentication state
+      const user = auth.currentUser;
+
+      if (user && user.emailVerified && !redirected) {
+        navigate('/');
+        setRedirected(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <LoginStyled>
@@ -119,11 +141,11 @@ export default function Login() {
             <div className="logo">
               <img
                 className="logo-hat"
-                src={require('../assets/images/knowledge-hat.png')}
+                src={require('../../assets/images/knowledge-hat.png')}
               ></img>
               <img
                 className="logo-tag"
-                src={require('../assets/images/knowledge-tag.png')}
+                src={require('../../assets/images/knowledge-tag.png')}
               ></img>
             </div>
           </div>
@@ -141,36 +163,10 @@ export default function Login() {
                 noValidate
                 autoComplete="off"
               >
-                <TextField
-                  id="username"
-                  variant="outlined"
-                  label="Your Email Address"
-                />
-
-                <TextField
-                  id="password"
-                  variant="outlined"
-                  label="Your Password"
-                />
-                <div className="login-button-div">
-                  <Button variant="contained" onClick={() => navigate('/')}>
-                    Login
-                  </Button>
-                  <div className="divider-div">
-                    <Divider variant="middle">or</Divider>
-                  </div>
-                  <Button
-                    className="google-signin"
-                    variant="outlined"
-                    startIcon={
-                      <Avatar
-                        sx={{ height: '16px', width: '16px' }}
-                        src={require('../assets/images/google-icon.png')}
-                      />
-                    }
-                  >
-                    Sign in with Google
-                  </Button>
+                Account Successfully created! Please check your email for a
+                verification link!
+                <div className="proceed-button">
+                  <Button onClick={handleProceed}>Proceed</Button>
                 </div>
               </Box>
             </div>

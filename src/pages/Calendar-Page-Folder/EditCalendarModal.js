@@ -16,8 +16,9 @@ import { IconButton } from '@mui/material';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import NotesIcon from '@material-ui/icons/Notes';
 import LinkIcon from '@material-ui/icons/Link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editEvent } from './calendaractions/CalendarAction';
+import { getEventsAsync, putEventAsync } from './CalendarEventThunks';
 
 const EditEventModalStyled = styled('div')`
   #event-title:focus,
@@ -95,11 +96,14 @@ export default function EditEventModal({
   const [location, setLocation] = useState(event.location);
   const [eventDescription, setEventDescription] = useState(event.description);
   const [links, setLinks] = useState(event.links);
+
+  const userId = useSelector((state) => state.user.currentUser.uid);
   const dispatch = useDispatch();
 
   const handleClickUpdateEvent = () => {
+    console.log('in handleClickUpdate');
     var updatedEvent = {
-      id: event.id,
+      _id: event._id,
       title: eventTitle,
       start: new Date(
         selectedStartDate.getFullYear(),
@@ -119,8 +123,11 @@ export default function EditEventModal({
       location: location,
       links: links,
     };
-    dispatch(editEvent(updatedEvent));
+    console.log(updatedEvent);
+    dispatch(putEventAsync({ userId: userId, event: updatedEvent }));
+    //dispatch(getEventsAsync(userId));
     updateParentEvent(updatedEvent);
+    dispatch(getEventsAsync(userId));
   };
 
   const handleEventTitleChange = (event) => {

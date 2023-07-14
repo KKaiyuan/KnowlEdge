@@ -5,18 +5,26 @@ import ReducerAnnouncementPage from './reducers/ReducerAnnouncementPage';
 import indexCount from './reducers/indexCount';
 import studentDashboardReducer from './pages/StudentDashboard/redux/StudentDashboardSlice';
 import CalendarEventReducer from './reducers/CalendarEventReducer';
+import resourcePageReducer from './pages/ResourcePage/redux/ResourcePageSlice';
+import { instructorProfileRed } from './pages/instructorProfilePage/instructorProfileSlice';
+import { coursePageSliceReducer } from './pages/Student-Course-Page-Folder/redux/coursePageSlice';
+import { eventReducer } from './pages/Calendar-Page-Folder/CalendarEventSlice';
+import { userReducer } from './pages/UserInfo/UserSlice';
 import { flashcardsReducer } from './pages/StudySets/redux/StudySetsSlice.js';
 
 export const store = configureStore({
   reducer: {
     studentProfileReducer: studentProfileRed,
+    instructorProfileReducer: instructorProfileRed,
     announcementPageReducerStore: announcementPageReducer,
     studentDashboardReducer: studentDashboardReducer,
     ReducerAnnouncementPage: ReducerAnnouncementPage,
-    ReducerAnnouncementPage: ReducerAnnouncementPage,
-    calendarEventReducer: CalendarEventReducer,
     flashcards: flashcardsReducer,
     indexCount: indexCount,
+    resourcePageReducer: resourcePageReducer,
+    coursePageReducer: coursePageSliceReducer,
+    event: eventReducer,
+    user: userReducer,
   },
   devTools: true,
 });
