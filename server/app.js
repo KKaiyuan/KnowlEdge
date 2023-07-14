@@ -7,7 +7,7 @@ var indexRouter = require('./routes/index');
 var studentProfileRouter = require('./routes/studentProfile');
 var announcementRouter = require('./routes/announcement');
 
-var flashcardsRouter = require('./routes/StudySetServer');
+// var flashcardsRouter = require('./routes/StudySetServer');
 var eventRouter = require('./routes/event');
 var userRouter = require('./routes/user');
 var dashboardRouter = require('./routes/dashboard');
@@ -29,7 +29,7 @@ app.use('/', indexRouter);
 app.use('/studentProfile', studentProfileRouter);
 app.use('/announcements', announcementRouter);
 
-app.use('/studysets/flashcards', flashcardsRouter);
+// app.use('/studysets/flashcards', flashcardsRouter);
 app.use('/user', userRouter);
 app.use('/events', eventRouter);
 app.use('/dashboard', dashboardRouter);
