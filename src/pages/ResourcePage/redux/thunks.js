@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { addComment, fetchComments, patchUpvotes } from './service';
+import { addComment, fetchComments, patchUpvotes, getCourseContent } from './service';
 
 export const fetchCommentsAsync = createAsyncThunk(
   'resourcePage/fetchComments',
@@ -21,3 +21,11 @@ export const patchUpvotesAsync = createAsyncThunk(
     return await patchUpvotes(data);
   }
 );
+
+
+export const getCourseContentAsync = createAsyncThunk(
+  'resourcePage/getContent',
+  async (courseIdentifer) => {
+    return await getCourseContent(courseIdentifer);
+  }
+)

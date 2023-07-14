@@ -5,10 +5,12 @@ import studentProfileReducer from './studentProfileReducer';
 import flashcards from './flashcards';
 import indexCount from './indexCount';
 import calendarEventReducer from './CalendarEventReducer';
+import instructorProfileReducer from './instructorProfileReducer';
 
 const rootReducer = combineReducers({
   ReducerAnnouncementPage,
   studentProfileReducer,
+  instructorProfileReducer,
   flashcards,
   indexCount,
   calendarEventReducer,
