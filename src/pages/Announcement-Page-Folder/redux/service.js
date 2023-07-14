@@ -1,7 +1,7 @@
 // Code inpsired from Workshop 3's cs455-express-demo repo: https://github.com/svmah/cs455-express-demo/tree/add-server
 
-const getAnnouncements = async () => {
-    const response = await fetch('http://localhost:3005/announcements', {
+const getAnnouncements = async (course) => {
+    const response = await fetch('http://localhost:3005/announcements/' + course, {
         method: 'GET',
     });
     const data = await response.json();

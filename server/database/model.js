@@ -48,6 +48,16 @@ const userSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+
+const announcementSchema = new mongoose.Schema(
+  {
+    announcement: String,
+		announcementId: Number,
+		announcementTitle: String,
+    announcementCourse: String
+  },
+  { versionKey: false }
+)
 const Student = mongoose.model('Student', studentSchema);
 
 const User = mongoose.model(
@@ -90,5 +100,8 @@ const Comment = mongoose.model('Comment', commentSchema);
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = { Student, Course, Comment, User, Event };
+const Announcement = mongoose.model('Announcement', announcementSchema);
+
+module.exports = { Student, Course, Comment, User, Announcement, Event };
+
 
