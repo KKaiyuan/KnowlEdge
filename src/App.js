@@ -14,7 +14,8 @@ import CalendarView from './pages/Calendar-Page-Folder/CalendarView';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
 import RequireAuth from './pages/Components/RequireAuth';
-import ResoucePage from './pages/ResourcePage/ResourcePage';
+import ResourcePage from './pages/ResourcePage/ResourcePage';
+import InstructorProfile from './pages/instructorProfilePage/InstructorProfile';
 import EmailVerification from './pages/UserInfo/EmailVerification';
 import { useDispatch } from 'react-redux';
 import { getUserAsync, postUserAsync } from './pages/UserInfo/UserThunks';
@@ -118,8 +119,16 @@ function App() {
           }
         />
 
+        <Route
+          path="/instructor"
+          element={
+           
+              <InstructorProfile />
+           
+          }
+        />
+
         <Route path="/resource/*" element={<ResoucePage />} />
- 
       </Routes>
     </Router>
   );
