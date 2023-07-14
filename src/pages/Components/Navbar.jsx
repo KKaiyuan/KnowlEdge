@@ -40,6 +40,7 @@ const NavbarComponent = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem('userToken');
       navigate('/signup'); // Redirect to the login page after signing out
     } catch (error) {
       console.log('Error signing out:', error);
@@ -88,11 +89,21 @@ const NavbarComponent = () => {
             </Dropdown>
           </CustomNavbarLink>
 
-          <CustomNavbarLink href="/calendar" className="font-sans font-bold">
-            <span>
-              <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
-              Calendar
-            </span>
+          <CustomNavbarLink className="font-sans font-bold">
+            <Dropdown
+              inline
+              label={
+                <span>
+                  <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
+                  Calendar
+                </span>
+              }
+            >
+              <Dropdown.Item>Inbox</Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate('/calendar')}>
+                Event Calendar
+              </Dropdown.Item>
+            </Dropdown>
           </CustomNavbarLink>
 
           <CustomNavbarLink href="/studysets" className="font-sans font-bold">
