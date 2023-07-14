@@ -22,7 +22,7 @@ export const store = configureStore({
     flashcards: flashcards,
     indexCount: indexCount,
     resourcePageReducer: resourcePageReducer,
-    coursePageReducer: coursePageSliceReducer
+    coursePageReducer: coursePageSliceReducer,
     event: eventReducer,
     user: userReducer,
   },
