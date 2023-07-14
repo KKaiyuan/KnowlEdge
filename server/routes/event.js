@@ -1,6 +1,8 @@
-import { v4 as uuid } from 'uuid';
+var express = require('express');
+var router = express.Router();
+const { Event, User } = require('../database/model');
 
-const initialState = [
+var events = [
   {
     id: '0',
     title: 'All Day Event very long title',
@@ -424,38 +426,74 @@ const initialState = [
   },
 ];
 
-const CalendarEventReducer = (calendarEvents = initialState, action) => {
-  switch (action.type) {
-    case 'ADD_EVENT': {
-      var id = uuid();
-      action.payload.id = id;
-      return [...calendarEvents, action.payload];
-    }
-    case 'EDIT_EVENT': {
-      const index = calendarEvents.findIndex(
-        (event) => event.id === action.payload.id
-      );
+router.get('/:userId', (req, res) => {
+  const { userId } = req.params;
 
-      if (index === -1) {
-        return calendarEvents;
-      }
+  Event.find({ userId: userId })
+    .then((userEvents) => {
+      console.log(userEvents);
+      res.status(200).send(userEvents);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(404).json({ error: 'Failed to retrieve events' });
+    });
+});
 
-      const updatedCalendarEvents = [...calendarEvents];
-      updatedCalendarEvents[index] = {
-        ...updatedCalendarEvents[index],
-        ...action.payload,
-      };
+router.post('/:userId', (req, res) => {
+  console.log(req.body);
+  const { userId } = req.params;
+  const eventData = {
+    userId: userId,
+    title: req.body.title || '',
+    start: req.body.start || '',
+    end: req.body.end || '',
+    location: req.body.location || '',
+    links: req.body.links || [],
+    type: req.body.type || '',
+    course: req.body.course || '',
+    published: req.body.published || '',
+    deadline: req.body.deadline || '',
+    desc: req.body.desc || '',
+  };
 
-      calendarEvents = updatedCalendarEvents;
-      return calendarEvents;
-    }
-    case 'DELETE_EVENT': {
-      return calendarEvents.filter((event) => event.id !== action.payload);
-    }
-    default: {
-      return calendarEvents;
-    }
-  }
-};
+  console.log(eventData);
+  const newEvent = new Event({ userId, ...eventData });
+  console.log(newEvent);
+  newEvent
+    .save()
+    .then(() => {
+      Event.find({ userId }).then((events) => {
+        res.status(200).send(events);
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Failed to create new Event' });
+    });
+});
 
-export default CalendarEventReducer;
+router.put('/:userId/:eventId', (req, res) => {
+  const { userId, eventId } = req.params;
+  const eventData = req.body;
+
+  Event.findOneAndUpdate({ _id: eventId, userId }, eventData)
+    .then((event) => {
+      res.status(200).send(event);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Failed to update event' });
+    });
+});
+
+router.delete('/:userId/:eventId', (req, res) => {
+  const { userId, eventId } = req.params;
+  Event.findOneAndDelete({ _id: eventId })
+    .then(() => {
+      res.status(200).send(eventId);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Failed to delete event' });
+    });
+});
+
+module.exports = router;

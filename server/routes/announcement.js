@@ -1,19 +1,20 @@
 // Code inpsired from Workshop 3's cs455-express-demo repo: https://github.com/svmah/cs455-express-demo/tree/add-server
-
+// Mongoose learnt from: https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/ and the repo provided to us during workshop 4: https://github.com/joshuacassidygrant/mongo-sample
 var express = require('express');
 var router = express.Router();
 const {Announcement} = require('../database/model');
 
-var announcements = [
-
-
-]
 
 
 
-router.get('/', async function (req, res, next) {
-	const announcements = await Announcement.find();
-	console.log(announcements);
+router.get('/:course', async function (req, res, next) {
+	var announcements = [];
+	if (req.params.course === "all") {
+		announcements = await Announcement.find({});
+
+	} else {
+		announcements = await Announcement.find({ announcementCourse: req.params.course});
+	}
     res.status(200).send(announcements);
 })
 
