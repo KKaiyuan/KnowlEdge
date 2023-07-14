@@ -9,17 +9,3 @@ export const getAnnouncementsAsync = createAsyncThunk(
         return await ItemService.getAnnouncements(course);
     }
 )
-
-export const addAnnouncementAsync = createAsyncThunk(
-    actionTypes.ADD_ANNOUNCEMENT,
-    async (card) => {
-        return await ItemService.addAnnouncement(card);
-    }
-)
-
-export const removeAnnouncementAsync = createAsyncThunk(
-    actionTypes.REMOVE_ANNOUNCEMENT,
-    async (id, {fulfillWithValue}) => {
-        return  fulfillWithValue(await ItemService.removeAnnouncement(id));
-    }
-)

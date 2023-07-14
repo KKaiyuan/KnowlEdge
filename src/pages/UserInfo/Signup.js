@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -14,8 +14,12 @@ import {
   updateProfile,
   fetchSignInMethodsForEmail,
   sendEmailVerification,
+  setPersistence,
+  browserLocalPersistence,
 } from 'firebase/auth';
 import { useState } from 'react';
+import { postUserAsync, getUserAsync } from './UserThunks';
+import { useDispatch } from 'react-redux';
 
 const theme = createTheme({
   typography: {
@@ -111,6 +115,7 @@ const SignUpStyled = styled.div`
 `;
 
 export default function SignUp() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -146,41 +151,117 @@ export default function SignUp() {
       })
       .then(() => {
         if (validatePasswordStrength(password)) {
-          createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              const user = userCredential.user;
-              updateProfile(user, {
+          console.log('in validate password strength');
+          createUserWithEmailAndPassword(auth, email, password).then(
+            (userCredential) => {
+              const userobj = userCredential.user;
+              console.log(userobj);
+              const user = {
+                uid: userobj.uid,
+                email: userobj.email,
                 displayName: fullName,
-              })
-                .then(() => {
-                  sendEmailVerification(auth.currentUser)
-                    .then(() => {
-                      navigate('/emailverification');
-                    })
-                    .catch((error) => {
-                      console.log(error.code);
-                      console.log(error.message);
-                    });
-                })
-                .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  console.log(errorCode);
-                  console.log(errorMessage);
-                });
-            })
-            .catch((error) => {
-              // if (error.code === 'auth/email-already-in-use') {
-              //   // Redirect to login with email field populated
-              //   const searchParams = new URLSearchParams();
-              //   searchParams.set('email', email);
-              //   navigate(`/login?${searchParams.toString()}`);
-              // }
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.log(errorCode);
-              console.log(errorMessage);
-            });
+                profilePicture: userobj.photoURL,
+              };
+              console.log(user);
+              Promise.all([dispatch(postUserAsync(user))]).then(
+                ([postUserResult]) => {
+                  console.log(postUserResult);
+                }
+              );
+              navigate('/');
+            }
+          );
+          //   return updateProfile(userobj, {
+          //     displayName: fullName,
+          //   })
+          //     .then(() => {
+          //       console.log('Sending email verification');
+          //       if (userobj) {
+          //         userobj
+          //           .getIdToken()
+          //           .then((idToken) => {
+          //             // Use the ID token
+          //             console.log(idToken);
+          //             sendEmailVerification(userobj)
+          //               .then(() => {
+          //                 navigate('/emailverification');
+          //               })
+          //               .catch((error) => {
+          //                 console.log(error.code);
+          //                 console.log(error.message);
+          //               });
+          //           })
+          //           .catch((error) => {
+          //             console.log(error.code);
+          //             console.log(error.message);
+          //           });
+          //       }
+          //     })
+          //     .catch((error) => {
+          //       const errorCode = error.code;
+          //       const errorMessage = error.message;
+          //       console.log(errorCode);
+          //       console.log(errorMessage);
+          //     });
+          // })
+          // .catch((error) => {
+          //   const errorCode = error.code;
+          //   const errorMessage = error.message;
+          //   console.log(errorCode);
+          //   console.log(errorMessage);
+          // });
+          // createUserWithEmailAndPassword(auth, email, password)
+          //   .then((userCredential) => {
+          //     const userobj = userCredential.user;
+          //     console.log(userobj);
+          //     const user = {
+          //       uid: userobj.uid,
+          //       email: userobj.email,
+          //       displayName: fullName,
+          //       profilePicture: userobj.photoURL,
+          //     };
+          //     console.log(user);
+          //     Promise.all([dispatch(postUserAsync(user))]).then(
+          //       ([postUserResult]) => {
+          //         console.log(postUserResult);
+          //       }
+          //     );
+          //     return userobj;
+          //   })
+          //   .then((userobj) =>
+          //     updateProfile(userobj, {
+          //       displayName: fullName,
+          //     })
+          //   )
+          //   .then((userobj) => {
+          //     console.log('Sending email verification');
+          //     if (userobj) {
+          //       userobj
+          //         .getIdToken()
+          //         .then((idToken) => {
+          //           // Use the ID token
+          //           console.log(idToken);
+          //           sendEmailVerification(userobj)
+          //             .then(() => {
+          //               navigate('/emailverification');
+          //             })
+          //             .catch((error) => {
+          //               console.log(error.code);
+          //               console.log(error.message);
+          //             });
+          //         })
+          //         .catch((error) => {
+          //           console.log(error.code);
+          //           console.log(error.message);
+          //         });
+          //     }
+          //   })
+          //   .catch((error) => {
+          //     const errorCode = error.code;
+          //     const errorMessage = error.message;
+          //     console.log(errorCode);
+          //     console.log(errorMessage);
+          //   });
         } else {
           // Password is not strong enough, show error message
           setPasswordError(
@@ -214,7 +295,19 @@ export default function SignUp() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        navigate('/');
+        const userobj = result.user;
+        const user = {
+          uid: userobj.uid,
+          email: userobj.email,
+          displayName: userobj.displayName,
+          profilePicture: userobj.photoURL,
+        };
+        Promise.all([dispatch(postUserAsync(user))]).then(
+          ([postUserResult]) => {
+            console.log(postUserResult);
+            navigate('/');
+          }
+        );
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -232,11 +325,11 @@ export default function SignUp() {
             <div className="logo">
               <img
                 className="logo-hat"
-                src={require('../assets/images/knowledge-hat.png')}
+                src={require('../../assets/images/knowledge-hat.png')}
               ></img>
               <img
                 className="logo-tag"
-                src={require('../assets/images/knowledge-tag.png')}
+                src={require('../../assets/images/knowledge-tag.png')}
               ></img>
             </div>
           </div>
@@ -298,7 +391,7 @@ export default function SignUp() {
                     startIcon={
                       <Avatar
                         sx={{ height: '16px', width: '16px' }}
-                        src={require('../assets/images/google-icon.png')}
+                        src={require('../../assets/images/google-icon.png')}
                       />
                     }
                     onClick={handleSignUpWithGoogle}

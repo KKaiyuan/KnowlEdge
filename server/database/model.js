@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema(
   {
+    uid: { type: String, ref: 'User' },
     preferredName: String,
     faculty: String,
     major: String,
@@ -52,7 +53,8 @@ const announcementSchema = new mongoose.Schema(
   {
     announcement: String,
 		announcementId: Number,
-		announcementTitle: String
+		announcementTitle: String,
+    announcementCourse: String
   },
   { versionKey: false }
 )
@@ -68,6 +70,40 @@ const courseDocumentsSchema = new mongoose.Schema(
 
 const Student = mongoose.model('Student', studentSchema);
 
+const User = mongoose.model(
+  'User',
+  new mongoose.Schema({
+    uid: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
+    displayName: { type: String, required: true },
+  })
+);
+
+const eventSchema = new mongoose.Schema(
+  {
+    userId: { type: String, ref: 'User' },
+    title: String,
+    start: String,
+    end: String,
+    location: String,
+    links: [
+      {
+        name: String,
+        url: String,
+      },
+    ],
+    type: String,
+    course: String,
+    published: String,
+    deadline: String,
+    desc: String,
+    course: String,
+  },
+  { versionKey: false }
+);
+
+const Event = mongoose.model('Event', eventSchema);
+
 const Course = mongoose.model('Course', courseSchema);
 
 const Comment = mongoose.model('Comment', commentSchema);
@@ -79,3 +115,4 @@ const Announcement = mongoose.model('Announcement', announcementSchema);
 const CourseDocuments = mongoose.model('CourseDocument', courseDocumentsSchema);
 
 module.exports = { Student, Course, Comment, User, Announcement, CourseDocuments };
+

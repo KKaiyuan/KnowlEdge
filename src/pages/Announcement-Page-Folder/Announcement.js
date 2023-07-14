@@ -7,7 +7,7 @@ import AnnouncementList from "./AnnouncementList";
 import NavbarComponent from '../Components/Navbar';
 import { getAnnouncementsAsync, addAnnouncementAsync, removeAnnouncementAsync } from "./redux/thunks";
 import styled from 'styled-components';
-
+import {useParams} from 'react-router-dom';
 import { fetchStudentInfoAsync } from '../StudentDashboard/redux/thunks';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../firebase';
@@ -16,6 +16,7 @@ import { app } from '../../firebase';
 // Citation for making elements appear and disappear on click: https://www.youtube.com/watch?v=uXk62ZgPH-4&ab_channel=Accessworld
 // Citation for learning how to use and setup redux from https://github.com/danyakarras/react-redux-button-counter-2022
 // Code inpsired from Workshop 3's cs455-express-demo repo: https://github.com/svmah/cs455-express-demo/tree/add-server
+// dynamicSegmentValue learnt from ChatGPT
 const AnonuncementStyle = styled.div`.makeNewAnnouncement {
   border: none;
   color: blue;
@@ -33,11 +34,17 @@ export default function Announcement() {
 
     const dispatch = useDispatch();
 
-
-  
+    const {'*': dynamicSegmentValue } = useParams();    
     useEffect(() => {
-      dispatch(getAnnouncementsAsync());
+      dispatch(getAnnouncementsAsync(dynamicSegmentValue));
+      if (dynamicSegmentValue === "all") {
+        setShowAnnouncement(false);
+      } else {
+        setShowAnnouncement(true);
+      }
     }, [dispatch]);
+
+ 
     const handleSubmit = (event) => {
       console.log(newAnnouncement);
       event.preventDefault();
@@ -79,7 +86,7 @@ export default function Announcement() {
 
     const handleChange = ({ target }) => {
       const { name, value } = target;
-      setNewAnnouncement((prevAnnouncement) => ({ ...prevAnnouncement, announcementId: Date.now(), username: user.displayName, [name]: value}));
+      setNewAnnouncement((prevAnnouncement) => ({ ...prevAnnouncement, announcementId: Date.now(), announcementCourse: dynamicSegmentValue,  username: user.displayName, [name]: value}));
     };
 
     return (
