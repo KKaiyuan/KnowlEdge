@@ -7,10 +7,13 @@ import indexCount from './reducers/indexCount';
 import studentDashboardReducer from './pages/StudentDashboard/redux/StudentDashboardSlice';
 import CalendarEventReducer from './reducers/CalendarEventReducer';
 import resourcePageReducer from './pages/ResourcePage/redux/ResourcePageSlice';
+import { instructorProfileRed } from './pages/instructorProfilePage/instructorProfileSlice';
+
 
 export const store = configureStore({
   reducer: {
     studentProfileReducer: studentProfileRed,
+    instructorProfileReducer: instructorProfileRed,
     announcementPageReducerStore: announcementPageReducer,
     studentDashboardReducer: studentDashboardReducer,
     ReducerAnnouncementPage: ReducerAnnouncementPage,

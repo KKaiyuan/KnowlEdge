@@ -17,6 +17,7 @@ import RequireAuth from './pages/Components/RequireAuth';
 import EmailVerification from './pages/EmailVerification';
 import ResoucePage from './pages/ResourcePage/ResourcePage';
 import ResourcePage from './pages/ResourcePage/ResourcePage';
+import InstructorProfile from './pages/instructorProfilePage/InstructorProfile';
 
 console.warn = () => {};
 
@@ -92,8 +93,16 @@ function App() {
           }
         />
 
+        <Route
+          path="/instructor"
+          element={
+           
+              <InstructorProfile />
+           
+          }
+        />
+
         <Route path="/resource/*" element={<ResoucePage />} />
- 
       </Routes>
     </Router>
   );

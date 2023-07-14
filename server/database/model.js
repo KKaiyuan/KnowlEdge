@@ -13,6 +13,19 @@ const studentSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+const instructorSchema = new mongoose.Schema(
+  {
+    preferredName: String,
+    faculty: String,
+    field: String,
+    contact: String,
+    image: String,
+    aboutMe: String,
+    courses: [String],
+  },
+  { versionKey: false }
+);
+
 const courseSchema = new mongoose.Schema(
   {
     courseName: String,
@@ -68,14 +81,16 @@ const courseDocumentsSchema = new mongoose.Schema(
 
 const Student = mongoose.model('Student', studentSchema);
 
+const Instructor = mongoose.model('Instructor', instructorSchema);
+
 const Course = mongoose.model('Course', courseSchema);
 
 const Comment = mongoose.model('Comment', commentSchema);
 
 const User = mongoose.model('User', userSchema);
 
-const Announcement = mongoose.model('Announcement', announcementSchema);
+const Announcement = mongoose.model('Announcement', announcementSchema); 
 
 const CourseDocuments = mongoose.model('CourseDocument', courseDocumentsSchema);
 
-module.exports = { Student, Course, Comment, User, Announcement, CourseDocuments };
+module.exports = { Student, Course, Comment, User, Announcement, CourseDocuments, Instructor };

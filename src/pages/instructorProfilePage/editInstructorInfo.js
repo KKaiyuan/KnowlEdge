@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 //import { useDispatch } from 'react-redux';
-//import { editStudentProfileAsync } from './thunks';
+//import { editInstructorProfileAsync } from './thunks';
 
-export default function EditStudentInfo({ student, onSubmit }) {
-  const [editedStudent, setEditedStudent] = useState(student);
+export default function EditInstructorInfo({ instructor, onSubmit }) {
+  const [editedInstructor, setEditedInstructor] = useState(instructor);
   //const dispatch = useDispatch();
 
   useEffect(() => {
     // setEditedStudent((prevStudent) => ({ ...prevStudent, preferredName: '' }));
-    setEditedStudent((prevStudent) => ({ ...prevStudent, preferredName: '' }));
+    setEditedInstructor((prevInstructor) => ({ ...prevInstructor, preferredName: '' }));
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditedStudent((prevStudent) => ({
-      ...prevStudent,
+    setEditedInstructor((prevInstructor) => ({
+      ...prevInstructor,
       [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('ERE' + editedStudent.preferredName);
+    console.log('ERE' + editedInstructor.preferredName);
     // dispatch(editStudentProfileAsync(editedStudent));
     //  dispatch(getItemsAsync());
     //   setNewTask({ // clear form after add new item
@@ -32,7 +32,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
     //     image: ""
     //   });
     //   dispatch(getItemsAsync(editedStudent));
-    onSubmit(editedStudent);
+    onSubmit(editedInstructor);
   };
 
   return (
@@ -45,7 +45,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
         type="text"
         id="preferredName"
         name="preferredName"
-        value={editedStudent.preferredName}
+        value={editedInstructor.preferredName}
         onChange={handleChange}
         style={{ fontSize: 20 }}
       />
@@ -57,7 +57,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
         type="text"
         id="contact"
         name="contact"
-        value={editedStudent.contact}
+        value={editedInstructor.contact}
         onChange={handleChange}
         style={{ fontSize: 20 }}
       />
@@ -68,7 +68,7 @@ export default function EditStudentInfo({ student, onSubmit }) {
       <textarea
         id="aboutMe"
         name="aboutMe"
-        value={editedStudent.aboutMe}
+        value={editedInstructor.aboutMe}
         rows="5"
         cols="40"
         onChange={handleChange}
