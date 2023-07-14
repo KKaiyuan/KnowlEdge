@@ -11,14 +11,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
-  updateProfile,
   fetchSignInMethodsForEmail,
-  sendEmailVerification,
-  setPersistence,
-  browserLocalPersistence,
 } from 'firebase/auth';
 import { useState } from 'react';
-import { postUserAsync, getUserAsync } from './UserThunks';
+import { postUserAsync } from './UserThunks';
 import { useDispatch } from 'react-redux';
 
 const theme = createTheme({
@@ -123,6 +119,24 @@ export default function SignUp() {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [nameError, setNameError] = useState('');
+
+  const handleEmailChange = (event) => {
+    const email = event.target.value;
+    setErrorMessage('');
+    setEmail(email);
+  };
+
+  const handlePasswordChange = (event) => {
+    const password = event.target.value;
+    setPasswordError('');
+    setPassword(password);
+  };
+
+  const handleNameChange = (event) => {
+    const name = event.target.value;
+    setNameError('');
+    setFullName(name);
+  };
 
   const handleSignUp = () => {
     if (fullName === '') {
@@ -355,14 +369,14 @@ export default function SignUp() {
                   error={!!nameError}
                   helperText={nameError}
                   value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) => handleNameChange(e)}
                 />
                 <TextField
                   id="email"
                   variant="outlined"
                   label="Your Email Address"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => handleEmailChange(e)}
                   error={!!errorMessage}
                   helperText={errorMessage}
                 />
@@ -376,7 +390,7 @@ export default function SignUp() {
                   }
                   error={!!passwordError}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => handlePasswordChange(e)}
                 />
                 <div className="sign-up-button-div">
                   <Button variant="contained" onClick={handleSignUp}>

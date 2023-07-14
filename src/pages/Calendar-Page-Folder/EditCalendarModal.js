@@ -5,6 +5,7 @@ import { styled } from 'styled-components';
 import { Box } from '@mui/material';
 import TimeIcon from '@material-ui/icons/AccessTime';
 import EventIcon from '@material-ui/icons/Event';
+import BookIcon from '@material-ui/icons/Book';
 import {
   MobileDatePicker,
   LocalizationProvider,
@@ -17,7 +18,6 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import NotesIcon from '@material-ui/icons/Notes';
 import LinkIcon from '@material-ui/icons/Link';
 import { useDispatch, useSelector } from 'react-redux';
-import { editEvent } from './calendaractions/CalendarAction';
 import { getEventsAsync, putEventAsync } from './CalendarEventThunks';
 
 const EditEventModalStyled = styled('div')`
@@ -94,8 +94,9 @@ export default function EditEventModal({
   const [selectedEndDate, setSelectedEndDate] = useState(new Date(event.end));
   const [selectedEndTime, setSelectedEndTime] = useState(new Date(event.end));
   const [location, setLocation] = useState(event.location);
-  const [eventDescription, setEventDescription] = useState(event.description);
+  const [eventDescription, setEventDescription] = useState(event.desc);
   const [links, setLinks] = useState(event.links);
+  const [course, setCourse] = useState(event.course || '');
 
   const userId = useSelector((state) => state.user.currentUser.uid);
   const dispatch = useDispatch();
@@ -119,7 +120,7 @@ export default function EditEventModal({
         selectedEndTime.getHours(),
         selectedEndTime.getMinutes()
       ).toISOString(),
-      description: eventDescription,
+      desc: eventDescription,
       location: location,
       links: links,
     };
@@ -128,6 +129,11 @@ export default function EditEventModal({
     //dispatch(getEventsAsync(userId));
     updateParentEvent(updatedEvent);
     dispatch(getEventsAsync(userId));
+  };
+
+  const handleCourseChange = (event) => {
+    const inputValue = event.target.value;
+    setCourse(inputValue);
   };
 
   const handleEventTitleChange = (event) => {
@@ -208,6 +214,16 @@ export default function EditEventModal({
               onChange={handleEventTitleChange}
               variant="standard"
               placeholder="Add title"
+            />
+          </div>
+          <div className="icon-field">
+            <BookIcon />
+            <TextField
+              id="event-title"
+              value={course}
+              onChange={handleCourseChange}
+              variant="standard"
+              placeholder="Add Course"
             />
           </div>
           <div className="icon-field">
