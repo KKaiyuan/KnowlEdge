@@ -19,9 +19,63 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import CalendarPage from './Calendar';
 import AddEventModal from './AddEventModal';
 import { useSelector, useDispatch } from 'react-redux';
+import TaskIcon from '@mui/icons-material/TaskAltRounded';
 import { addEvent } from './calendaractions/CalendarAction';
+import { useEffect, useState } from 'react';
+import { getEventsAsync } from './CalendarEventThunks';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const drawerWidth = 240;
+
+const TaskEvent = ({ event }) => {
+  const bulletStyle = {
+    display: 'inline-block',
+    marginRight: '5px',
+    verticalAlign: 'middle',
+    borderRadius: '50%',
+    width: '10px',
+    height: '10px',
+    backgroundColor: '#0074d9',
+  };
+
+  const eventStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor:
+      event.type === 'task' ? 'transparent' : 'rgb(0 116 217 / 89%)', // Set background color based on event type
+    borderRadius: '5px',
+    color: event.type === 'task' ? 'black' : 'white',
+    padding: '5px',
+  };
+
+  const iconStyle = {
+    fontSize: '14px',
+    marginLeft: '6px',
+  };
+
+  if (event.length > 1) {
+    const remainingEvents = event.slice(1); // Get the remaining events excluding the first two
+    return (
+      <div>
+        <div>{event[0].title}</div>
+        <div>{event[1].title}</div>
+        <div>
+          <a href="#">{`+${remainingEvents.length} more`}</a>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={eventStyle}>
+      {event.type === 'task' && <span style={bulletStyle}></span>}
+      {event.title}
+      {event.type === 'task' && (
+        <TaskIcon fontSize="xsmall" style={iconStyle} />
+      )}
+    </div>
+  );
+};
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -68,7 +122,46 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function SideMenu() {
-  const myEventsList = useSelector((state) => state.calendarEventReducer);
+  const userId = useSelector((state) => state.user.currentUser.uid);
+  console.log(userId);
+  const dispatch = useDispatch();
+  const myEventsList = useSelector((state) => state.event.events);
+  console.log(myEventsList);
+  const tasks =
+    myEventsList.length > 0
+      ? myEventsList.filter((event) => event.type === 'task')
+      : [];
+  const events =
+    myEventsList.length > 0
+      ? myEventsList.filter((event) => event.type === 'event')
+      : [];
+
+  // Need to map tasks to fit the big-react-calendar events, model them as all they events so that they can be displayed
+
+  useEffect(() => {
+    dispatch(getEventsAsync(userId));
+  }, [dispatch, userId]);
+
+  const eventComponents = {
+    event: TaskEvent, // Use TaskEvent component for task events
+  };
+
+  const taskEvents = tasks.map((task) => ({
+    _id: task._id,
+    title: task.title,
+    course: task.course,
+    published: task.published,
+    allDay: true, // Set the allDay property to true for all-day events
+    start: task.deadline, // Convert the task's date to a JavaScript Date object
+    end: task.deadline,
+    deadline: task.deadline,
+    desc: task.desc,
+    links: task.links,
+    type: task.type,
+  }));
+
+  const finalEventsList = [...events, ...taskEvents];
+
   const [open, setOpen] = React.useState(false);
   const [isAddEventModalOpen, setAddEventModal] = React.useState(false);
   const handleCloseAddEventModal = () => setAddEventModal(false);
@@ -93,7 +186,7 @@ export default function SideMenu() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Add Event', 'Add Calendar', 'Add Contact', 'Notifications'].map(
+          {['Create', 'Add Calendar', 'Contacts', 'Notifications'].map(
             (text, index) => (
               <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
@@ -128,7 +221,7 @@ export default function SideMenu() {
           )}
         </List>
       </Drawer>
-      <CalendarPage events={myEventsList} />
+      <CalendarPage events={finalEventsList} components={eventComponents} />
       {isAddEventModalOpen && (
         <AddEventModal
           isOpen={isAddEventModalOpen}

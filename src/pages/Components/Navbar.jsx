@@ -15,6 +15,9 @@ import styled from 'styled-components';
 import CourseEnrollement from './CourseEnrollement';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEnrollModal } from '../StudentDashboard/redux/StudentDashboardSlice';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
 
 const CustomNavbarLink = styled(Navbar.Link)`
   &:hover {
@@ -31,6 +34,18 @@ const NavbarComponent = () => {
     (state) => state.studentDashboardReducer
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem('userToken');
+      navigate('/signup'); // Redirect to the login page after signing out
+    } catch (error) {
+      console.log('Error signing out:', error);
+    }
+  };
 
   return (
     <>
@@ -68,14 +83,6 @@ const NavbarComponent = () => {
                 </span>
               }
             >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
               <Dropdown.Item onClick={() => dispatch(setEnrollModal('true'))}>
                 Enroll
               </Dropdown.Item>
@@ -92,87 +99,35 @@ const NavbarComponent = () => {
                 </span>
               }
             >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
+              <Dropdown.Item>Inbox</Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate('/calendar')}>
+                Event Calendar
               </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
             </Dropdown>
           </CustomNavbarLink>
 
-          <CustomNavbarLink className="font-sans font-bold">
-            <Dropdown
-              inline
-              label={
-                <span>
-                  <FontAwesomeIcon icon={faBook} className="mr-2" />
-                  Study Sets
-                </span>
-              }
-            >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-            </Dropdown>
+          <CustomNavbarLink href="/studysets" className="font-sans font-bold">
+            <span>
+              <FontAwesomeIcon icon={faBook} className="mr-2" />
+              Study Sets
+            </span>
           </CustomNavbarLink>
 
-          <CustomNavbarLink className="font-sans font-bold">
-            <Dropdown
-              inline
-              label={
-                <span>
-                  <FontAwesomeIcon
-                    icon={faSquarePollVertical}
-                    className="mr-2"
-                  />
-                  Notes
-                </span>
-              }
-            >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-            </Dropdown>
+          <CustomNavbarLink href="" className="font-sans font-bold">
+            <span>
+              <FontAwesomeIcon icon={faSquarePollVertical} className="mr-2" />
+              Notes
+            </span>
           </CustomNavbarLink>
 
-          <CustomNavbarLink className="font-sans font-bold">
-            <Dropdown
-              inline
-              label={
-                <span>
-                  <FontAwesomeIcon icon={faCommentDots} className="mr-2" />
-                  Messages
-                </span>
-              }
-            >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-            </Dropdown>
+          <CustomNavbarLink href="" className="font-sans font-bold">
+            <span>
+              <FontAwesomeIcon icon={faCommentDots} className="mr-2" />
+              Messages
+            </span>
           </CustomNavbarLink>
         </Navbar.Collapse>
+        <Button onClick={handleSignOut}>Log Out</Button>
       </CustomNavbar>
     </>
   );

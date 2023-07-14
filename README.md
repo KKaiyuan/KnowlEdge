@@ -76,13 +76,19 @@ Minimal Requirements
     -   viewing upcoming due dates for assignments, exam schedules,
         lectures, and labs.
 
-    -   publishing course specific events or tasks to the calendars of 
-        students enrolled in their courses (for instructors only).
+    -   publishing course specific events or tasks to the calendars of
+      students enrolled in their courses (for instructors only).
 
-5.  **Student Course Page View:**  a student user will be able to
+4.  **Student Course Page View:**  a student user will be able to
     view a course page in order to access course content. This page will
     include content such as lecture recordings, quizzes, exams, assignment
     information, grading rubrics, course outlines etc.
+
+5. **Student Profile Page:** a student user will be able to view their
+   own student profile, which has their profile picture, name, faculty,
+   major, contact info, and an about me section. Students also have the ability
+   to add a preferred name if they wish, as well as edit their contact info and
+   about me section.
 
 Standard Requirements
 
@@ -120,9 +126,6 @@ Standard Requirements
     -   Students can browse study sets/ custom quizzes published by
         their peers with search, filter, and order functionalities to
         practice the course content.
-
-    -   Students can request for regrades through a button and dialog
-        from the specific assignment, quiz, or exam page.
 
 5.  **Comment sections:**
 
@@ -181,7 +184,7 @@ Stretch Requirements
     -   a navigation bar with links to access the calendar, the courses
         the instructor is teaching, grades and a message inbox.
         
-7.  **Instructor Course Page View:**  an instructor user will be able to
+7.  **Instructor Course Page View:** an instructor user will be able to
     view a course page similar to the student course page in order to access course content. This page will
     include:
 
@@ -191,7 +194,18 @@ Stretch Requirements
     -   Instructors will be able to see added information including a
         list of students enrolled in their courses and options to post
         content including lecture notes, recordings, homework, quizzes,
-        exams, and grades. 
+        exams, and grades.
+
+        
+8. **Regrade Request:**  Students can request for regrades through a button and dialog
+        from the specific assignment, quiz, or exam page.
+
+9. **Instructor Profile Page View:** an instructor will be able to view their
+   own instructor profile, which has their profile picture, name, faculty,
+   field of study, contact info, and an about me section. Instructors also have the ability
+   to add a preferred name if they wish, as well as edit their contact info and
+   about me section.
+
 
 Task Breakdown
 

@@ -116,7 +116,7 @@ const StyledAnnouncementlist = styled.div`
   border: 1px solid #000000;
   border-radius: 8px;
 }`;
-export default function AnnouncementList({allAnnouncements, handleDelete}) {
+export default function AnnouncementList({allAnnouncements, handleDelete, currentUser}) {
     const [query, setQuery] = useState("")
 
     
@@ -129,10 +129,10 @@ export default function AnnouncementList({allAnnouncements, handleDelete}) {
         onChange={(e) => setQuery(e.target.value)}/>
             <ul className= {'announcement-list'}>
                         {allAnnouncements.filter((announcement) => announcement.announcementTitle.toLowerCase().includes(query) ||
-                        announcement.announcement.toLowerCase().includes(query)).map(( { announcementTitle, announcement, announcementId}) => (
+                        announcement.announcement.toLowerCase().includes(query)).map(( { announcementTitle, announcement, announcementId, username}) => (
                             <li key={announcementId} className = {'announcementElement'}>
                                 <h2 className = {"announcementTitle"}>{announcementTitle}</h2>
-                                <p className= {"tempUser"}>Posted by: Unknown User</p>
+                                <p className= {"tempUser"}>Posted by: {username}</p>
                                 <p className= {"paragraph"}>{announcement}</p>
                           
                                 <div className="dropdown">

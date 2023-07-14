@@ -1,6 +1,6 @@
-import { TextField } from '@mui/material';
+import { TextField, Tabs, Tab } from '@mui/material';
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Box } from '@mui/material';
 import TimeIcon from '@material-ui/icons/AccessTime';
@@ -16,8 +16,10 @@ import { IconButton } from '@mui/material';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import NotesIcon from '@material-ui/icons/Notes';
 import LinkIcon from '@material-ui/icons/Link';
-import { useDispatch } from 'react-redux';
-import { addEvent } from './calendaractions/CalendarAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEventsAsync, postEventAsync } from './CalendarEventThunks';
+import { Typography } from '@material-ui/core';
+import BookIcon from '@mui/icons-material/Book';
 
 const AddEventModalStyled = styled('div')`
   #event-title:focus,
@@ -86,11 +88,56 @@ export default function AddEventModal({ isOpen, handleClose }) {
   const [location, setLocation] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [links, setLinks] = useState([{ name: '', url: '' }]);
+  const [taskTitle, setTaskTitle] = useState('');
+  const [selectedPublishedDate, setSelectedPublishedDate] = useState(
+    new Date()
+  );
+  const [selectedPublishedTime, setSelectedPublishedTime] = useState(
+    new Date()
+  );
+  const [selectedDeadlineDate, setSelectedDeadlineDate] = useState(new Date());
+  const [selectedDeadlineTime, setSelectedDeadlineTime] = useState(new Date());
+  const [eventCourse, setEventCourse] = useState('');
+  const [taskCourse, setTaskCourse] = useState('');
+  const [taskLocation, setTaskLocation] = useState('');
+  const [taskDescription, setTaskDescription] = useState('');
+  const [tasklinks, setTaskLinks] = useState([{ name: '', url: '' }]);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.currentUser.uid);
+
+  useEffect(() => {
+    dispatch(getEventsAsync(userId));
+  }, [dispatch, userId]);
+
+  const handleClickAddTask = () => {
+    var newTask = {
+      title: taskTitle,
+      published: new Date(
+        selectedPublishedDate.getFullYear(),
+        selectedPublishedDate.getMonth(),
+        selectedPublishedDate.getDate(),
+        selectedPublishedTime.getHours(),
+        selectedPublishedTime.getMinutes()
+      ).toISOString(),
+      deadline: new Date(
+        selectedDeadlineDate.getFullYear(),
+        selectedDeadlineDate.getMonth(),
+        selectedDeadlineDate.getDate(),
+        selectedDeadlineTime.getHours(),
+        selectedDeadlineTime.getMinutes()
+      ).toISOString(),
+      course: taskCourse,
+      type: 'task',
+      location: taskLocation,
+      description: taskDescription,
+      links: tasklinks,
+    };
+
+    dispatch(postEventAsync({ userId: userId, event: newTask }));
+  };
 
   const handleClickAddEvent = () => {
     var newEvent = {
-      id: '',
       title: eventTitle,
       start: new Date(
         selectedStartDate.getFullYear(),
@@ -106,11 +153,58 @@ export default function AddEventModal({ isOpen, handleClose }) {
         selectedEndTime.getHours(),
         selectedEndTime.getMinutes()
       ).toISOString(),
+      type: 'event',
+      course: eventCourse,
       description: eventDescription,
       location: location,
       links: links,
     };
-    dispatch(addEvent(newEvent));
+    console.log(newEvent);
+    dispatch(postEventAsync({ userId: userId, event: newEvent }));
+    //dispatch(getEventsAsync(userId));
+  };
+
+  const handleTaskTitleChange = (event) => {
+    const inputValue = event.target.value;
+    setTaskTitle(inputValue);
+  };
+
+  const handleTaskPublishedDateChange = (date) => {
+    setSelectedPublishedDate(date);
+  };
+
+  const handleTaskPublishedTimeChange = (time) => {
+    setSelectedPublishedTime(time);
+  };
+
+  const handleTaskDeadlineDateChange = (date) => {
+    setSelectedDeadlineDate(date);
+  };
+
+  const handleTaskDeadlineTimeChange = (time) => {
+    setSelectedDeadlineTime(time);
+  };
+
+  const handleTaskCourseChange = (event) => {
+    const inputValue = event.target.value;
+    setTaskCourse(inputValue);
+  };
+
+  const handleTaskDescriptionChange = (description) => {
+    const inputValue = description.target.value;
+    setTaskDescription(inputValue);
+  };
+
+  const handleTaskLocationChange = (event) => {
+    const inputValue = event.target.value;
+    setTaskLocation(inputValue);
+  };
+
+  const handleTaskLinksChange = (index, event) => {
+    const { name, value } = event.target;
+    const newLinks = [...links];
+    newLinks[index][name] = value;
+    setTaskLinks(newLinks);
   };
 
   const handleEventTitleChange = (event) => {
@@ -139,6 +233,11 @@ export default function AddEventModal({ isOpen, handleClose }) {
     setSelectedStartTime(time);
   };
 
+  const handleEventCourseChange = (event) => {
+    const inputValue = event.target.value;
+    setEventCourse(inputValue);
+  };
+
   const handleEndTimeChange = (time) => {
     setSelectedEndTime(time);
   };
@@ -164,6 +263,12 @@ export default function AddEventModal({ isOpen, handleClose }) {
     setLinks(newLinks);
   };
 
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <div>
       <AddEventModalStyled
@@ -180,137 +285,315 @@ export default function AddEventModal({ isOpen, handleClose }) {
             },
           ]}
         >
-          <IconButton id="close-modal" onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-          <div className="icon-field">
-            <EventIcon />
-            <TextField
-              id="event-title"
-              value={eventTitle}
-              onChange={handleEventTitleChange}
-              variant="standard"
-              placeholder="Add title"
-            />
-          </div>
-          <div className="icon-field">
-            <TimeIcon />
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <MobileDatePicker
-                value={selectedStartDate}
-                onChange={handleStartDateChange}
-                label="Start Date"
-                renderInput={(props) => (
-                  <TextField
-                    id="datepicker"
-                    {...props}
-                    helperText="valid mask"
-                    variant="standard"
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Event" />
+            <Tab label="Task" />
+          </Tabs>
+
+          {value === 0 && (
+            <div value={value} index={0}>
+              <IconButton id="close-modal" onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+              <div className="icon-field">
+                <EventIcon />
+                <TextField
+                  id="event-title"
+                  value={eventTitle}
+                  onChange={handleEventTitleChange}
+                  variant="standard"
+                  placeholder="Add title"
+                />
+              </div>
+              <div className="icon-field">
+                <BookIcon />
+                <TextField
+                  id="event-title"
+                  value={eventCourse}
+                  onChange={handleEventCourseChange}
+                  variant="standard"
+                  placeholder="Add Course"
+                />
+              </div>
+              <div className="icon-field">
+                <TimeIcon />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <MobileDatePicker
+                    value={selectedStartDate}
+                    onChange={handleStartDateChange}
+                    label="Start Date"
+                    renderInput={(props) => (
+                      <TextField
+                        id="datepicker"
+                        {...props}
+                        helperText="valid mask"
+                        variant="standard"
+                      />
+                    )}
                   />
-                )}
-              />
-              <MobileTimePicker
-                label="Start Time"
-                value={selectedStartTime}
-                onChange={handleStartTimeChange}
-                renderInput={(props) => (
-                  <TextField
-                    id="timepicker"
-                    {...props}
-                    helperText="valid mask"
-                    variant="standard"
+                  <MobileTimePicker
+                    label="Start Time"
+                    value={selectedStartTime}
+                    onChange={handleStartTimeChange}
+                    renderInput={(props) => (
+                      <TextField
+                        id="timepicker"
+                        {...props}
+                        helperText="valid mask"
+                        variant="standard"
+                      />
+                    )}
                   />
-                )}
-              />
-            </LocalizationProvider>
-          </div>
-          <div className="icon-field">
-            <TimeIcon />
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <MobileDatePicker
-                label="End Date"
-                onChange={handleEndDateChange}
-                value={selectedEndDate}
-                renderInput={(props) => (
-                  <TextField
-                    id="datepicker"
-                    {...props}
-                    helperText="valid mask"
-                    variant="standard"
+                </LocalizationProvider>
+              </div>
+              <div className="icon-field">
+                <TimeIcon />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <MobileDatePicker
+                    label="End Date"
+                    onChange={handleEndDateChange}
+                    value={selectedEndDate}
+                    renderInput={(props) => (
+                      <TextField
+                        id="datepicker"
+                        {...props}
+                        helperText="valid mask"
+                        variant="standard"
+                      />
+                    )}
                   />
-                )}
-              />
-              <MobileTimePicker
-                label="End Time"
-                onChange={handleEndTimeChange}
-                value={selectedEndTime}
-                renderInput={(props) => (
-                  <TextField
-                    id="timepicker"
-                    {...props}
-                    helperText="valid mask"
-                    variant="standard"
+                  <MobileTimePicker
+                    label="End Time"
+                    onChange={handleEndTimeChange}
+                    value={selectedEndTime}
+                    renderInput={(props) => (
+                      <TextField
+                        id="timepicker"
+                        {...props}
+                        helperText="valid mask"
+                        variant="standard"
+                      />
+                    )}
                   />
-                )}
-              />
-            </LocalizationProvider>
-          </div>
-          <div className="icon-field">
-            <LocationIcon />
-            <TextField
-              id="event-title"
-              value={location}
-              onChange={handleLocationChange}
-              variant="standard"
-              placeholder="Add location"
-            />
-          </div>
-          <div className="icon-field">
-            <NotesIcon />
-            <TextField
-              id="event-title"
-              value={eventDescription}
-              onChange={handleEventDescriptionChange}
-              multiline
-              maxRows={5}
-              placeholder="Add description"
-            />
-          </div>
-          {links.map((link, index) => (
-            <div className="icon-field" key={index}>
-              <LinkIcon />
-              <TextField
-                value={link.name}
-                name="name"
-                onChange={(event) => handleLinkChange(index, event)}
-                variant="outlined"
-                label={`Link ${index + 1} Name`}
-                placeholder="Add link name"
-              />
-              <TextField
-                value={link.url}
-                name="url"
-                onChange={(event) => handleLinkChange(index, event)}
-                variant="outlined"
-                label={`Link ${index + 1} URL`}
-                placeholder="Add link url"
-              />
-              <CloseIcon onClick={(event) => handleDeleteLink(index)} />
+                </LocalizationProvider>
+              </div>
+              <div className="icon-field">
+                <LocationIcon />
+                <TextField
+                  id="event-title"
+                  value={location}
+                  onChange={handleLocationChange}
+                  variant="standard"
+                  placeholder="Add location"
+                />
+              </div>
+              <div className="icon-field">
+                <NotesIcon />
+                <TextField
+                  id="event-title"
+                  value={eventDescription}
+                  onChange={handleEventDescriptionChange}
+                  multiline
+                  maxRows={5}
+                  placeholder="Add description"
+                />
+              </div>
+              {links.map((link, index) => (
+                <div className="icon-field" key={index}>
+                  <LinkIcon />
+                  <TextField
+                    value={link.name}
+                    name="name"
+                    onChange={(event) => handleLinkChange(index, event)}
+                    variant="outlined"
+                    label={`Link ${index + 1} Name`}
+                    placeholder="Add link name"
+                  />
+                  <TextField
+                    value={link.url}
+                    name="url"
+                    onChange={(event) => handleLinkChange(index, event)}
+                    variant="outlined"
+                    label={`Link ${index + 1} URL`}
+                    placeholder="Add link url"
+                  />
+                  <CloseIcon onClick={(event) => handleDeleteLink(index)} />
+                </div>
+              ))}
+              <div className="icon-field">
+                <Button
+                  id="addlink"
+                  variant="contained"
+                  onClick={handleAddLink}
+                >
+                  Add Link
+                </Button>
+                <Button
+                  id="createevent"
+                  variant="contained"
+                  type="submit"
+                  onClick={handleClickAddEvent}
+                >
+                  Create Event
+                </Button>
+              </div>
             </div>
-          ))}
-          <div className="icon-field">
-            <Button id="addlink" variant="contained" onClick={handleAddLink}>
-              Add Link
-            </Button>
-            <Button
-              id="createevent"
-              variant="contained"
-              type="submit"
-              onClick={handleClickAddEvent}
-            >
-              Create Event
-            </Button>
-          </div>
+          )}
+          {value === 1 && (
+            <div>
+              <div value={value} index={1}>
+                <IconButton id="close-modal" onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+                <div className="icon-field">
+                  <EventIcon />
+                  <TextField
+                    id="event-title"
+                    value={taskTitle}
+                    onChange={handleTaskTitleChange}
+                    variant="standard"
+                    placeholder="Add title"
+                  />
+                </div>
+                <div className="icon-field">
+                  <BookIcon />
+                  <TextField
+                    id="event-title"
+                    value={taskCourse}
+                    onChange={handleTaskCourseChange}
+                    variant="standard"
+                    placeholder="Add Course"
+                  />
+                </div>
+                <div className="icon-field">
+                  <TimeIcon />
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MobileDatePicker
+                      value={selectedStartDate}
+                      onChange={handleTaskPublishedDateChange}
+                      label="Published Date"
+                      renderInput={(props) => (
+                        <TextField
+                          id="datepicker"
+                          {...props}
+                          helperText="valid mask"
+                          variant="standard"
+                        />
+                      )}
+                    />
+                    <MobileTimePicker
+                      label="Published Time"
+                      value={selectedStartTime}
+                      onChange={handleTaskPublishedTimeChange}
+                      renderInput={(props) => (
+                        <TextField
+                          id="timepicker"
+                          {...props}
+                          helperText="valid mask"
+                          variant="standard"
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </div>
+                <div className="icon-field">
+                  <TimeIcon />
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MobileDatePicker
+                      label="Deadline Date"
+                      onChange={handleTaskDeadlineDateChange}
+                      value={selectedEndDate}
+                      renderInput={(props) => (
+                        <TextField
+                          id="datepicker"
+                          {...props}
+                          helperText="valid mask"
+                          variant="standard"
+                        />
+                      )}
+                    />
+                    <MobileTimePicker
+                      label="Deadline Time"
+                      onChange={handleTaskDeadlineTimeChange}
+                      value={selectedEndTime}
+                      renderInput={(props) => (
+                        <TextField
+                          id="timepicker"
+                          {...props}
+                          helperText="valid mask"
+                          variant="standard"
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </div>
+                <div className="icon-field">
+                  <LocationIcon />
+                  <TextField
+                    id="event-title"
+                    value={taskLocation}
+                    onChange={handleTaskLocationChange}
+                    variant="standard"
+                    placeholder="Add location"
+                  />
+                </div>
+                <div className="icon-field">
+                  <NotesIcon />
+                  <TextField
+                    id="event-title"
+                    value={taskDescription}
+                    onChange={handleTaskDescriptionChange}
+                    multiline
+                    maxRows={5}
+                    placeholder="Add description"
+                  />
+                </div>
+                {links.map((link, index) => (
+                  <div className="icon-field" key={index}>
+                    <LinkIcon />
+                    <TextField
+                      value={link.name}
+                      name="name"
+                      onChange={(event) => handleTaskLinksChange(index, event)}
+                      variant="outlined"
+                      label={`Link ${index + 1} Name`}
+                      placeholder="Add link name"
+                    />
+                    <TextField
+                      value={link.url}
+                      name="url"
+                      onChange={(event) => handleTaskLinksChange(index, event)}
+                      variant="outlined"
+                      label={`Link ${index + 1} URL`}
+                      placeholder="Add link url"
+                    />
+                    <CloseIcon onClick={(event) => handleDeleteLink(index)} />
+                  </div>
+                ))}
+                <div className="icon-field">
+                  <Button
+                    id="addlink"
+                    variant="contained"
+                    onClick={handleAddLink}
+                  >
+                    Add Link
+                  </Button>
+                  <Button
+                    id="createevent"
+                    variant="contained"
+                    type="submit"
+                    onClick={handleClickAddTask}
+                  >
+                    Create Task
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
         </Box>
       </AddEventModalStyled>
     </div>
