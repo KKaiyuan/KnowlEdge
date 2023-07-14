@@ -34,7 +34,15 @@ router.get('/comments/:resourceId', async function (req, res, next) {
       .populate({
         path: 'comments.replies.reply_to',
         model: 'User',
-      });
+      })
+      .lean();
+
+    // Sort comments based on upvotes
+    comments.comments.sort((a, b) => b.upvotes - a.upvotes);
+
+    comments.comments.forEach((comment) => {
+      comment.replies.sort((a, b) => b.upvotes - a.upvotes);
+    });
 
     return res.status(200).json(comments);
   } catch (error) {
