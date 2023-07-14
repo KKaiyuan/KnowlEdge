@@ -20,10 +20,8 @@ import CalendarPage from './Calendar';
 import AddEventModal from './AddEventModal';
 import { useSelector, useDispatch } from 'react-redux';
 import TaskIcon from '@mui/icons-material/TaskAltRounded';
-import { addEvent } from './calendaractions/CalendarAction';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getEventsAsync } from './CalendarEventThunks';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const drawerWidth = 240;
 
@@ -163,11 +161,16 @@ export default function SideMenu() {
   const finalEventsList = [...events, ...taskEvents];
 
   const [open, setOpen] = React.useState(false);
+  const [taskPaneOpen, setTaskPaneOpen] = React.useState(false);
   const [isAddEventModalOpen, setAddEventModal] = React.useState(false);
   const handleCloseAddEventModal = () => setAddEventModal(false);
 
   const handleToggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const handleToggleTaskDrawer = () => {
+    setTaskPaneOpen(!taskPaneOpen);
   };
 
   const handleClickAddEvents = () => {

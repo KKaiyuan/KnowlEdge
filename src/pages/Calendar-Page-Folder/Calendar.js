@@ -178,8 +178,11 @@ class CustomToolbar extends React.Component {
     var idstring = value.slice(10);
     var nextSpaceIndex = idstring.indexOf(' ');
     var id = idstring.slice(0, nextSpaceIndex);
-    var newSelectedEvent = this.state.events.filter((event) => event.id === id);
+    var newSelectedEvent = this.state.events.filter(
+      (event) => event._id === id
+    );
     this.setState({ selectedEvent: newSelectedEvent });
+    console.log(newSelectedEvent[0]);
     const date = new Date(newSelectedEvent[0].start);
     this.props.date.setDate(date.getDate());
     this.props.date.setMonth(date.getMonth());
@@ -231,7 +234,7 @@ class CustomToolbar extends React.Component {
             }}
             onChange={this.handleEventSearch}
             options={this.state.events.map(
-              (option) => 'event id: ' + option.id + ' ' + option.title
+              (option) => 'event id: ' + option._id + ' ' + option.title
             )}
             renderInput={(params) => (
               <TextField
@@ -340,12 +343,12 @@ export default function CalendarPage({ events, components }) {
             <IconButton size="small">
               <EmailIcon />
             </IconButton>
-            <IconButton size="small">
+            <IconButton size="small" onClick={handleClosePopover}>
               <CloseIcon />
             </IconButton>
           </div>
           <h4>{selectedEvent.title}</h4>
-          <p>{selectedEvent.description}</p>
+          <p>{selectedEvent.desc}</p>
           {selectedEvent.type === 'event' && (
             <p>Start: {selectedEvent.start.toLocaleString()}</p>
           )}

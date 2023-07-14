@@ -18,6 +18,7 @@ import NotesIcon from '@material-ui/icons/Notes';
 import LinkIcon from '@material-ui/icons/Link';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEventsAsync, putEventAsync } from './CalendarEventThunks';
+import BookIcon from '@material-ui/icons/Book';
 
 const EditEventModalStyled = styled('div')`
   #event-title:focus,
@@ -100,9 +101,7 @@ export default function EditTaskModal({
   );
   const [location, setLocation] = useState(event.location);
   const [course, setCourse] = useState(event.course || '');
-  const [taskDescription, setTaskDescription] = useState(
-    event.description || ''
-  );
+  const [taskDescription, setTaskDescription] = useState(event.desc || '');
   const [links, setLinks] = useState(event.links);
 
   const userId = useSelector((state) => state.user.currentUser.uid);
@@ -130,7 +129,7 @@ export default function EditTaskModal({
       course: course,
       type: 'task',
       location: location,
-      description: taskDescription,
+      desc: taskDescription,
       links: links,
     };
     console.log(updatedTask);
@@ -180,6 +179,11 @@ export default function EditTaskModal({
     setTaskDescription(descriptionValue);
   };
 
+  const handleCourseChange = (event) => {
+    const inputValue = event.target.value;
+    setCourse(inputValue);
+  };
+
   const handleAddLink = () => {
     const newLinks = [...links, {}];
     setLinks(newLinks);
@@ -218,6 +222,16 @@ export default function EditTaskModal({
               onChange={handleTaskTitleChange}
               variant="standard"
               placeholder="Add title"
+            />
+          </div>
+          <div className="icon-field">
+            <BookIcon />
+            <TextField
+              id="event-title"
+              value={course}
+              onChange={handleCourseChange}
+              variant="standard"
+              placeholder="Add Course"
             />
           </div>
           <div className="icon-field">

@@ -122,17 +122,30 @@ export default function Login() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+
+  const handleEmailChange = (event) => {
+    const email = event.target.value;
+    setUsernameErrorMessage('');
+    setEmail(email);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPasswordErrorMessage('');
+    const password = event.target.value;
+    setPassword(password);
+  };
 
   const handleLogIn = () => {
     if (isGoogleEmail(email)) {
-      setErrorMessage(
+      setUsernameErrorMessage(
         'This is a google email address, use the log in with google option instead'
       );
       return;
     }
     if (!validateEmail(email)) {
-      setErrorMessage('Invalid Email');
+      setUsernameErrorMessage('Invalid Email Address');
       return;
     }
 
@@ -155,12 +168,12 @@ export default function Login() {
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {
           // Email does not exist, show error message
-          setErrorMessage(
+          setUsernameErrorMessage(
             'Invalid email address. Please check your email and try again.'
           );
         } else if (error.code === 'auth/wrong-password') {
           // Password does not match, show error message
-          setErrorMessage(
+          setPasswordErrorMessage(
             'Invalid password. Please check your password and try again.'
           );
         } else {
@@ -243,9 +256,9 @@ export default function Login() {
                   variant="outlined"
                   label="Your Email Address"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  error={!!errorMessage}
-                  helperText={errorMessage}
+                  onChange={(e) => handleEmailChange(e)}
+                  error={!!usernameErrorMessage}
+                  helperText={usernameErrorMessage}
                 />
 
                 <TextField
@@ -253,7 +266,9 @@ export default function Login() {
                   variant="outlined"
                   label="Your Password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => handlePasswordChange(e)}
+                  error={!!passwordErrorMessage}
+                  helperText={passwordErrorMessage}
                 />
                 <div className="login-button-div">
                   <Button variant="contained" onClick={handleLogIn}>

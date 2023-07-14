@@ -111,6 +111,20 @@ export default function AddEventModal({ isOpen, handleClose }) {
   const handleClickAddTask = () => {
     var newTask = {
       title: taskTitle,
+      start: new Date(
+        selectedDeadlineDate.getFullYear(),
+        selectedDeadlineDate.getMonth(),
+        selectedDeadlineDate.getDate(),
+        selectedDeadlineTime.getHours(),
+        selectedDeadlineTime.getMinutes()
+      ).toISOString(),
+      end: new Date(
+        selectedDeadlineDate.getFullYear(),
+        selectedDeadlineDate.getMonth(),
+        selectedDeadlineDate.getDate(),
+        selectedDeadlineTime.getHours(),
+        selectedDeadlineTime.getMinutes()
+      ).toISOString(),
       published: new Date(
         selectedPublishedDate.getFullYear(),
         selectedPublishedDate.getMonth(),
@@ -128,7 +142,7 @@ export default function AddEventModal({ isOpen, handleClose }) {
       course: taskCourse,
       type: 'task',
       location: taskLocation,
-      description: taskDescription,
+      desc: taskDescription,
       links: tasklinks,
     };
 
@@ -154,7 +168,7 @@ export default function AddEventModal({ isOpen, handleClose }) {
       ).toISOString(),
       type: 'event',
       course: eventCourse,
-      description: eventDescription,
+      desc: eventDescription,
       location: location,
       links: links,
     };
