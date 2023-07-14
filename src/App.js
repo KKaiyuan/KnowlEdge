@@ -14,12 +14,13 @@ import CalendarView from './pages/Calendar-Page-Folder/CalendarView';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
 import RequireAuth from './pages/Components/RequireAuth';
+import ResourcePage from './pages/ResourcePage/ResourcePage';
+import InstructorProfile from './pages/instructorProfilePage/InstructorProfile';
 import EmailVerification from './pages/UserInfo/EmailVerification';
 import { useDispatch } from 'react-redux';
 import { getUserAsync, postUserAsync } from './pages/UserInfo/UserThunks';
 import { auth } from './firebase';
 import { setPersistence, browserSessionPersistence } from 'firebase/auth';
-import { signInWithCustomToken } from 'firebase/auth';
 
 console.warn = () => {};
 
@@ -78,7 +79,7 @@ function App() {
           }
         />
         <Route
-          path="/announcements"
+          path="/announcements/*"
           element={
             <RequireAuth>
               <Announcement />
@@ -117,6 +118,10 @@ function App() {
             </RequireAuth>
           }
         />
+
+        <Route path="/instructor" element={<InstructorProfile />} />
+
+        <Route path="/resource/*" element={<ResourcePage />} />
       </Routes>
     </Router>
   );

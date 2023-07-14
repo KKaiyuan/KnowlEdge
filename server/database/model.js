@@ -14,6 +14,19 @@ const studentSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+const instructorSchema = new mongoose.Schema(
+  {
+    preferredName: String,
+    faculty: String,
+    field: String,
+    contact: String,
+    image: String,
+    aboutMe: String,
+    courses: [String],
+  },
+  { versionKey: false }
+);
+
 const courseSchema = new mongoose.Schema(
   {
     courseName: String,
@@ -21,8 +34,55 @@ const courseSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+const commentSchema = new mongoose.Schema({
+  comments: {
+    _id: mongoose.Schema.Types.ObjectId,
+    content: String,
+    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    upvotes: Number,
+    /*reply_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },*/
+    replies: [
+      {
+        content: String,
+        sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        reply_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        upvotes: Number,
+      },
+    ],
+  },
+});
+
+const userSchema = new mongoose.Schema(
+  {
+    _id: mongoose.Schema.Types.ObjectId,
+    displayName: String,
+    uid: String,
+  },
+  { versionKey: false }
+);
+
+const announcementSchema = new mongoose.Schema(
+  {
+    announcement: String,
+    announcementId: Number,
+    announcementTitle: String,
+    announcementCourse: String,
+  },
+  { versionKey: false }
+);
+
+const courseDocumentsSchema = new mongoose.Schema(
+  {
+    courseName: String,
+    pageType: String,
+    courseInformation: String,
+  },
+  { versionKey: false }
+);
+
 const Student = mongoose.model('Student', studentSchema);
 
+const Instructor = mongoose.model('Instructor', instructorSchema);
 const User = mongoose.model(
   'User',
   new mongoose.Schema({
@@ -59,5 +119,19 @@ const Event = mongoose.model('Event', eventSchema);
 
 const Course = mongoose.model('Course', courseSchema);
 
-module.exports = { Student, Course, User, Event };
+const Comment = mongoose.model('Comment', commentSchema);
 
+const Announcement = mongoose.model('Announcement', announcementSchema);
+
+const CourseDocuments = mongoose.model('CourseDocument', courseDocumentsSchema);
+
+module.exports = {
+  Student,
+  Course,
+  Comment,
+  User,
+  Announcement,
+  CourseDocuments,
+  Instructor,
+  Event,
+};

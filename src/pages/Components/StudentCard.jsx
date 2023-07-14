@@ -104,7 +104,7 @@ const StudentCard = CardGeneric(() => {
         <FontAwesomeIcon
           icon={faBell}
           className="icon"
-          onClick={() => navigate('/announcements')}
+          onClick={() => navigate('/announcements/all')}
         />
       </div>
     </CardStyled>

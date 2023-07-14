@@ -83,14 +83,6 @@ const NavbarComponent = () => {
                 </span>
               }
             >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
               <Dropdown.Item onClick={() => dispatch(setEnrollModal('true'))}>
                 Enroll
               </Dropdown.Item>
@@ -114,73 +106,25 @@ const NavbarComponent = () => {
             </Dropdown>
           </CustomNavbarLink>
 
-          <CustomNavbarLink className="font-sans font-bold">
-            <Dropdown
-              inline
-              label={
-                <span>
-                  <FontAwesomeIcon icon={faBook} className="mr-2" />
-                  Study Sets
-                </span>
-              }
-            >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-            </Dropdown>
+          <CustomNavbarLink href="/studysets" className="font-sans font-bold">
+            <span>
+              <FontAwesomeIcon icon={faBook} className="mr-2" />
+              Study Sets
+            </span>
           </CustomNavbarLink>
 
-          <CustomNavbarLink className="font-sans font-bold">
-            <Dropdown
-              inline
-              label={
-                <span>
-                  <FontAwesomeIcon
-                    icon={faSquarePollVertical}
-                    className="mr-2"
-                  />
-                  Notes
-                </span>
-              }
-            >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-            </Dropdown>
+          <CustomNavbarLink href="" className="font-sans font-bold">
+            <span>
+              <FontAwesomeIcon icon={faSquarePollVertical} className="mr-2" />
+              Notes
+            </span>
           </CustomNavbarLink>
 
-          <CustomNavbarLink className="font-sans font-bold">
-            <Dropdown
-              inline
-              label={
-                <span>
-                  <FontAwesomeIcon icon={faCommentDots} className="mr-2" />
-                  Messages
-                </span>
-              }
-            >
-              <Dropdown.Item>
-                <Dropdown inline label="Right" placement="right-start">
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-            </Dropdown>
+          <CustomNavbarLink href="" className="font-sans font-bold">
+            <span>
+              <FontAwesomeIcon icon={faCommentDots} className="mr-2" />
+              Messages
+            </span>
           </CustomNavbarLink>
         </Navbar.Collapse>
         <Button onClick={handleSignOut}>Log Out</Button>

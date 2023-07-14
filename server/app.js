@@ -9,6 +9,8 @@ var announcementRouter = require('./routes/announcement');
 var eventRouter = require('./routes/event');
 var userRouter = require('./routes/user');
 var dashboardRouter = require('./routes/dashboard');
+var courseContentRouter = require('./routes/courseContent')
+var instructorProfileRouter = require('./routes/instructorProfile')
 var app = express();
 const db = require('./database/db');
 var cors = require('cors');
@@ -26,4 +28,6 @@ app.use('/announcements', announcementRouter);
 app.use('/user', userRouter);
 app.use('/events', eventRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/resource', courseContentRouter);
+app.use('/instructorProfile', instructorProfileRouter)
 module.exports = app;
