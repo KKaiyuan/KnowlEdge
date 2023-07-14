@@ -14,7 +14,6 @@ import CalendarView from './pages/Calendar-Page-Folder/CalendarView';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
 import RequireAuth from './pages/Components/RequireAuth';
-import EmailVerification from './pages/EmailVerification';
 import ResoucePage from './pages/ResourcePage/ResourcePage';
 import EmailVerification from './pages/UserInfo/EmailVerification';
 import { useDispatch } from 'react-redux';
