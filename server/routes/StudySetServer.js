@@ -5,31 +5,34 @@
 // StackOverflow Answer #1 at "https://stackoverflow.com/questions/20804163/check-if-a-key-exists-inside-a-json-object"
 
 
-var cors = require('cors');
+// var cors = require('cors');
 
 var express = require('express');
 var router = express.Router();
 
+const {FlashcardDocuments} = require('../database/model');
+
+
 const { v4: uuid } = require('uuid');
 
 
-var { MongoClient } = require("mongodb");
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
+// var { MongoClient } = require("mongodb");
+// const mongoose = require("mongoose");
+// mongoose.set("strictQuery", false);
 
-const mongoURI = " *** FILL IN mongoURI *** "; // TODO: fill in mongoURI for database cluster for project KnowlEdge
-const client = new MongoClient(mongoURI);
+// const mongoURI = " *** FILL IN mongoURI *** "; // TODO: fill in mongoURI for database cluster for project KnowlEdge
+// const client = new MongoClient(mongoURI);
 
-async function connect() {
-  // https://www.youtube.com/watch?v=bhiEJW5poHU&ab_channel=ArpanNeupane CONNECT NODE.JS TO MONGODB
-  try {
-    await mongoose.connect(mongoURI);
-    console.log("CONNECTED");
-  } catch (error) {
-    console.log(error);
-  }
-}
-connect();
+// async function connect() {
+//   // https://www.youtube.com/watch?v=bhiEJW5poHU&ab_channel=ArpanNeupane CONNECT NODE.JS TO MONGODB
+//   try {
+//     await mongoose.connect(mongoURI);
+//     console.log("CONNECTED");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// connect();
 
 
 const defaultFlashcards = [
@@ -52,38 +55,38 @@ const defaultFlashcards = [
 ];
 
 
-async function clearDB() {
-  try {
-    await client.connect();
-    const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+// async function clearDB() {
+//   try {
+//     await client.connect();
+//     const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
 
-    let collection = database.collection("flashcards");
-    collection.drop();
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
+//     let collection = database.collection("flashcards");
+//     collection.drop();
+//   } catch (error) {
+//     console.log(error);
+//     return;
+//   }
+// }
 
 // clearDB(); // Uncomment this line to clear MongoDB collection (flashcards) every time the server restarts
 
 
 async function initializeDB() {
   try {
-    await client.connect();
-    const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+    // await client.connect();
+    // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
 
-    let collection = database.collection("flashcards");
+    // let collection = database.collection("flashcards");
     
-    if ((await collection.findOne({id: "Default-1"}) === null) && (await collection.findOne({id: "Default-2"}) !== null)) {
-      await collection.deleteOne({id: "Default-2"});
+    if ((await FlashcardDocuments.findOne({id: "Default-1"}) === null) && (await FlashcardDocuments.findOne({id: "Default-2"}) !== null)) {
+      await FlashcardDocuments.deleteOne({id: "Default-2"});
     }
 
-    if ((await collection.findOne({id: "Default-1"}) !== null) && (await collection.findOne({id: "Default-2"}) === null)) {
-      await collection.deleteOne({id: "Default-1"});
+    if ((await FlashcardDocuments.findOne({id: "Default-1"}) !== null) && (await FlashcardDocuments.findOne({id: "Default-2"}) === null)) {
+      await FlashcardDocuments.deleteOne({id: "Default-1"});
     }
 
-    if ((await collection.findOne({id: "Default-1"}) === null) && (await collection.findOne({id: "Default-2"}) === null)) {
+    if ((await FlashcardDocuments.findOne({id: "Default-1"}) === null) && (await FlashcardDocuments.findOne({id: "Default-2"}) === null)) {
       await populateDBFlashcards();
     }
   } catch (error) {
@@ -95,10 +98,10 @@ async function initializeDB() {
 
 async function populateDBFlashcards() {
   try {
-    await client.connect();
-    const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-    const collection = database.collection("flashcards");
-    await collection.insertMany(defaultFlashcards);
+    // await client.connect();
+    // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+    // const collection = database.collection("flashcards");
+    await FlashcardDocuments.insertMany(defaultFlashcards);
   } catch (error) {
     console.log(error);
     return;
@@ -110,20 +113,20 @@ initializeDB();
 
 // let flashcards = [];
 
-async function initializeFlashcards() {
-  try {
-    await client.connect();
-    const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-    const collection = database.collection("flashcards");
+// async function initializeFlashcards() {
+//   try {
+//     // await client.connect();
+//     // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+//     // const collection = database.collection("flashcards");
 
-    // flashcards = await collection.find({}).toArray();
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
+//     // flashcards = await collection.find({}).toArray();
+//   } catch (error) {
+//     console.log(error);
+//     return;
+//   }
+// }
 
-initializeFlashcards();
+// initializeFlashcards();
 
 
 
@@ -135,11 +138,11 @@ initializeFlashcards();
 
 router.get('/', async function (req, res, next) {
   try {
-    await client.connect();
-    const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-    const collection = database.collection("flashcards");
+    // await client.connect();
+    // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+    // const collection = database.collection("flashcards");
     
-    const flashcards2 = await collection.find({}).toArray();
+    const flashcards2 = await FlashcardDocuments.find({}); // NOTE: do not put .toArray() after find
 
     return res.send(flashcards2);
   } catch (error) {
@@ -163,10 +166,10 @@ router.delete('/:flashcardId', async function (req, res, next) {
   }
 
   try {
-    await client.connect();
-    const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-    const collection = database.collection("flashcards");
-    await collection.deleteOne({id: req.body.flashcardId});
+    // await client.connect();
+    // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+    // const collection = database.collection("flashcards");
+    await FlashcardDocuments.deleteOne({id: req.body.flashcardId});
   } catch (error) {
     console.log(error);
     return res.status(404).send("flashcards NOT FOUND / flashcard with flashcardID could not be deleted from MongoDB collection");
@@ -197,10 +200,15 @@ router.post('/', async function (req, res, next) {
   const flashcard = { id: uuid(), ...req.body };
 
   try {
-    await client.connect();
-    const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-    const collection = database.collection("flashcards");
-    await collection.insertOne(flashcard);
+    // await client.connect();
+    // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+    // const collection = database.collection("flashcards");
+
+    // await FlashcardDocuments.insertOne(flashcard);
+    
+    const flashcardToServer = new FlashcardDocuments(flashcard);
+    flashcardToServer.save();
+
   } catch (error) {
     console.log(error);
     return res.status(404).send("flashcards NOT FOUND / flashcard could not be added to MongoDB collection");
@@ -220,10 +228,10 @@ router.patch('/:flashcardId', async function (req, res, next) {
 
   if (req.body.hasOwnProperty("term")) { // Referred to StackOverflow Answer #1 at "https://stackoverflow.com/questions/20804163/check-if-a-key-exists-inside-a-json-object"
     try {
-      await client.connect();
-      const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-      const collection = database.collection("flashcards");
-      flashcardUpdated = await collection.updateOne({ id: req.body.flashcardId }, { $set: { "term": req.body.term } });
+      // await client.connect();
+      // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+      // const collection = database.collection("flashcards");
+      flashcardUpdated = await FlashcardDocuments.updateOne({ id: req.body.flashcardId }, { $set: { "term": req.body.term } });
     } catch (error) {
       console.log(error);
       return res.status(404).send("flashcards NOT FOUND / term could not bee patched in MongoDB collection");
@@ -232,10 +240,10 @@ router.patch('/:flashcardId', async function (req, res, next) {
 
   if (req.body.hasOwnProperty("definition")) { // Referred to StackOverflow Answer #1 at "https://stackoverflow.com/questions/20804163/check-if-a-key-exists-inside-a-json-object"
     try {
-      await client.connect();
-      const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-      const collection = database.collection("flashcards");
-      flashcardUpdated = await collection.updateOne({ id: req.body.flashcardId }, { $set: { "definition": req.body.definition } });
+      // await client.connect();
+      // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+      // const collection = database.collection("flashcards");
+      flashcardUpdated = await FlashcardDocuments.updateOne({ id: req.body.flashcardId }, { $set: { "definition": req.body.definition } });
     } catch (error) {
       console.log(error);
       return res.status(404).send("flashcards NOT FOUND / definition could not be patched in MongoDB collection");
@@ -244,10 +252,10 @@ router.patch('/:flashcardId', async function (req, res, next) {
 
   if (req.body.hasOwnProperty("description")) { // Referred to StackOverflow Answer #1 at "https://stackoverflow.com/questions/20804163/check-if-a-key-exists-inside-a-json-object"
     try {
-      await client.connect();
-      const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-      const collection = database.collection("flashcards");
-      flashcardUpdated = await collection.updateOne({ id: req.body.flashcardId }, { $set: { "description": req.body.description } });
+      // await client.connect();
+      // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+      // const collection = database.collection("flashcards");
+      flashcardUpdated = await FlashcardDocuments.updateOne({ id: req.body.flashcardId }, { $set: { "description": req.body.description } });
     } catch (error) {
       console.log(error);
       return res.status(404).send("flashcards NOT FOUND / description could not bee patched in MongoDB collection");
@@ -256,10 +264,10 @@ router.patch('/:flashcardId', async function (req, res, next) {
 
   if (req.body.hasOwnProperty("imageURL")) { // Referred to StackOverflow Answer #1 at "https://stackoverflow.com/questions/20804163/check-if-a-key-exists-inside-a-json-object"
     try {
-      await client.connect();
-      const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
-      const collection = database.collection("flashcards");
-      flashcardUpdated = await collection.updateOne({ id: req.body.flashcardId }, { $set: { "imageURL": req.body.imageURL } });
+      // await client.connect();
+      // const database = client.db(" *** FILL IN DATABASE CLUSTER NAME *** "); // TODO: fill in database cluster name for project KnowlEdge
+      // const collection = database.collection("flashcards");
+      flashcardUpdated = await FlashcardDocuments.updateOne({ id: req.body.flashcardId }, { $set: { "imageURL": req.body.imageURL } });
     } catch (error) {
       console.log(error);
       return res.status(404).send("flashcards NOT FOUND / imageURL could not be patched in MongoDB collection");

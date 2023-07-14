@@ -115,6 +115,20 @@ const eventSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+
+const flashcardSchema = new mongoose.Schema(
+  {
+    id: String,
+    term: String,
+    definition: String,
+    description: String,
+    imageURL: String
+  },
+  { versionKey: false }
+);
+
+
+
 const Event = mongoose.model('Event', eventSchema);
 
 const Course = mongoose.model('Course', courseSchema);
@@ -125,6 +139,8 @@ const Announcement = mongoose.model('Announcement', announcementSchema);
 
 const CourseDocuments = mongoose.model('CourseDocument', courseDocumentsSchema);
 
+const FlashcardDocuments = mongoose.model('Flashcard', flashcardSchema);
+
 module.exports = {
   Student,
   Course,
@@ -134,4 +150,5 @@ module.exports = {
   CourseDocuments,
   Instructor,
   Event,
+  FlashcardDocuments
 };
