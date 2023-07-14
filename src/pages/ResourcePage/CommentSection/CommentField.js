@@ -47,6 +47,9 @@ const CommentField = () => {
 
   const reply_to = useSelector((state) => state.resourcePageReducer.reply_to);
   const commentInputRef = useRef(null);
+
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -75,7 +78,7 @@ const CommentField = () => {
           addCommentAsync({
             resourceId: '64a88e8fdfd1b5b12adba4aa',
             content: newInputValue,
-            sender: '64a8de79980b0b6b6f40b10c',
+            sender: currentUser._id,
           })
         );
       }
@@ -85,7 +88,7 @@ const CommentField = () => {
           addCommentAsync({
             resourceId: '64a88e8fdfd1b5b12adba4aa',
             content: newInputValue,
-            sender: '64a8de79980b0b6b6f40b10c',
+            sender: currentUser._id,
             reply_to: {
               person_id: reply_to.person_id,
               comment_id: reply_to.comment_id,
