@@ -114,5 +114,5 @@ const Announcement = mongoose.model('Announcement', announcementSchema);
 
 const CourseDocuments = mongoose.model('CourseDocument', courseDocumentsSchema);
 
-module.exports = { Student, Course, Comment, User, Announcement, CourseDocuments };
+module.exports = { Student, Course, Comment, User, Announcement, CourseDocuments, Event };
 
