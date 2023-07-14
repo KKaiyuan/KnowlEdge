@@ -22,9 +22,8 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EmailIcon from '@mui/icons-material/EmailOutlined';
 import CloseIcon from '@mui/icons-material/CloseOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteEvent } from './calendaractions/CalendarAction';
 import EditEventModal from './EditCalendarModal';
-import { deleteEventAsync, getEventsAsync } from './CalendarEventThunks';
+import { deleteEventAsync } from './CalendarEventThunks';
 import EditTaskModal from './EditTaskModal';
 
 export let navigate = {

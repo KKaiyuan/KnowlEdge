@@ -11,14 +11,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
-  updateProfile,
   fetchSignInMethodsForEmail,
-  sendEmailVerification,
-  setPersistence,
-  browserLocalPersistence,
 } from 'firebase/auth';
 import { useState } from 'react';
-import { postUserAsync, getUserAsync } from './UserThunks';
+import { postUserAsync } from './UserThunks';
 import { useDispatch } from 'react-redux';
 
 const theme = createTheme({

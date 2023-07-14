@@ -17,7 +17,6 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import NotesIcon from '@material-ui/icons/Notes';
 import LinkIcon from '@material-ui/icons/Link';
 import { useDispatch, useSelector } from 'react-redux';
-import { editEvent } from './calendaractions/CalendarAction';
 import { getEventsAsync, putEventAsync } from './CalendarEventThunks';
 
 const EditEventModalStyled = styled('div')`

@@ -12,11 +12,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
-  setPersistence,
-  browserLocalPersistence,
 } from 'firebase/auth';
 import { auth } from '../../firebase';
-import { postUserAsync, getUserAsync } from './UserThunks';
+import { postUserAsync } from './UserThunks';
 
 const theme = createTheme({
   typography: {

@@ -18,7 +18,6 @@ import NotesIcon from '@material-ui/icons/Notes';
 import LinkIcon from '@material-ui/icons/Link';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEventsAsync, postEventAsync } from './CalendarEventThunks';
-import { Typography } from '@material-ui/core';
 import BookIcon from '@mui/icons-material/Book';
 
 const AddEventModalStyled = styled('div')`
