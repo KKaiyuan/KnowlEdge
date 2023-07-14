@@ -119,16 +119,9 @@ function App() {
           }
         />
 
-        <Route
-          path="/instructor"
-          element={
-           
-              <InstructorProfile />
-           
-          }
-        />
+        <Route path="/instructor" element={<InstructorProfile />} />
 
-        <Route path="/resource/*" element={<ResoucePage />} />
+        <Route path="/resource/*" element={<ResourcePage />} />
       </Routes>
     </Router>
   );
