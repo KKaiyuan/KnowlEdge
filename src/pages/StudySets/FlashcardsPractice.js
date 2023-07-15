@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 export default function FlashcardsPractice() {
   const navigate = useNavigate();
 
-  const cards = useSelector((state) => state.flashcards);
+  const cards = useSelector((state) => state.flashcards.list); // add .list after state.flashcards : state.flashcards.list
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
