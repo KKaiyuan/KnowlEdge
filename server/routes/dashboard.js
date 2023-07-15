@@ -64,6 +64,7 @@ router.post('/comments/', async function (req, res, next) {
     content,
     sender,
     upvotes: 1,
+    replies: [],
   };
 
   try {

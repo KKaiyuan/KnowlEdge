@@ -43,10 +43,14 @@ const commentSchema = new mongoose.Schema({
     /*reply_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },*/
     replies: [
       {
-        content: String,
-        sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        reply_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        upvotes: Number,
+        type: [
+          {
+            content: String,
+            sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            reply_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            upvotes: Number,
+          },
+        ],
       },
     ],
   },
