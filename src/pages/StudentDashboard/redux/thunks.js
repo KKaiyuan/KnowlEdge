@@ -7,15 +7,15 @@ import {
 
 export const fetchStudentInfoAsync = createAsyncThunk(
   'studentDashboard/fetchStudentInfo',
-  async () => {
-    return await fetchStudentInfo();
+  async (uid) => {
+    return await fetchStudentInfo(uid);
   }
 );
 
 export const patchStudentCoursesAsync = createAsyncThunk(
   'studentDashboard/patchStudentCourses',
-  async (newCourses) => {
-    return await patchStudentCourses(newCourses);
+  async ({ uid, updatedCourses }) => {
+    return await patchStudentCourses(uid, updatedCourses);
   }
 );
 

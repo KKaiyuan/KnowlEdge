@@ -31,7 +31,7 @@ const studentDashboardSlice = createSlice({
       .addCase(patchStudentCoursesAsync.fulfilled, (state, action) => {
         state.studentInfo = {
           ...state.studentInfo,
-          courses: [...action.meta.arg],
+          courses: [...action.meta.arg.updatedCourses],
         };
       })
       .addCase(fetchAllCoursesAsync.fulfilled, (state, action) => {

@@ -59,7 +59,6 @@ router.get('/', async function (req, res, next) {
   res.status(200).send(obj);
 });
 
-
 router.get('/:uid', async function (req, res, next) {
   let item;
   const { uid } = req.params;
@@ -72,6 +71,7 @@ router.get('/:uid', async function (req, res, next) {
       contact: item.contact,
       image: item.image,
       aboutMe: item.aboutMe,
+      courses: item.courses,
     };
     res.status(200).send(obj);
   } catch (error) {
@@ -95,14 +95,13 @@ router.patch('/:uid', async function (req, res) {
     });
 });
 
-
-router.patch('/courses', async function (req, res, next) {
+router.patch('/courses/:uid', async function (req, res, next) {
   const { courses } = req.body;
+  const { uid } = req.params;
 
   try {
-    // TODO: need to change to findbyidandupdate
-    const updatedStudent = await Student.updateOne(
-      {},
+    const updatedStudent = await Student.findOneAndUpdate(
+      { uid: uid },
       { $set: { courses: courses } },
       { new: true }
     );
@@ -118,6 +117,5 @@ router.patch('/courses', async function (req, res, next) {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 module.exports = router;
