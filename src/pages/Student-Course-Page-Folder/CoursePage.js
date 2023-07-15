@@ -63,8 +63,8 @@ export default function CoursePage() {
 
         <h3 className = "topComponentName" >Announcements</h3>
         
-        {allAnnouncements.length >= 1? (<MediumCard type="announcement" title= {allAnnouncements[0].announcementTitle} />) : <p></p> }
-        {allAnnouncements.length >= 2? (<MediumCard type="announcement" title= {allAnnouncements[1].announcementTitle} />) : <p></p> }
+        {allAnnouncements.length >= 1? (<MediumCard type="announcement" title= {allAnnouncements[0].announcementTitle} />) : (<MediumCard type="none" title= "" />) }
+        {allAnnouncements.length >= 2? (<MediumCard type="announcement" title= {allAnnouncements[1].announcementTitle} />) : (<MediumCard type="none" title= "" />)  }
         <button className = "seeMoreLink" onClick={() => navigate('/announcements/' + dynamicSegmentValue)}>See more...</button>
         </div>
       </div>

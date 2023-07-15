@@ -39,18 +39,21 @@ const MediumCard = CardGeneric(({ type, title }) => {
     iconPick = faBook;
   } else if (type === 'notes') {
     iconPick = faSquarePollVertical;
-  } else {
+  } else if (type === "announcement" )
+  {
     iconPick = faBullhorn;
+  } else {
+    iconPick = "none";
   }
   return (
     <CardStyled>
       <div>
         <div>
           <span>
-            <FontAwesomeIcon
+            {iconPick === "none"?  (<p></p>):(<FontAwesomeIcon
               icon={iconPick}
               size="lg"
-            />
+            />)}
           </span>
           <h2>{title}</h2>
         </div>
