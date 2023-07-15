@@ -27,7 +27,7 @@ const CommentContainer = () => {
             <CommentCard comment={comment} />
 
             <ReplyCommentsStyled>
-              {comment.replies?.map((reply, replyIndex) => {
+              {comment?.replies?.map((reply, replyIndex) => {
                 const edittedReply = { ...reply, parent_id: comment._id };
                 return (
                   <CommentCard
